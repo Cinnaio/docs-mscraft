@@ -18,9 +18,9 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'grxis', // Usually your GitHub org/user name.
-  projectName: 'grxis.github.io', // Usually your repo name.
-  deploymentBranch: 'gh-pages',
+  organizationName: 'Cinnaio', // Usually your GitHub org/user name.
+  projectName: 'docs-mscraft', // Usually your repo name.
+  deploymentBranch: 'main',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -39,11 +39,10 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          // editUrl:
-          //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/Cinnaio/docs-mscraft/edit/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -85,7 +84,6 @@ const config = {
       },
       footer: {
         style: 'dark',
-        // <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">陕ICP备2021000114号</a>
         copyright: `Copyright © 2022 - ${new Date().getFullYear()} 群隙, Inc. Built with <a href="https://docusaurus.io/zh-CN/docs/" target="_blank" rel="noopener noreferrer">Docusaurus</a>.<br />`,
       },
       prism: {
