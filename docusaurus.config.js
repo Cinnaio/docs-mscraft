@@ -84,7 +84,7 @@ const config = {
       },
       footer: {
         style: 'dark',
-        copyright: `Copyright © 2022 - ${new Date().getFullYear()} 群隙, Inc. Built with <a href="https://docusaurus.io/zh-CN/docs/" target="_blank" rel="noopener noreferrer">Docusaurus</a>.<br />`,
+        copyright: `Copyright © 2022 - ${new Date().getFullYear()} 群隙, Inc. Built with <a href="https://docusaurus.io/zh-CN/docs/" target="_blank" rel="noopener noreferrer">Docusaurus</a>.<br /><a target="_blank" href="http://www.freecdn.pw/?zzwz" title="免费云加速（FreeCDN），为您免费提供网站加速和网站防御（DDOS、CC攻击）" alt="免费云加速（FreeCDN），为您免费提供网站加速和网站防御（DDOS、CC攻击）">本站由免费云加速（FreeCDN）提供网站加速和攻击防御服务</a>`,
       },
       prism: {
         theme: lightCodeTheme,
