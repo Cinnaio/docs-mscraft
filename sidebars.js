@@ -18,15 +18,10 @@ const sidebars = {
 
   // 插件使用文档
   plugin_docs: [
-    'plugins/ItemProp',
-    'plugins/Prayer',
-    'plugins/EconomicCensus',
-    'plugins/EconomicCensusHttp',
-  ],
-
-  // 个人page
-  personal_docs: [
-    'personal/yolov5',
+    'plugin/ItemProp',
+    'plugin/Prayer',
+    'plugin/EconomicCensus',
+    'plugin/EconomicCensusHttp',
   ],
    
 };

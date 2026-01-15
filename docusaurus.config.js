@@ -76,12 +76,6 @@ const config = {
             position: 'right',
             label: '插件文档✨',
           },
-          // {
-          //   type: 'docSidebar',
-          //   sidebarId: 'personal_docs',
-          //   position: 'right',
-          //   label: '个人笔记',
-          // },
           {
             href: 'https://github.com/clustergap',
             label: '项目地址',
