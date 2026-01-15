@@ -1,0 +1,67 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  padding: 20rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background-image: url('../../static/img/banner.png');
+  background-size: cover;
+}
+
+/* 移动端 */
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+/* .buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #25c2a0; /* 主色调 */
+  --ifm-color-primary-dark: #21af90; /* 深色调 */
+  --ifm-color-primary-darker: #1fa588; /* 更深色调 */
+  --ifm-color-primary-darkest: #1a8870; /* 最深色调 */
+  --ifm-color-primary-light: #29d5b0; /* 浅色调 */
+  --ifm-color-primary-lighter: #32d8b4; /* 更浅色调 */
+  --ifm-color-primary-lightest: #4fddbf; /* 最浅色调 */
+  
+  --ifm-background-color: #1e1e1e; /* 背景颜色 */
+  --ifm-background-surface-color: #2a2a2a; /* 表面颜色 */
+  
+  --ifm-heading-color: #ffffff; /* 标题颜色 */
+  --ifm-color-emphasis-700: #e0e0e0; /* 强调颜色 */
+  --ifm-color-emphasis-500: #b0b0b0; /* 中等强调颜色 */
+  --ifm-color-emphasis-300: #909090; /* 轻度强调颜色 */
+  
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1); /* 高亮代码行背景 */
+}
+
+.features {
+  background-color: var(--ifm-background-surface-color);
+}
+
+.ruleSection {
+  background-color: var(--ifm-background-surface-color);
+}
+
+.section__title {
+  color: var(--ifm-heading-color);
+}
+
+.featureDescription {
+  color: var(--ifm-color-emphasis-500);
+}
+
+.ruleDescription {
+  color: var(--ifm-color-emphasis-500);
+}
