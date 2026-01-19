@@ -22,6 +22,7 @@ const sidebars = {
     'plugin/Prayer',
     'plugin/EconomicCensus',
     'plugin/EconomicCensusHttp',
+    'plugin/Relations',
   ],
    
 };

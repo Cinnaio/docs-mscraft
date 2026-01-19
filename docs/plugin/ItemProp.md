@@ -1,9 +1,10 @@
 # ItemProp - 自定义物品插件
 
-ItemProp 是一个轻量级但功能强大的 Minecraft Spigot/Paper 插件，允许你为物品绑定自定义指令、药水效果和交互行为。它支持通过配置文件灵活定义物品属性，并提供了便捷的游戏内管理命令。
+ItemProp 是一个轻量级但功能强大的 Minecraft Spigot/Paper/Folia 插件，允许你为物品绑定自定义指令、药水效果和交互行为。它支持通过配置文件灵活定义物品属性，并提供了便捷的游戏内管理命令。
 
 ## ✨ 主要特性
 
+*   **全平台支持**: 完美支持 **Spigot**, **Paper**, 以及 **Folia** 服务端（支持多线程区域化更新）。
 *   **指令绑定**: 将手持物品与配置文件中的 ID 绑定，右键即可触发一系列动作。
 *   **丰富的动作支持**:
     *   发送标题 (`[title]`) 和消息 (`[message]`)。
@@ -12,6 +13,7 @@ ItemProp 是一个轻量级但功能强大的 Minecraft Spigot/Paper 插件，�
 *   **物品属性编辑**: 游戏内直接修改物品名称和 Lore，**完美支持 RGB 颜色** (`&#RRGGBB`)。
 *   **智能管理**:
     *   支持物品消耗设置（右键后数量 -1）。
+    *   **命令反馈检查**：支持检查控制台命令执行结果，仅在成功时消耗物品（Folia 环境下该功能受限）。
     *   配置文件**自动热重载**，修改后立即生效，无需重启服务器。
     *   完善的 Tab 补全支持。
 
@@ -52,6 +54,15 @@ items:
       - "[potion] REGENERATION 5 1" # 给予生命恢复 I，持续 5 秒
       - "[console] give %player% diamond 1" # 控制台给予奖励
     consume: true # 使用后是否消耗物品 (true/false)
+
+  # 示例：仅当命令成功时消耗
+  lucky_box:
+    commands:
+      # 如果开启了 require_success，且此命令执行失败（无输出或被插件取消），物品将不会被消耗
+      # 注意：此功能在 Folia 环境下不可用（会自动忽略检查）
+      - "[console] give %player% diamond 1"
+    consume: true
+    require_success: true # 开启成功检查 (默认为 false)
 ```
 
 ### 动作标签说明
@@ -72,6 +83,14 @@ items:
     *   标准颜色: `&a`, `&b`, `&c`, `&1`...
     *   **RGB 颜色**: `&#RRGGBB` (例如 `&#FF5555` 为红色, `&#00FFAA` 为青色)
     *   可在名称、Lore、标题和消息中随意混合使用。
+
+## ⚠️ Folia 支持特别说明
+
+ItemProp 已经针对 **Folia** 进行了适配，支持在多线程区域化环境下运行。
+
+由于 Folia 的异步特性，存在以下差异：
+*   **require_success (命令反馈检查)**: 在 Folia 环境下，控制台命令是异步调度的，无法立即获取执行结果。因此，在 Folia 服务器上，`require_success: true` 设置将被**忽略**，插件会记录一条警告并继续执行（即默认视为成功）。
+*   **命令调度**: 所有的 `[console]` 命令会通过 Folia 的 `GlobalRegionScheduler` 调度执行，确保线程安全。
 
 ## 🏗️ 构建项目
 
