@@ -20,6 +20,11 @@ const TeamList = [
     img: 'img/team/body_bridgemoon.png',
   },
   {
+    name: 'MiddleLING',
+    time: '2023 - 至今',
+    img: 'img/team/body_MiddleLING.png',
+  },
+  {
     name: 'LightNingNo1',
     time: '2025 - 至今',
     img: 'img/team/body_LightNingNo1.png',
@@ -28,7 +33,7 @@ const TeamList = [
 
 function TeamMember({img, name, time}) {
   return (
-    <div className={clsx('col col--3')}>
+    <div className={clsx('col', styles.teamCol)}>
       <FadeIn>
         <div className="text--center">
           <img className={styles.teamImg} src={img} alt={name} />

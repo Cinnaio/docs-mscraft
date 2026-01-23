@@ -63,3 +63,25 @@
 .secondRow > div {
   width: 33.333%;
 }
+
+/* Custom 5-column layout */
+.teamCol {
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 576px) {
+  .teamCol {
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+  }
+}
+
+@media (min-width: 997px) {
+  .teamCol {
+    flex: 0 0 20% !important;
+    max-width: 20% !important;
+    margin-bottom: 0;
+  }
+}
