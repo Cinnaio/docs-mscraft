@@ -23,6 +23,8 @@ const sidebars = {
     'plugin/EconomicCensus',
     'plugin/EconomicCensusHttp',
     'plugin/Relations',
+    'plugin/Transportation',
+    'plugin/Order',
   ],
    
 };
