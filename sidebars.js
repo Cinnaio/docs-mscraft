@@ -13,7 +13,15 @@ const sidebars = {
   docs: [
     'intro',
     'rules',
-    'menu'
+    'menu',
+    {
+      type: 'category',
+      label: '🖼 玩家教程', // 分组显示的名称
+      items: [
+        'tutorial/Transportation', 
+        'tutorial/EchoMarket', 
+      ],
+    },
   ],
 
   // 插件使用文档
