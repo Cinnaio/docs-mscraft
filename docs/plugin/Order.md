@@ -83,4 +83,4 @@ market:
 
 ## 📝 开源协议
 
-[MIT License](LICENSE)
+MIT License

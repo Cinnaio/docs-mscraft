@@ -25,6 +25,7 @@ const sidebars = {
     'plugin/Relations',
     'plugin/Transportation',
     'plugin/Order',
+    'plugin/EchoMarket',
   ],
    
 };
