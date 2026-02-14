@@ -15,5 +15,5 @@ sidebar_position: 1
 :::
 
 :::info 附件
-服务器内主世界地图 [**附件**](../static/img/map.png)。
+服务器内主世界地图 暂无。
 :::

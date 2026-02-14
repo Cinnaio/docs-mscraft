@@ -6,7 +6,7 @@ import FadeIn from '../FadeIn';
 const FeatureList = [
   {
     title: '社会模拟',
-    img: 'img/banner.png',
+    img: 'img/banner_3.png',
     description: (
       <>
         在这里，每个人都是独特的个体，通过交互构建起丰富多彩的社会关系。
@@ -16,7 +16,7 @@ const FeatureList = [
   },
   {
     title: '中国传统元素',
-    img: 'img/banner.png',
+    img: 'img/banner_8.png',
     description: (
       <>
         穿越时空，感受中华文明的博大精深。从建筑到服饰，
