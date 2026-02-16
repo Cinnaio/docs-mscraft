@@ -11,7 +11,7 @@ const config = {
   favicon: './img/logo_beta.png',
 
   // Set the production url of your site here
-  url: 'https://mscraft.cn/',
+  url: 'https://play.mscraft.cn/',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -50,12 +50,19 @@ const config = {
       }),
     ],
   ],
+  plugins: ['plugin-image-zoom'],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
       image: 'img/banner.png',
+      imageZoom: {
+        selector: '.markdown img',
+        options: {
+          background: 'rgba(0,0,0,0.8)',
+        },
+      },
       navbar: {
         title: '群隙 ClusterGap',
         logo: {
@@ -76,7 +83,12 @@ const config = {
             label: '插件文档✨',
           },
           {
-            href: 'https://github.com/clustergap',
+            href: 'https://skin.cubem.cn/',
+            position: 'right',
+            label: '皮肤站',
+          },
+          {
+            href: 'https://github.com/clustergap/',
             label: '项目地址',
             position: 'right',
           },
