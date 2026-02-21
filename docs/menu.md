@@ -46,7 +46,7 @@
 - 详细教程：[EchoMarket](./tutorial/EchoMarket.md)
 
 ### PrismMarket 动态市场
-- 进入：`/pm` 或 `/prismmarket` 打开市场；`/pm <商店代号>` 直达分店。
+- 进入：`/pm` 或 `/prismmarket` 打开市场；`/pm weekly` 直达每周系统回收商店。
 - 交易：GUI 左键购买、右键出售（以物品描述为准）。
 - 刷新：每日/每周/活动随机轮换；部分商品设有个人/全服限额。
 - 详细教程：[PrismMarket](./tutorial/PrismMarket.md)
@@ -81,7 +81,7 @@
 - [EchoMarket 全球市场指南](./tutorial/EchoMarket.md)
 - [PrismMarket 棱镜市场指南](./tutorial/PrismMarket.md)
 - [Milestone 玩家指南](./tutorial/Milestone.md)
-- [Residence 住宅与保护](./tutorial/Residence.md)（待更新）
+- [Residence 住宅与保护](./tutorial/Residence.md)
 - [Relation 社交关系](./tutorial/Relation.md)（待更新）
 
 ![谢谢~](../static/img/IMG_3059.PNG "Magic Gardens")
