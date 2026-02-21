@@ -23,7 +23,7 @@
 ## 住宅与保护
 - 选址建议：靠近资源与交通点，避免与他人建筑过度重叠。
 - 区域保护：后续将提供领地/保护的指引与规范。
-- 参考文档：详见 [Residence](./tutorial/Residence.md)（待更新）。
+- 参考文档：详见 [Residence](./tutorial/Residence.md)。
 
 ---
 
