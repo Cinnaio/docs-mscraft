@@ -30,7 +30,7 @@
 ## 出行坐骑（Transportation）
 - 核心概念：契约、兽栏、信物。坐骑属性与状态会被完整保存。
 - 快速上手：
-  - 驯服生物后执行 `/tra bind` 或命名契约 `/tra bind HORSE:赤兔`
+  - 驯服生物后执行 `/tra bind` 
   - 制作信物：手持物品执行 `/tra keybind <代号>`
   - 召唤/收回：手持信物右键；或使用 `/tra out <代号>` 与 `/tra in <代号>`
 - 查看坐骑列表：`/tra list`
