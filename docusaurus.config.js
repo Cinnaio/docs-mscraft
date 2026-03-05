@@ -74,13 +74,13 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'docs',
             position: 'right',
-            label: '文档 WIKI',
+            label: '文档维基',
           },
           {
             type: 'docSidebar',
             sidebarId: 'plugin_docs',
             position: 'right',
-            label: '插件文档✨',
+            label: '插件维基',
           },
           {
             href: 'https://skin.cubem.cn/',
