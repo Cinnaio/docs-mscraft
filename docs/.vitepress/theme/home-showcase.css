@@ -1,0 +1,120 @@
+/**
+ * Component: Home Showcase section
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --home-showcase-accent: #3fb950;
+  --home-showcase-max: 1152px;
+  --home-showcase-img-a: linear-gradient(135deg, rgba(65, 209, 255, 0.35), rgba(189, 52, 254, 0.25));
+  --home-showcase-img-b: linear-gradient(135deg, rgba(189, 52, 254, 0.30), rgba(65, 209, 255, 0.20));
+}
+
+.VPHome .home-showcase {
+  margin: 0 auto;
+  padding: 56px 24px 24px;
+  max-width: var(--home-showcase-max);
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.VPHome .home-showcase__header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.VPHome .home-showcase__eyebrow {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  color: var(--vp-c-text-3);
+}
+
+.VPHome .home-showcase__title {
+  position: relative;
+  display: inline-block;
+  margin: 10px 0 0;
+  font-size: 30px;
+  line-height: 1.2;
+  color: var(--vp-c-text-1);
+}
+
+.VPHome .home-showcase__title::after {
+  content: '';
+  display: block;
+  height: 4px;
+  width: 52px;
+  margin: 12px auto 0;
+  border-radius: 999px;
+  background: var(--home-showcase-accent);
+}
+
+.VPHome .home-showcase__subtitle {
+  margin: 12px auto 0;
+  max-width: 56ch;
+  color: var(--vp-c-text-2);
+  line-height: 1.8;
+}
+
+.VPHome .home-showcase__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  grid-auto-rows: minmax(220px, auto);
+  gap: 30px;
+  align-items: center;
+}
+
+.VPHome .home-showcase__card {
+  border-radius: 16px;
+}
+
+.VPHome .home-showcase__card--media {
+  aspect-ratio: 16 / 9;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.14),
+    0 2px 10px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--vp-c-divider);
+}
+
+.VPHome .home-showcase__card--media.is-fallback {
+  background-image: var(--home-showcase-img-a);
+}
+
+.VPHome .home-showcase__card--media.is-fallback:last-child {
+  background-image: var(--home-showcase-img-b);
+}
+
+.VPHome .home-showcase__card--text {
+  padding: 0 6px;
+}
+
+.VPHome .home-showcase__h3 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  line-height: 1.2;
+  color: var(--vp-c-text-1);
+}
+
+.VPHome .home-showcase__p {
+  margin: 0;
+  color: var(--vp-c-text-2);
+  line-height: 1.8;
+}
+
+@media (max-width: 960px) {
+  .VPHome .home-showcase {
+    padding-top: 44px;
+  }
+
+  .VPHome .home-showcase__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  .VPHome .home-showcase__card--text {
+    padding: 6px 2px;
+  }
+}
+
