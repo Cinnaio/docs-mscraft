@@ -103,6 +103,8 @@ Content…
 - 放到：`docs/public/images/xxx.png`
 - 在 Markdown 里引用：`/images/xxx.png`
 
+> 具体语法参考：[Markdown 图片语法](https://markdown.com.cn/basic-syntax/images.html#markdown-%E5%9B%BE%E7%89%87%E8%AF%AD%E6%B3%95)
+
 构建时会自动压缩 `docs/public/images` 下图片；原图会备份到 `docs/public/images/_originals/`，便于随时还原。
 
 ---
