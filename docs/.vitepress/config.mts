@@ -178,6 +178,12 @@ export default defineConfig({
             ]
           },
           {
+            text: '常用功能维基',
+            items: [
+              { text: '圈地教程', link: '/residence' }
+            ]
+          },
+          {
             text: '插件维基',
             items: [
               {
@@ -235,6 +241,12 @@ export default defineConfig({
             items: [
               { text: 'New Player Guide', link: '/en/getting-started' },
               { text: 'Server Rules & FAQ', link: '/en/server-faq' }
+            ]
+          },
+          {
+            text: 'Common Features Wiki',
+            items: [
+              { text: 'Land Claim Guide', link: '/en/residence' }
             ]
           },
           {
