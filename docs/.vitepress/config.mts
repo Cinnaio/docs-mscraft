@@ -120,6 +120,7 @@ export default defineConfig({
         nav: [
           { text: '首页', link: '/' },
           { text: '文档维基', link: '/getting-started' },
+          { text: '建议收集', link: '/feedback' },
         ],
 
         sidebar: [
@@ -182,6 +183,7 @@ export default defineConfig({
         nav: [
           { text: 'Home', link: '/en/' },
           { text: 'Documentation', link: '/en/getting-started' }
+          ,{ text: 'Feedback', link: '/en/feedback' }
         ],
 
         sidebar: [
