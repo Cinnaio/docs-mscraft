@@ -10,13 +10,13 @@ export default defineConfig({
       label: '简体中文',
       lang: 'zh-CN',
       title: '群隙 ClusterGap',
-      description: 'A VitePress Site',
       themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [
           { text: '首页', link: '/' },
           { text: '文档维基', link: '/getting-started' },
         ],
+
         sidebar: [
           {
             text: '文档维基',
@@ -46,8 +46,8 @@ export default defineConfig({
           formatOptions: {
             // 强制使用当前语言环境格式化日期
             forceLocale: true,
-            dateStyle: 'full',
-            timeStyle: 'medium',
+            dateStyle: 'short',
+            timeStyle: 'short',
           }
         },
         
@@ -68,12 +68,12 @@ export default defineConfig({
       label: 'English',
       lang: 'en-US',
       title: 'ClusterGap',
-      description: 'A VitePress Site',
       themeConfig: {
         nav: [
           { text: 'Home', link: '/en/' },
           { text: 'Documentation', link: '/en/getting-started' }
         ],
+
         sidebar: [
           {
             text: 'Documentation',
@@ -101,8 +101,8 @@ export default defineConfig({
           text: 'Last updated',
           formatOptions: {
             forceLocale: true,
-            dateStyle: 'full',
-            timeStyle: 'medium',
+            dateStyle: 'short',
+            timeStyle: 'short',
           }
         },
         
