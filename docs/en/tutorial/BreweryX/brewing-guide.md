@@ -1,4 +1,4 @@
-# BreweryX Master Brewer's Guide
+# Brewer's Guide
 
 Welcome to the tipsy world of **BreweryX**! Here, you will become a true master brewer, personally involved in every drop of the brewing process, from a grain of wheat in the field to the mellow wine aged in barrels. Whether it's refreshing beer, mild Huangjiu (Yellow Wine), or potent Vodka, they are all waiting for you to unlock. Get your cauldron ready, let's get to work!
 

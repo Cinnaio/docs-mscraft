@@ -1,4 +1,4 @@
-# BreweryX Available Recipe Guide
+# Available Recipe Guide
 
 Here are the recipes for five brewable wines. Each wine includes ingredients, brewing steps, aging requirements, and energy recovery effects after drinking.
 
