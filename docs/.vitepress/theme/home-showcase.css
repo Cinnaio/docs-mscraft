@@ -109,8 +109,32 @@
 
   .VPHome .home-showcase__grid {
     grid-template-columns: 1fr;
+    /* 单列时不应强制每行最小高度，否则文本卡片会产生巨大空白 */
+    grid-auto-rows: auto;
     gap: 20px;
     align-items: start;
+    /* 移动端：每个条目都保持“图在上，文在下” */
+    grid-template-areas:
+      "media-a"
+      "text-a"
+      "media-b"
+      "text-b";
+  }
+
+  .VPHome .home-showcase__grid > :nth-child(1) {
+    grid-area: media-a;
+  }
+
+  .VPHome .home-showcase__grid > :nth-child(2) {
+    grid-area: text-a;
+  }
+
+  .VPHome .home-showcase__grid > :nth-child(3) {
+    grid-area: text-b;
+  }
+
+  .VPHome .home-showcase__grid > :nth-child(4) {
+    grid-area: media-b;
   }
 
   .VPHome .home-showcase__card--text {
