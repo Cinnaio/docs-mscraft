@@ -24,13 +24,7 @@ Aim at the tamed creature and run:
 /tra bind
 ```
 
-If you own multiple mounts, it’s recommended to give it an alias for easier management:
-
-```
-/tra bind HORSE:RedHare
-```
-
-> Note: After binding, the mount is registered into your **stable**, and its stats are recorded (speed, jump, health, equipment, potion effects, etc.).
+> Note: After binding, the mount is registered into your **stable**, and its stats are recorded (speed, jump, health, equipment, potion effects, etc.). You can use */tra list* to view the details of your tamed creatures.
 
 ## Create & use a token (Key)
 
@@ -47,8 +41,11 @@ A token is optional, but highly recommended if you summon/recall often.
 
 Examples:
 
-- `/tra keybind HORSE`
-- `/tra keybind RedHare`
+- `/tra keybind HORSE#1`
+
+:::: tip Tip
+All mount aliases can be auto-completed with the **TAB** key.
+::::
 
 ### 2) Use the token
 
@@ -136,13 +133,15 @@ A: Yes. The stable is cross-world. You can recall a mount in one world and summo
 
 | Command | Args | Description |
 | :--- | :--- | :--- |
-| `/tra bind` | `[model:id]` | bind the targeted creature as your mount |
-| `/tra keybind` | `[model]` | turn the held item into a token |
+| `/tra bind` | none | bind the targeted creature as your mount |
+| `/tra keybind` | `[model#index]` | turn the held item into a token |
 | `/tra list` | none | list all mounts and their status |
-| `/tra out` | `<model>` | summon a mount from the stable |
-| `/tra in` | `<model>` | recall a mount into the stable |
-| `/tra fix` | `<model>` | revive a destroyed mount |
-| `/tra transfer` | `<model> <player>` | transfer ownership to another player |
-| `/tra unbind` | `<model>` | unbind (delete) a mount |
+| `/tra out` | `<model#index>` | summon a mount from the stable |
+| `/tra in` | `<model#index>` | recall a mount into the stable |
+| `/tra fix` | `<model#index>` | revive a destroyed mount |
+| `/tra transfer` | `<model#index> <player>` | transfer ownership to another player |
+| `/tra unbind` | `<model#index>` | unbind (delete) a mount |
 | `/tra unkeybind` | none | remove token attributes from the held item |
+
+> Tip: In `model#index`, **index** is which number you own under that model, and **model** is the creature type.
 

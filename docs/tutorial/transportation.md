@@ -24,13 +24,7 @@
 /tra bind
 ```
 
-如果你有多匹坐骑，推荐绑定时给它一个代号便于区分：
-
-```
-/tra bind HORSE:赤兔
-```
-
-> 提示：绑定成功后，坐骑会进入你的兽栏，并记录速度、跳跃、生命值、装备、药水效果等属性。
+> 提示：绑定成功后，坐骑会进入你的兽栏，并记录速度、跳跃、生命值、装备、药水效果等属性。可以使用 */tra list* 来查看具体的已驯服生物的信息。
 
 ## 制作与使用信物（Key）
 
@@ -47,8 +41,11 @@
 
 示例：
 
-- `/tra keybind HORSE`
-- `/tra keybind 赤兔`
+- `/tra keybind HORSE#1`
+
+::: tip 提示
+所有的坐骑代号都可以使用TAB补全的哦~
+:::
 
 ### 2) 使用信物
 
@@ -87,7 +84,7 @@
 示例：
 
 ```
-/tra fix 赤兔
+/tra fix HORSE#1
 ```
 
 ## 社交与交易
@@ -136,12 +133,14 @@ A: 可以。兽栏跨世界生效，你可以在一个世界收回坐骑，在�
 
 | 咒语 (Command) | 参数 | 说明 |
 | :--- | :--- | :--- |
-| `/tra bind` | `[model:id]` | 将准星对准的生物缔结为坐骑 |
-| `/tra keybind` | `[model]` | 将手中物品制作为信物 |
+| `/tra bind` | 无 | 将准星对准的生物缔结为坐骑 |
+| `/tra keybind` | `[model#index]` | 将手中物品制作为信物 |
 | `/tra list` | 无 | 查看所有坐骑及其状态 |
-| `/tra out` | `<model>` | 从兽栏召唤坐骑 |
-| `/tra in` | `<model>` | 将坐骑收回兽栏 |
-| `/tra fix` | `<model>` | 复活已死亡的坐骑 |
-| `/tra transfer` | `<model> <player>` | 将坐骑转让给他人 |
-| `/tra unbind` | `<model>` | 解除契约（删除坐骑） |
+| `/tra out` | `<model#index>` | 从兽栏召唤坐骑 |
+| `/tra in` | `<model#index>` | 将坐骑收回兽栏 |
+| `/tra fix` | `<model#index>` | 复活已死亡的坐骑 |
+| `/tra transfer` | `<model#index> <player>` | 将坐骑转让给他人 |
+| `/tra unbind` | `<model#index>` | 解除契约（删除坐骑） |
 | `/tra unkeybind` | 无 | 清除手中物品的信物属性 |
+
+> 提示: `model#index` 里面的 “index” 表示的是你拥有该类型下的第几个，“model” 代表的是生物的类型。
