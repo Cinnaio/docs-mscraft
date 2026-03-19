@@ -85,15 +85,16 @@ onMounted(() => {
 .VPLastUpdated {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  /* Mobile first: 文档页脚在移动端是上下布局，左对齐更自然 */
+  align-items: flex-start;
   justify-content: center;
-  text-align: right;
+  text-align: left;
 }
 
 .VPLastUpdatedRow {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 6px;
   line-height: 24px;
   font-size: 14px;
@@ -108,7 +109,7 @@ onMounted(() => {
 .VPLastUpdatedByValue {
   display: inline-flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 8px;
 }
 
@@ -123,10 +124,17 @@ onMounted(() => {
 @media (min-width: 640px) {
   .VPLastUpdated {
     min-height: 32px;
+    align-items: flex-end;
+    text-align: right;
   }
 
   .VPLastUpdatedRow {
     line-height: 32px;
+    justify-content: flex-end;
+  }
+
+  .VPLastUpdatedByValue {
+    justify-content: flex-end;
   }
 }
 </style>
