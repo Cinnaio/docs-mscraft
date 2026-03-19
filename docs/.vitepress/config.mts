@@ -147,7 +147,7 @@ export default defineConfig({
         socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }],
         
         lastUpdated: {
-          text: '最后更新于',
+          text: '最后提交于',
           formatOptions: {
             // 强制使用当前语言环境格式化日期
             forceLocale: true,
@@ -157,7 +157,7 @@ export default defineConfig({
         },
         // @ts-ignore
         lastUpdatedBy: {
-          text: '最后更新人',
+          text: '最后提交者',
         },
         
         notFound: {
@@ -208,7 +208,7 @@ export default defineConfig({
         socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }],
         
         lastUpdated: {
-          text: 'Last updated',
+          text: 'Last committed',
           formatOptions: {
             forceLocale: true,
             dateStyle: 'short',
@@ -217,7 +217,7 @@ export default defineConfig({
         },
         // @ts-ignore
         lastUpdatedBy: {
-          text: 'Updated by',
+          text: 'Committed by',
         },
         
         notFound: {
