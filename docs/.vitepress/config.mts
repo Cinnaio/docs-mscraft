@@ -166,7 +166,7 @@ export default defineConfig({
         nav: [
           { text: '首页', link: '/' },
           { text: '文档维基', link: '/getting-started' },
-          { text: '建议收集', link: '/feedback' },
+          { text: '建议收集', link: '/feedback' }
         ],
 
         sidebar: [
@@ -189,7 +189,8 @@ export default defineConfig({
               {
                 text: 'BreweryX 酿酒',
                 items: autoSidebarFromDir('tutorial/BreweryX', '/tutorial/BreweryX')
-              }
+              },
+              { text: 'Transportation 坐骑', link: '/tutorial/transportation' }
             ]
           },
         ],
@@ -255,7 +256,8 @@ export default defineConfig({
               {
                 text: 'BreweryX',
                 items: autoSidebarFromDir('en/tutorial/BreweryX', '/en/tutorial/BreweryX')
-              }
+              },
+              { text: 'Transportation', link: '/en/tutorial/transportation' }
             ]
           }
         ],
