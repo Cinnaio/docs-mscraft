@@ -16,6 +16,10 @@ const updatedBy = computed(() => {
   return (page.value as any).lastUpdatedBy as string | undefined
 })
 
+const updatedByAvatar = computed(() => {
+  return (page.value as any).lastUpdatedAvatar as string | undefined
+})
+
 // Set time on mounted hook to avoid hydration mismatch due to
 // potential differences in timezones of the server and the clients
 onMounted(() => {
@@ -61,7 +65,18 @@ onMounted(() => {
       <span class="VPLastUpdatedLabel">
         {{ theme.lastUpdatedBy?.text || 'Updated by' }}:
       </span>
-      <span class="VPLastUpdatedValue">{{ updatedBy }}</span>
+      <span class="VPLastUpdatedValue VPLastUpdatedByValue">
+        <img
+          v-if="updatedByAvatar"
+          class="VPLastUpdatedAvatar"
+          :src="updatedByAvatar"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          referrerpolicy="no-referrer"
+        />
+        <span>{{ updatedBy }}</span>
+      </span>
     </div>
   </div>
 </template>
@@ -88,6 +103,21 @@ onMounted(() => {
 
 .VPLastUpdatedValue {
   color: inherit;
+}
+
+.VPLastUpdatedByValue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.VPLastUpdatedAvatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  flex: none;
+  box-shadow: 0 0 0 1px var(--vp-c-divider);
 }
 
 @media (min-width: 640px) {
