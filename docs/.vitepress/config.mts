@@ -7,6 +7,10 @@ import { execSync } from 'child_process'
 import { fileURLToPath } from 'url'
 // @ts-ignore
 import { createHash } from 'crypto'
+// @ts-ignore
+import fs from 'fs'
+// @ts-ignore
+import path from 'path'
 
 type LastUpdatedMeta = {
   by?: string
@@ -48,6 +52,48 @@ function getAvatarUrl(by?: string, email?: string): string | undefined {
       .digest('hex')
     return `https://www.gravatar.com/avatar/${md5}?s=64&d=identicon`
   }
+}
+
+type AutoSidebarItem = { text: string; link: string }
+
+const DOCS_DIR = fileURLToPath(new URL('..', import.meta.url)) // /docs
+
+function readFirstH1(md: string): string | undefined {
+  // remove frontmatter
+  const withoutFm = md.replace(/^---[\s\S]*?\n---\s*\n/, '')
+  const lines = withoutFm.split(/\r?\n/)
+  for (const line of lines) {
+    const m = line.match(/^#\s+(.+?)\s*$/)
+    if (m?.[1]) return m[1].trim()
+  }
+}
+
+function autoSidebarFromDir(dirUnderDocs: string, linkBase: string): AutoSidebarItem[] {
+  const absDir = path.join(DOCS_DIR, dirUnderDocs)
+  let entries: string[] = []
+  try {
+    entries = fs.readdirSync(absDir)
+  } catch {
+    return []
+  }
+
+  return entries
+    .filter((name) => name.toLowerCase().endsWith('.md'))
+    .filter((name) => name.toLowerCase() !== 'index.md')
+    .sort((a, b) => a.localeCompare(b, 'en'))
+    .map((name) => {
+      const abs = path.join(absDir, name)
+      let text = name.replace(/\.md$/i, '')
+      try {
+        const md = fs.readFileSync(abs, 'utf8')
+        text = readFirstH1(md) || text
+      } catch {
+        // ignore
+      }
+      const slug = name.replace(/\.md$/i, '')
+      const link = `${linkBase}/${slug}`.replace(/\/+/g, '/')
+      return { text, link }
+    })
 }
 
 // https://vitepress.dev/reference/site-config
@@ -136,10 +182,7 @@ export default defineConfig({
             items: [
               {
                 text: 'BreweryX 酿酒',
-                items: [
-                  { text: '酿酒手册', link: '/tutorial/BreweryX/brewing-guide' },
-                  { text: '现有酒类配方', link: '/tutorial/BreweryX/recipes' }
-                ]
+                items: autoSidebarFromDir('tutorial/BreweryX', '/tutorial/BreweryX')
               }
             ]
           },
@@ -199,10 +242,7 @@ export default defineConfig({
             items: [
               {
                 text: 'BreweryX',
-                items: [
-                  { text: 'Brewing Guide', link: '/en/tutorial/BreweryX/brewing-guide' },
-                  { text: 'Recipe Guide', link: '/en/tutorial/BreweryX/recipes' }
-                ]
+                items: autoSidebarFromDir('en/tutorial/BreweryX', '/en/tutorial/BreweryX')
               }
             ]
           }
