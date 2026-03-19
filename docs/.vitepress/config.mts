@@ -101,6 +101,10 @@ export default defineConfig({
   // 显示右下角“最后更新于”：基于每个页面对应文件的 Git 最后提交时间戳
   lastUpdated: true,
   cleanUrls: true,
+  head: [
+    ['link', { rel: 'icon', type: 'image/png', href: '/images/logo.png' }],
+    ['link', { rel: 'apple-touch-icon', href: '/images/logo.png' }],
+  ],
   transformPageData(pageData) {
     // VitePress 默认只提供 `lastUpdated`（时间戳），不提供“最后更新人”。
     // 这里在构建阶段用 git log 取作者名注入到 pageData，供自定义组件渲染。
@@ -160,6 +164,7 @@ export default defineConfig({
       label: '简体中文',
       lang: 'zh-CN',
       title: '群隙 ClusterGap',
+      description: '中国传统元素与季节系统、社会模拟、玩家驱动的 Minecraft 世界。请保持友善与尊重，共同维护良好的游戏环境。',
       themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         logo: '/images/logo.png',
@@ -228,6 +233,8 @@ export default defineConfig({
       label: 'English',
       lang: 'en-US',
       title: 'ClusterGap',
+      description:
+        'A player-driven Minecraft world with Chinese-inspired elements, seasons, and social simulation. Please be kind and respectful.',
       themeConfig: {
         logo: '/images/logo.png',
         nav: [
