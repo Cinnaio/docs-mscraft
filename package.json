@@ -4,7 +4,7 @@
   },
   "scripts": {
     "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
+    "docs:build": "node scripts/unshallow-git.js && vitepress build docs",
     "docs:preview": "vitepress preview docs"
   }
 }

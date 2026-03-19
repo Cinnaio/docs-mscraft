@@ -2,6 +2,8 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  // 显示右下角“最后更新于”：基于每个页面对应文件的 Git 最后提交时间戳
+  lastUpdated: true,
   cleanUrls: true,
   locales: {
     root: {
@@ -36,12 +38,29 @@ export default defineConfig({
             ]
           },
         ],
+
         socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }],
+        
+        lastUpdated: {
+          text: '最后更新于',
+          formatOptions: {
+            // 强制使用当前语言环境格式化日期
+            forceLocale: true,
+            dateStyle: 'full',
+            timeStyle: 'medium',
+          }
+        },
         
         notFound: {
           title: '找不到页面',
           quote: '这里什么都没有，除了虚空。',
           linkText: '返回首页'
+        },
+
+        editLink: {
+          // VitePress "编辑此页" 链接：跳转到你的仓库 v2 分支
+          pattern: 'https://github.com/Cinnaio/docs-mscraft/edit/v2/docs/:path',
+          text: '在 GitHub 上编辑此页'
         }
       }
     },
@@ -78,10 +97,25 @@ export default defineConfig({
         ],
         socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }],
         
+        lastUpdated: {
+          text: 'Last updated',
+          formatOptions: {
+            forceLocale: true,
+            dateStyle: 'full',
+            timeStyle: 'medium',
+          }
+        },
+        
         notFound: {
           title: 'Page Not Found',
           quote: "There's nothing here but void.",
           linkText: 'Take me home'
+        },
+
+        editLink: {
+          // VitePress "Edit this page" 链接：跳转到你的仓库 v2 分支
+          pattern: 'https://github.com/Cinnaio/docs-mscraft/edit/v2/docs/:path',
+          text: 'Edit this page on GitHub'
         }
       }
     }
