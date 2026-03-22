@@ -6,8 +6,25 @@ import { getCookie, setCookieHeader, clearCookieHeader } from '../../_shared/coo
 
 const DEFAULT_SKIN_BASE = 'https://skin.cubem.cn'
 
+/** Some CF/Pages 版本下 context.params 可能为空，用路径兜底 */
+function resolveAction(context) {
+  const p = context.params?.action
+  if (p) return p
+  try {
+    const url = new URL(context.request.url)
+    const parts = url.pathname.split('/').filter(Boolean)
+    // /api/auth/me → ['api','auth','me']
+    if (parts[0] === 'api' && parts[1] === 'auth' && parts[2]) {
+      return parts[2]
+    }
+  } catch {
+    /* ignore */
+  }
+  return null
+}
+
 export async function onRequestGet(context) {
-  const action = context.params?.action
+  const action = resolveAction(context)
   switch (action) {
     case 'login':
       return handleLogin(context)

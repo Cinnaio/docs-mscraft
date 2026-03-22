@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-import { useData } from 'vitepress'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useData, useRoute } from 'vitepress'
 
 const { lang } = useData()
+const route = useRoute()
 
 const SKIN_BASE = 'https://skin.cubem.cn'
 
@@ -36,11 +37,23 @@ function resolveAvatarUrl(user: Record<string, unknown>): string | null {
   if (abs(user.avatar_url)) return user.avatar_url as string
   if (abs(user.avatar)) return user.avatar as string
 
-  if (typeof user.uid === 'number' && user.uid >= 0) {
-    return `${base}/avatar/user/${user.uid}?size=64&png`
+  const uid =
+    typeof user.uid === 'number'
+      ? user.uid
+      : typeof user.uid === 'string' && /^\d+$/.test(user.uid)
+        ? parseInt(user.uid, 10)
+        : NaN
+  if (!Number.isNaN(uid) && uid >= 0) {
+    return `${base}/avatar/user/${uid}?size=64&png`
   }
-  if (typeof user.avatar === 'number' && user.avatar > 0) {
-    return `${base}/avatar/${user.avatar}?size=64&png`
+  const tid =
+    typeof user.avatar === 'number'
+      ? user.avatar
+      : typeof user.avatar === 'string' && /^\d+$/.test(user.avatar)
+        ? parseInt(user.avatar, 10)
+        : NaN
+  if (!Number.isNaN(tid) && tid > 0) {
+    return `${base}/avatar/${tid}?size=64&png`
   }
   return null
 }
@@ -49,22 +62,15 @@ function onAvatarError() {
   avatarUrl.value = null
 }
 
-onMounted(async () => {
-  const params = new URLSearchParams(window.location.search)
-  const err = params.get('oauth_error')
-  if (err) {
-    oauthError.value = err
-    params.delete('oauth_error')
-    const next = `${window.location.pathname}${params.toString() ? `?${params}` : ''}${window.location.hash}`
-    window.history.replaceState({}, '', next)
-  }
-
+async function refreshSession() {
   const controller = new AbortController()
   const tid = window.setTimeout(() => controller.abort(), 8000)
   try {
-    const r = await fetch('/api/auth/me', {
+    const api = new URL('/api/auth/me', window.location.origin).href
+    const r = await fetch(api, {
       credentials: 'include',
       signal: controller.signal,
+      cache: 'no-store',
     })
     if (!r.ok) {
       userLabel.value = null
@@ -85,7 +91,36 @@ onMounted(async () => {
   } finally {
     window.clearTimeout(tid)
   }
+}
+
+function onVisibilityChange() {
+  if (document.visibilityState === 'visible') void refreshSession()
+}
+
+onMounted(() => {
+  const params = new URLSearchParams(window.location.search)
+  const err = params.get('oauth_error')
+  if (err) {
+    oauthError.value = err
+    params.delete('oauth_error')
+    const next = `${window.location.pathname}${params.toString() ? `?${params}` : ''}${window.location.hash}`
+    window.history.replaceState({}, '', next)
+  }
+
+  void refreshSession()
+  document.addEventListener('visibilitychange', onVisibilityChange)
 })
+
+onUnmounted(() => {
+  document.removeEventListener('visibilitychange', onVisibilityChange)
+})
+
+watch(
+  () => route.path,
+  () => {
+    void refreshSession()
+  }
+)
 </script>
 
 <template>
