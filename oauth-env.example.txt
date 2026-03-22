@@ -1,0 +1,23 @@
+# Cloudflare Pages → 项目 → Settings → Environment variables
+# 在 Blessing Skin（https://skin.cubem.cn/user/oauth/manage）创建 OAuth 客户端：
+# - Redirect URI 必须精确为：https://play.mscraft.cn/api/auth/callback
+# 将 client_id / client_secret 填入下方并同步到 CF（不要提交到 Git）
+
+BLESSING_SKIN_CLIENT_ID=
+BLESSING_SKIN_CLIENT_SECRET=
+BLESSING_SKIN_REDIRECT_URI=https://play.mscraft.cn/api/auth/callback
+
+# 可选：皮肤站基础地址（默认已指向 skin.cubem.cn）
+# BLESSING_SKIN_BASE_URL=https://skin.cubem.cn
+
+# 本地联调：使用 wrangler pages dev（需先 npm run docs:build）
+# npx wrangler pages dev docs/.vitepress/dist
+
+# --- 若 https://你的域名/api/auth/login 出现 404 ---
+# 1) Cloudflare Pages → 设置 → 构建：
+#    -「根目录」留空 = 仓库根目录（本仓库 package.json 在根目录，不要只填 docs）。
+#    - 构建命令请用：npm run docs:build（不要用单独的 vitepress build，否则不会同步 functions）。
+#    - 输出目录：docs/.vitepress/dist
+#    Pages Functions 来自仓库根目录的 functions/；构建时 predocs:build 会同步一份到 docs/functions/（供根目录误设为 docs 时仍能打包到 Functions）。
+# 2) 部署成功后访问 https://你的域名/ping 应返回纯文本 pages-functions-ok。
+#    若 /ping 也是 404，说明本次部署未包含 Functions（检查构建日志、分支、是否推送到正确仓库）。
