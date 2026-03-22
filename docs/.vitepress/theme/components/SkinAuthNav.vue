@@ -51,18 +51,6 @@ function onAvatarError() {
   avatarUrl.value = null
 }
 
-/**
- * /api/auth/* 由 Cloudflare Pages Functions 处理，不是 VitePress 路由。
- * 若用普通 <a href>，Vue Router 会拦截同源路径并当作文档路由 → 无匹配则 404；
- * 整页刷新才会向服务器请求，OAuth 302 才生效。
- */
-function forceFullNavigation(url: string, e: MouseEvent) {
-  if (e.defaultPrevented) return
-  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
-  e.preventDefault()
-  window.location.assign(url)
-}
-
 onMounted(async () => {
   const params = new URLSearchParams(window.location.search)
   const err = params.get('oauth_error')
@@ -121,18 +109,9 @@ onMounted(async () => {
           />
         </span>
         <span class="skin-auth-nav__label">{{ userLabel }}</span>
-        <a
-          class="skin-auth-nav__link"
-          href="/api/auth/logout"
-          @click="forceFullNavigation('/api/auth/logout', $event)"
-        >{{ strings.logout }}</a>
+        <a class="skin-auth-nav__link" href="/api/auth/logout">{{ strings.logout }}</a>
       </template>
-      <a
-        v-else
-        class="skin-auth-nav__link"
-        href="/api/auth/login"
-        @click="forceFullNavigation('/api/auth/login', $event)"
-      >{{ strings.login }}</a>
+      <a v-else class="skin-auth-nav__link" href="/api/auth/login">{{ strings.login }}</a>
     </template>
   </div>
 </template>
