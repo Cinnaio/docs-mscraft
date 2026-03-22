@@ -93,18 +93,21 @@ onMounted(async () => {
         {{ strings.errorPrefix }}{{ oauthError }}
       </span>
       <template v-if="userLabel">
-        <img
+        <span
           v-if="avatarUrl"
-          class="skin-auth-nav__avatar"
-          :src="avatarUrl"
-          :alt="userLabel"
-          width="24"
-          height="24"
-          loading="lazy"
-          decoding="async"
-          referrerpolicy="no-referrer"
-          @error="onAvatarError"
-        />
+          class="skin-auth-nav__avatar-wrap"
+          aria-hidden="true"
+        >
+          <img
+            class="skin-auth-nav__avatar"
+            :src="avatarUrl"
+            :alt="userLabel"
+            loading="lazy"
+            decoding="async"
+            referrerpolicy="no-referrer"
+            @error="onAvatarError"
+          />
+        </span>
         <span class="skin-auth-nav__label">{{ userLabel }}</span>
         <a class="skin-auth-nav__link" href="/api/auth/logout">{{ strings.logout }}</a>
       </template>
@@ -118,23 +121,44 @@ onMounted(async () => {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding-left: 0.75rem;
+  padding-left: 0;
   font-size: var(--vp-nav-font-size, 14px);
   white-space: nowrap;
+}
+
+/* 与 VPNavBar 里 appearance / social-links 之间的竖线一致 */
+.skin-auth-nav::before {
+  content: '';
+  flex-shrink: 0;
+  width: 1px;
+  height: 24px;
+  margin-left: 16px;
+  margin-right: 8px;
+  background-color: var(--vp-c-divider);
 }
 
 .skin-auth-nav__muted {
   color: var(--vp-c-text-3);
 }
 
-.skin-auth-nav__avatar {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  object-fit: cover;
+/* 外层圆形容器：裁切方形图源，暗色下用与导航一致的底色避免「缺角」发灰/发白 */
+.skin-auth-nav__avatar-wrap {
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
-  border: 1px solid var(--vp-c-divider);
-  background: var(--vp-c-bg-soft);
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--vp-nav-bg-color, var(--vp-c-bg-soft));
+  box-shadow: 0 0 0 1px var(--vp-c-divider);
+}
+
+.skin-auth-nav__avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: 50%;
 }
 
 .skin-auth-nav__label {
