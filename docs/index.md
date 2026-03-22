@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "群隙 ClusterGap"
-  text: "玩家驱动的经济社会模拟器"
+  text: "玩家驱动的轻度经济社会模拟"
   tagline: 手动生产 · 地理物流 · 市场交易 · 契约精神
   actions:
     - theme: brand

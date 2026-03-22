@@ -3,3 +3,6 @@ node_modules/
 
 # Build
 docs/.vitepress/dist
+
+# IDE
+.cursor/

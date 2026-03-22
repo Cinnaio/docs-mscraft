@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "ClusterGap"
-  text: "Player-Driven Economic & Social Simulator"
+  text: "Player-Driven Economic & Social Simulate"
   tagline: Manual Production · Geographical Logistics · Market Trade · Spirit of Contract
   actions:
     - theme: brand
