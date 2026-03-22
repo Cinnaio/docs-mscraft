@@ -131,3 +131,22 @@
   --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
 }
 
+/**
+ * Default theme: vertical nav dividers all use var(--vp-c-divider), but the line
+ * between language and theme (.translations + .appearance::before) can look lighter
+ * due to flex/stacking and subpixel overlap with the switch or flyout button edges.
+ */
+.VPNavBar .content-body .menu + .translations::before,
+.VPNavBar .content-body .menu + .appearance::before,
+.VPNavBar .content-body .menu + .social-links::before,
+.VPNavBar .content-body .translations + .appearance::before,
+.VPNavBar .content-body .appearance + .social-links::before {
+  background-color: var(--vp-c-divider);
+  opacity: 1;
+}
+
+.VPNavBar .content-body .translations + .appearance::before {
+  position: relative;
+  z-index: 2;
+  transform: translateZ(0);
+}
