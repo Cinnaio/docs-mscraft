@@ -1,15 +1,14 @@
 // https://vitepress.dev/guide/custom-theme
 import { h } from 'vue'
-import type { Theme } from 'vitepress'
-import type { Router } from 'vue-router'
+import type { Router, Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import HomeShowcase from './components/HomeShowcase'
 import SkinAuthNav from './components/SkinAuthNav.vue'
 import './style.css'
 
 /**
- * OAuth 由 Cloudflare Functions 处理；Vue Router 会在捕获阶段拦截同源链接并 client-side 导航，
- * 导致 /api/auth/* 无路由 → 404。必须在 window 捕获阶段最早拦截并整页跳转。
+ * OAuth 由 Cloudflare Functions 处理；VitePress 自带路由器会把部分同源链接当成文档页做 SPA 导航，
+ * /api/auth/* 没有对应页面会加载失败。用捕获阶段点击 + onBeforeRouteChange 改为整页跳转。
  */
 function installAuthLinkFullNavigation() {
   if (typeof window === 'undefined') return
@@ -33,15 +32,24 @@ function installAuthLinkFullNavigation() {
   )
 }
 
-/** 若点击拦截仍晚于路由，阻止 SPA 导航并改为整页请求 Functions */
+/**
+ * VitePress 的 router 不是 vue-router，没有 beforeEach；应使用 onBeforeRouteChange。
+ * normalizeHref 会给无扩展路径加 .html，需对 /api/auth/* 去掉误加的后缀再整页跳转。
+ */
 function installAuthRouteGuard(router: Router) {
   if (typeof window === 'undefined') return
-  router.beforeEach((to) => {
-    if (!to.path.startsWith('/api/auth/')) return
-    const path = to.fullPath || to.path
-    window.location.assign(path.startsWith('/') ? path : `/${path}`)
+  const prev = router.onBeforeRouteChange
+  router.onBeforeRouteChange = async (href) => {
+    if ((await prev?.(href)) === false) return false
+    const u = new URL(href, window.location.origin)
+    let path = u.pathname
+    if (path.startsWith('/api/auth/') && path.endsWith('.html')) {
+      path = path.slice(0, -'.html'.length)
+    }
+    if (!path.startsWith('/api/auth/')) return
+    window.location.assign(path + u.search + u.hash)
     return false
-  })
+  }
 }
 
 export default {
