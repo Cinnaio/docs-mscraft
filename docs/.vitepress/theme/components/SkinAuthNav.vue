@@ -6,7 +6,6 @@ const { lang } = useData()
 
 const SKIN_BASE = 'https://skin.cubem.cn'
 
-const loading = ref(true)
 const userLabel = ref<string | null>(null)
 const avatarUrl = ref<string | null>(null)
 const oauthError = ref<string | null>(null)
@@ -16,7 +15,6 @@ const strings = computed(() => {
   return {
     login: en ? 'Sign in (skin)' : '使用皮肤站登录',
     logout: en ? 'Sign out' : '退出',
-    loading: en ? '…' : '…',
     errorPrefix: en ? 'Login error: ' : '登录失败：',
   }
 })
@@ -61,8 +59,13 @@ onMounted(async () => {
     window.history.replaceState({}, '', next)
   }
 
+  const controller = new AbortController()
+  const tid = window.setTimeout(() => controller.abort(), 8000)
   try {
-    const r = await fetch('/api/auth/me', { credentials: 'include' })
+    const r = await fetch('/api/auth/me', {
+      credentials: 'include',
+      signal: controller.signal,
+    })
     if (!r.ok) {
       userLabel.value = null
       avatarUrl.value = null
@@ -80,39 +83,36 @@ onMounted(async () => {
     userLabel.value = null
     avatarUrl.value = null
   } finally {
-    loading.value = false
+    window.clearTimeout(tid)
   }
 })
 </script>
 
 <template>
   <div class="skin-auth-nav" data-skin-auth>
-    <span v-if="loading" class="skin-auth-nav__muted">{{ strings.loading }}</span>
-    <template v-else>
-      <span v-if="oauthError" class="skin-auth-nav__error" role="status">
-        {{ strings.errorPrefix }}{{ oauthError }}
+    <span v-if="oauthError" class="skin-auth-nav__error" role="status">
+      {{ strings.errorPrefix }}{{ oauthError }}
+    </span>
+    <template v-else-if="userLabel">
+      <span
+        v-if="avatarUrl"
+        class="skin-auth-nav__avatar-wrap"
+        aria-hidden="true"
+      >
+        <img
+          class="skin-auth-nav__avatar"
+          :src="avatarUrl"
+          :alt="userLabel"
+          loading="lazy"
+          decoding="async"
+          referrerpolicy="no-referrer"
+          @error="onAvatarError"
+        />
       </span>
-      <template v-if="userLabel">
-        <span
-          v-if="avatarUrl"
-          class="skin-auth-nav__avatar-wrap"
-          aria-hidden="true"
-        >
-          <img
-            class="skin-auth-nav__avatar"
-            :src="avatarUrl"
-            :alt="userLabel"
-            loading="lazy"
-            decoding="async"
-            referrerpolicy="no-referrer"
-            @error="onAvatarError"
-          />
-        </span>
-        <span class="skin-auth-nav__label">{{ userLabel }}</span>
-        <a class="skin-auth-nav__link" href="/api/auth/logout">{{ strings.logout }}</a>
-      </template>
-      <a v-else class="skin-auth-nav__link" href="/api/auth/login">{{ strings.login }}</a>
+      <span class="skin-auth-nav__label">{{ userLabel }}</span>
+      <a class="skin-auth-nav__link" href="/api/auth/logout">{{ strings.logout }}</a>
     </template>
+    <a v-else class="skin-auth-nav__link" href="/api/auth/login">{{ strings.login }}</a>
   </div>
 </template>
 
@@ -135,10 +135,6 @@ onMounted(async () => {
   margin-left: 16px;
   margin-right: 8px;
   background-color: var(--vp-c-divider);
-}
-
-.skin-auth-nav__muted {
-  color: var(--vp-c-text-3);
 }
 
 /* 外层圆形容器：裁切方形图源，暗色下用与导航一致的底色避免「缺角」发灰/发白 */

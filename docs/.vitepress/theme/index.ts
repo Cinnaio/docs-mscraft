@@ -37,7 +37,7 @@ function installAuthLinkFullNavigation() {
 function installAuthRouteGuard(router: Router) {
   if (typeof window === 'undefined') return
   router.beforeEach((to) => {
-    if (!to.path.startsWith('/api/auth/')) return true
+    if (!to.path.startsWith('/api/auth/')) return
     const path = to.fullPath || to.path
     window.location.assign(path.startsWith('/') ? path : `/${path}`)
     return false
