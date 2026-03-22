@@ -6,3 +6,6 @@ docs/.vitepress/dist
 
 # IDE
 .cursor/
+
+# auth
+oauth-env.example.txt
