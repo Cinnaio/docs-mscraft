@@ -2,7 +2,7 @@
  * Starts OAuth: sets oauth_state cookie and redirects to Blessing Skin authorize URL.
  * GET /api/auth/login
  */
-import { setCookieHeader } from '../../../_shared/cookies.js'
+import { setCookieHeader } from '../../_shared/cookies.js'
 
 const DEFAULT_SKIN_BASE = 'https://skin.cubem.cn'
 

@@ -4,6 +4,10 @@ node_modules/
 # Build
 docs/.vitepress/dist
 
+# Wrangler: local `npx wrangler pages functions build` output (do not commit)
+_worker.bundle
+.wrangler/
+
 # IDE
 .cursor/
 

@@ -2,7 +2,7 @@
  * OAuth callback: validates state, exchanges code for tokens, sets HttpOnly session cookie.
  * GET /api/auth/callback
  */
-import { getCookie, setCookieHeader, clearCookieHeader } from '../../../_shared/cookies.js'
+import { getCookie, setCookieHeader, clearCookieHeader } from '../../_shared/cookies.js'
 
 const DEFAULT_SKIN_BASE = 'https://skin.cubem.cn'
 

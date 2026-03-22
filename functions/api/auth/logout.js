@@ -2,7 +2,7 @@
  * Clears OAuth session cookies and redirects home.
  * GET /api/auth/logout
  */
-import { clearCookieHeader } from '../../../_shared/cookies.js'
+import { clearCookieHeader } from '../../_shared/cookies.js'
 
 export async function onRequestGet(context) {
   const url = new URL(context.request.url)

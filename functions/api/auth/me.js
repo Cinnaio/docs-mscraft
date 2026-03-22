@@ -2,7 +2,7 @@
  * Returns Blessing Skin user JSON when session cookie is present.
  * GET /api/auth/me
  */
-import { getCookie } from '../../../_shared/cookies.js'
+import { getCookie } from '../../_shared/cookies.js'
 
 const DEFAULT_SKIN_BASE = 'https://skin.cubem.cn'
 
