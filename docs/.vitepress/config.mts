@@ -200,7 +200,7 @@ export default defineConfig({
           },
         ],
 
-        socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }],
+        // socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }],
         
         lastUpdated: {
           text: '最后提交于',
@@ -268,7 +268,8 @@ export default defineConfig({
             ]
           }
         ],
-        socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }],
+
+        // socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }],
         
         lastUpdated: {
           text: 'Last committed',
