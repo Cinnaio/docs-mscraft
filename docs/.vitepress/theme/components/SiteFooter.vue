@@ -221,23 +221,17 @@ html.dark .site-footer__grid {
   }
 }
 
-/* 三栏外链：与品牌区同一平面，无额外套框 */
+/* 三栏外链：窄屏起即为「快捷链接 | 社交平台」两列，关注我们独占一行 */
 .site-footer__nav {
   flex: 1 1 0;
   min-width: 0;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.75rem 1.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 1.25rem;
 }
 
-@media (min-width: 640px) {
-  .site-footer__nav {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .site-footer__col--follow {
-    grid-column: 1 / -1;
-  }
+.site-footer__col--follow {
+  grid-column: 1 / -1;
 }
 
 @media (min-width: 960px) {
