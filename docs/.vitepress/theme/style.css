@@ -5,6 +5,12 @@
 
 @import './home-showcase.css';
 
+/* 首页 Hero：与渐变标题同处一个 h1 时，避免副标题链路到透明填充而发灰/发白 */
+.VPHero .heading .text {
+  color: var(--vp-c-text-1);
+  -webkit-text-fill-color: currentColor;
+}
+
 /**
  * Colors
  *

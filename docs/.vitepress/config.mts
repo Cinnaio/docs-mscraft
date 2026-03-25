@@ -104,6 +104,13 @@ export default defineConfig({
   head: [
     ['link', { rel: 'icon', type: 'image/png', href: '/images/logo.png' }],
     ['link', { rel: 'apple-touch-icon', href: '/images/logo.png' }],
+    [
+      'link',
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap',
+      },
+    ],
   ],
   transformPageData(pageData) {
     // VitePress 默认只提供 `lastUpdated`（时间戳），不提供“最后更新人”。

@@ -4,6 +4,7 @@ import type { Router, Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import HomeShowcase from './components/HomeShowcase'
 import SkinAuthNav from './components/SkinAuthNav.vue'
+import SiteFooter from './components/SiteFooter.vue'
 import './style.css'
 
 /**
@@ -57,7 +58,8 @@ export default {
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
       'home-features-before': () => h(HomeShowcase),
-      'nav-bar-content-after': () => h(SkinAuthNav)
+      'nav-bar-content-after': () => h(SkinAuthNav),
+      'layout-bottom': () => h(SiteFooter)
     })
   },
   enhanceApp({ router }) {
