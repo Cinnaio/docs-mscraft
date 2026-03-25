@@ -4,6 +4,7 @@
  */
 
 @import './home-showcase.css';
+@import './team-page.css';
 
 /* 首页 Hero：与渐变标题同处一个 h1 时，避免副标题链路到透明填充而发灰/发白 */
 .VPHero .heading .text {
@@ -156,3 +157,4 @@
   z-index: 2;
   transform: translateZ(0);
 }
+

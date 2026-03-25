@@ -5,6 +5,7 @@ import DefaultTheme from 'vitepress/theme'
 import HomeShowcase from './components/HomeShowcase'
 import SkinAuthNav from './components/SkinAuthNav.vue'
 import SiteFooter from './components/SiteFooter.vue'
+import SiteContributors from './components/SiteContributors.vue'
 import './style.css'
 
 /**
@@ -62,7 +63,8 @@ export default {
       'layout-bottom': () => h(SiteFooter)
     })
   },
-  enhanceApp({ router }) {
+  enhanceApp({ app, router }) {
+    app.component('SiteContributors', SiteContributors)
     installAuthLinkFullNavigation()
     installAuthRouteGuard(router)
   }

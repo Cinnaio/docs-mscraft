@@ -163,6 +163,13 @@ export default defineConfig({
             new URL('./theme/components/VPDocFooterLastUpdated.vue', import.meta.url)
           ),
         },
+        {
+          // 团队页头像：皮肤站 → Mojang 会话头像 → 本地 logo
+          find: /^.*\/VPTeamMembersItem\.vue$/,
+          replacement: fileURLToPath(
+            new URL('./theme/components/VPTeamMembersItem.vue', import.meta.url)
+          ),
+        },
       ],
     },
   },
@@ -178,7 +185,8 @@ export default defineConfig({
         nav: [
           { text: '首页', link: '/' },
           { text: '文档维基', link: '/getting-started' },
-          { text: '建议收集', link: '/feedback' }
+          { text: '建议收集', link: '/feedback' },
+          { text: '团队及沿革', link: '/team' }
         ],
 
         sidebar: [
@@ -246,8 +254,9 @@ export default defineConfig({
         logo: '/images/logo.png',
         nav: [
           { text: 'Home', link: '/en/' },
-          { text: 'Documentation', link: '/en/getting-started' }
-          ,{ text: 'Feedback', link: '/en/feedback' }
+          { text: 'Documentation', link: '/en/getting-started' },
+          { text: 'Feedback', link: '/en/feedback' },
+          { text: 'Team & History', link: '/en/team' }
         ],
 
         sidebar: [

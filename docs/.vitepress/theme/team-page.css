@@ -1,0 +1,169 @@
+/**
+ * 团队页：VitePress 文档式标题与单栏（无「落地页」扉语/装饰线）；加宽并预留顶距
+ */
+
+.site-team {
+  position: relative;
+  padding: 0 0 3rem;
+}
+
+/* 与导航拉开距离；横向尽量吃满页面内容区，减少两侧「大白边」 */
+.site-team .VPTeamPage {
+  margin: 0 auto;
+  padding: 2.75rem min(2rem, 4vw) 2rem;
+  max-width: min(72rem, calc(100vw - 2.5rem));
+}
+
+@media (min-width: 960px) {
+  .site-team .VPTeamPage {
+    padding-top: 3.25rem;
+  }
+}
+
+/* 标题区：左对齐，与普通文档页一致 */
+.site-team .VPTeamPageTitle {
+  padding: 0;
+  margin: 0 0 1.75rem;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+html.dark .site-team .VPTeamPageTitle {
+  box-shadow: none;
+}
+
+.site-team .VPTeamPageTitle::before {
+  display: none;
+}
+
+.site-team .VPTeamPageTitle .title {
+  display: block;
+  margin: 0;
+  text-align: left;
+  line-height: 1.2;
+  font-weight: 600;
+  font-size: clamp(2rem, 3.2vw, 2.5rem);
+  letter-spacing: -0.02em;
+  color: var(--vp-c-text-1);
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+}
+
+.site-team .VPTeamPageTitle .title::after {
+  display: none;
+}
+
+.site-team .VPTeamPageTitle .lead {
+  margin: 0.85rem 0 0;
+  padding: 0;
+  max-width: 50rem;
+  text-align: left;
+  line-height: 1.75;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--vp-c-text-2);
+}
+
+@media (min-width: 768px) {
+  .site-team .VPTeamPageTitle .lead {
+    font-size: 1rem;
+  }
+}
+
+.site-team .VPTeamPageTitle .lead :where(strong) {
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.site-team-section {
+  margin: 1.75rem 0 0;
+  padding: 1.75rem 0 0;
+  border: none;
+  border-radius: 0;
+  border-top: 1px solid var(--vp-c-divider);
+  background: transparent;
+  box-shadow: none;
+}
+
+.site-team-section__title {
+  margin: 0 0 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--vp-c-text-1);
+}
+
+.site-team-history {
+  margin: 2rem 0 0;
+  padding: 2rem 0 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  border-top: 1px solid var(--vp-c-divider);
+  scroll-margin-top: var(--vp-nav-height, 64px);
+}
+
+/* 历史正文来自引入的 .md，结构为 h2 + 段落 + ul 等 */
+.site-team-history h2 {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: 1.35;
+  border: none;
+  color: var(--vp-c-text-1);
+}
+
+.site-team-history p {
+  margin: 0 0 0.85rem;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--vp-c-text-2);
+  max-width: 50rem;
+}
+
+.site-team-history p:last-child {
+  margin-bottom: 0;
+}
+
+.site-team-history ul,
+.site-team-history ol {
+  margin: 0.25rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--vp-c-text-2);
+  max-width: 50rem;
+}
+
+.site-team-history li {
+  margin-bottom: 0.5rem;
+}
+
+.site-team-history li:last-child {
+  margin-bottom: 0;
+}
+
+.site-team-history li > p {
+  margin: 0;
+}
+
+.site-team-history strong {
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.site-team-history a {
+  font-weight: 500;
+  color: var(--vp-c-brand-1);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+}
+
