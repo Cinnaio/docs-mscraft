@@ -302,3 +302,23 @@ html.dark .mc-item-tooltip {
   white-space: pre-wrap;
 }
 
+@media (hover: none), (pointer: coarse) {
+  .mc-item-tooltip {
+    max-width: min(420px, 92vw);
+    padding: 0.65rem 0.78rem;
+    border-radius: 12px;
+  }
+
+  .mc-item-tooltip::after {
+    content: 'Tap blank area to close';
+    display: block;
+    margin-top: 0.45rem;
+    font-size: 0.72rem;
+    color: var(--vp-c-text-3);
+  }
+}
+
+html[lang^='zh'] .mc-item-tooltip::after {
+  content: '点空白处关闭';
+}
+

@@ -43,6 +43,10 @@ export function installItemChipTooltip() {
   const descEl = tooltip.querySelector('.mc-item-tooltip__desc') as HTMLDivElement
 
   let currentChip: HTMLElement | null = null
+  let lastPointerType: string | null = null
+
+  const isMobileLike = () =>
+    window.matchMedia('(hover: none), (pointer: coarse)').matches
 
   const hide = () => {
     currentChip = null
@@ -60,11 +64,14 @@ export function installItemChipTooltip() {
     tooltip.style.top = `${Math.max(pad, top)}px`
   }
 
-  document.addEventListener('pointerover', (e) => {
-    const t = e.target as HTMLElement | null
-    const chip = t?.closest?.('.item-chip') as HTMLElement | null
-    if (!chip) return
+  const positionByChip = (chip: HTMLElement) => {
+    const rect = chip.getBoundingClientRect()
+    const x = rect.left + rect.width / 2
+    const y = rect.top - 8
+    positionTooltip(x, y)
+  }
 
+  const showForChip = (chip: HTMLElement, x?: number, y?: number) => {
     currentChip = chip
     const rawName = normalizeChipName(chip.innerText || '')
     const localePrimary = isEnglishLocale() ? ITEM_META_EN : ITEM_META_ZH
@@ -74,22 +81,58 @@ export function installItemChipTooltip() {
     const desc = chip.dataset.tipDesc || mapped?.desc || (isEnglishLocale() ? 'No description yet.' : '暂无描述')
     titleEl.textContent = title
     descEl.textContent = desc
-
     tooltip.classList.add('is-visible')
+
+    if (typeof x === 'number' && typeof y === 'number') {
+      positionTooltip(x, y)
+      return
+    }
+    positionByChip(chip)
+  }
+
+  document.addEventListener('pointerover', (e) => {
     const pe = e as PointerEvent
-    positionTooltip(pe.clientX, pe.clientY)
+    lastPointerType = pe.pointerType || lastPointerType
+    if (isMobileLike() || pe.pointerType === 'touch') return
+
+    const t = e.target as HTMLElement | null
+    const chip = t?.closest?.('.item-chip') as HTMLElement | null
+    if (!chip) return
+
+    showForChip(chip, pe.clientX, pe.clientY)
   })
 
   document.addEventListener('pointermove', (e) => {
-    if (!currentChip || !tooltip.classList.contains('is-visible')) return
     const pe = e as PointerEvent
+    lastPointerType = pe.pointerType || lastPointerType
+    if (isMobileLike() || pe.pointerType === 'touch') return
+    if (!currentChip || !tooltip.classList.contains('is-visible')) return
     positionTooltip(pe.clientX, pe.clientY)
   })
 
   document.addEventListener('pointerout', (e) => {
+    const pe = e as PointerEvent
+    lastPointerType = pe.pointerType || lastPointerType
+    if (isMobileLike() || pe.pointerType === 'touch') return
     const t = e.target as HTMLElement | null
     if (!t?.closest?.('.item-chip')) return
     hide()
+  })
+
+  // Mobile / touch: tap chip to toggle tooltip, tap elsewhere to close.
+  document.addEventListener('click', (e) => {
+    if (!isMobileLike() && lastPointerType !== 'touch') return
+    const t = e.target as HTMLElement | null
+    const chip = t?.closest?.('.item-chip') as HTMLElement | null
+    if (!chip) {
+      hide()
+      return
+    }
+    if (currentChip === chip && tooltip.classList.contains('is-visible')) {
+      hide()
+      return
+    }
+    showForChip(chip)
   })
 
   document.addEventListener('scroll', hide, true)
