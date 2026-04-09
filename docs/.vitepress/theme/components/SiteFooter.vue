@@ -1,6 +1,14 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useData, useRoute } from 'vitepress'
+
+function buildEraLine(en: boolean) {
+  const y = new Date().getFullYear()
+  if (en) {
+    return `ClusterGap 2022-${y}`
+  }
+  return `群隙 2022-${y}`
+}
 
 /** 按需改成你的 B 站空间、QQ 频道、实时地图等 */
 const EXTERNAL = {
@@ -11,6 +19,19 @@ const EXTERNAL = {
 
 const { lang, site } = useData()
 const route = useRoute()
+
+const eraDisplay = ref(buildEraLine(lang.value === 'en-US'))
+
+onMounted(() => {
+  eraDisplay.value = buildEraLine(lang.value === 'en-US')
+})
+
+watch(
+  () => lang.value,
+  () => {
+    eraDisplay.value = buildEraLine(lang.value === 'en-US')
+  },
+)
 
 /** 仅首页（根与英文首页）展示，文档页不渲染 */
 const isHomePage = computed(() => {
@@ -46,6 +67,7 @@ const copy = computed(() => {
       qq: { text: en ? 'QQ Channel' : 'QQ 频道', href: EXTERNAL.qqChannel },
     },
     bilibiliCta: en ? 'Bilibili homepage' : '群隙时报 B站主页',
+    cloudflare: en ? 'Powered by Cloudflare 🧡' : '由 Cloudflare 驱动 🧡',
   }
 })
 </script>
@@ -55,77 +77,87 @@ const copy = computed(() => {
     <div class="site-footer__glow" aria-hidden="true" />
     <div class="site-footer__grid" aria-hidden="true" />
     <div class="site-footer__inner">
-      <div class="site-footer__brand">
-        <img
-          class="site-footer__logo"
-          src="/images/logo.png"
-          width="48"
-          height="48"
-          alt=""
-        />
-        <div class="site-footer__brand-text">
-          <span class="site-footer__name">{{ copy.brandPixel }}</span>
-          <p class="site-footer__tagline">{{ copy.tagline }}</p>
+      <div class="site-footer__top">
+        <div class="site-footer__brand">
+          <img
+            class="site-footer__logo"
+            src="/images/logo.png"
+            width="48"
+            height="48"
+            alt=""
+          />
+          <div class="site-footer__brand-text">
+            <span class="site-footer__name">{{ copy.brandPixel }}</span>
+            <p class="site-footer__tagline">{{ copy.tagline }}</p>
+          </div>
+        </div>
+
+        <div class="site-footer__nav">
+          <div class="site-footer__col">
+            <h2 class="site-footer__heading">{{ copy.colQuick }}</h2>
+            <ul class="site-footer__list">
+              <li>
+                <a :href="copy.links.wiki.href">{{ copy.links.wiki.text }}</a>
+              </li>
+              <li>
+                <a :href="copy.links.skin.href" target="_blank" rel="noopener noreferrer">{{
+                  copy.links.skin.text
+                }}</a>
+              </li>
+              <li>
+                <a :href="copy.links.map.href">{{ copy.links.map.text }}</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="site-footer__col">
+            <h2 class="site-footer__heading">{{ copy.colSocial }}</h2>
+            <ul class="site-footer__list">
+              <li>
+                <a :href="copy.social.github.href" target="_blank" rel="noopener noreferrer">{{
+                  copy.social.github.text
+                }}</a>
+              </li>
+              <li>
+                <a :href="copy.social.bilibili.href" target="_blank" rel="noopener noreferrer">{{
+                  copy.social.bilibili.text
+                }}</a>
+              </li>
+              <li>
+                <a :href="copy.social.qq.href" target="_blank" rel="noopener noreferrer">{{
+                  copy.social.qq.text
+                }}</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="site-footer__col site-footer__col--follow">
+            <h2 class="site-footer__heading">{{ copy.colFollow }}</h2>
+            <a
+              class="site-footer__bili-btn"
+              :href="EXTERNAL.bilibiliSpace"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg class="site-footer__bili-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M4 4h4l2 3h4l2-3h4v2h-2.5l2 12H6.5l2-12H4V4zm3.5 4L6 18h12l-1.5-10h-9zM8 15h2v2H8v-2zm6 0h2v2h-2v-2z"
+                />
+              </svg>
+              <span>{{ copy.bilibiliCta }}</span>
+            </a>
+          </div>
         </div>
       </div>
 
-      <div class="site-footer__nav">
-        <div class="site-footer__col">
-          <h2 class="site-footer__heading">{{ copy.colQuick }}</h2>
-          <ul class="site-footer__list">
-            <li>
-              <a :href="copy.links.wiki.href">{{ copy.links.wiki.text }}</a>
-            </li>
-            <li>
-              <a :href="copy.links.skin.href" target="_blank" rel="noopener noreferrer">{{
-                copy.links.skin.text
-              }}</a>
-            </li>
-            <li>
-              <a :href="copy.links.map.href">{{ copy.links.map.text }}</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="site-footer__col">
-          <h2 class="site-footer__heading">{{ copy.colSocial }}</h2>
-          <ul class="site-footer__list">
-            <li>
-              <a :href="copy.social.github.href" target="_blank" rel="noopener noreferrer">{{
-                copy.social.github.text
-              }}</a>
-            </li>
-            <li>
-              <a :href="copy.social.bilibili.href" target="_blank" rel="noopener noreferrer">{{
-                copy.social.bilibili.text
-              }}</a>
-            </li>
-            <li>
-              <a :href="copy.social.qq.href" target="_blank" rel="noopener noreferrer">{{
-                copy.social.qq.text
-              }}</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="site-footer__col site-footer__col--follow">
-          <h2 class="site-footer__heading">{{ copy.colFollow }}</h2>
-          <a
-            class="site-footer__bili-btn"
-            :href="EXTERNAL.bilibiliSpace"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg class="site-footer__bili-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                fill="currentColor"
-                d="M4 4h4l2 3h4l2-3h4v2h-2.5l2 12H6.5l2-12H4V4zm3.5 4L6 18h12l-1.5-10h-9zM8 15h2v2H8v-2zm6 0h2v2h-2v-2z"
-              />
-            </svg>
-            <span>{{ copy.bilibiliCta }}</span>
-          </a>
-        </div>
-      </div>
+      <p class="site-footer__infra">
+        <span class="site-footer__era">{{ eraDisplay }}</span>
+        <span class="site-footer__infra-sep" aria-hidden="true">·</span>
+        <a href="https://www.cloudflare.com/" target="_blank" rel="noopener noreferrer">{{
+          copy.cloudflare
+        }}</a>
+      </p>
     </div>
   </footer>
 </template>
@@ -208,17 +240,70 @@ html.dark .site-footer__grid {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 2rem;
+  gap: 1.75rem;
   max-width: 1152px;
   margin: 0 auto;
 }
 
+/* 品牌 + 外链栅格；与底部「由 Cloudflare 驱动」分离，避免桌面端被挤成第三列 */
+.site-footer__top {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2rem;
+  width: 100%;
+  min-width: 0;
+}
+
 @media (min-width: 960px) {
-  .site-footer__inner {
+  .site-footer__top {
     flex-direction: row;
     align-items: flex-start;
     gap: clamp(1.75rem, 4vw, 3rem);
   }
+}
+
+.site-footer__infra {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.45rem 0.65rem;
+  margin: 0;
+  width: 100%;
+  flex: 0 0 auto;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--vp-c-divider);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  color: var(--vp-c-text-3);
+  text-align: center;
+}
+
+.site-footer__era {
+  color: var(--vp-c-text-3);
+}
+
+.site-footer__infra-sep {
+  opacity: 0.55;
+  user-select: none;
+}
+
+@media (min-width: 960px) {
+  .site-footer__infra {
+    padding-top: 1.5rem;
+  }
+}
+
+.site-footer__infra a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.site-footer__infra a:hover {
+  color: var(--vp-c-text-2);
 }
 
 /* 三栏外链：窄屏起即为「快捷链接 | 社交平台」两列，关注我们独占一行 */
