@@ -200,7 +200,7 @@ export default defineConfig({
           {
             text: '玩法维基',
             items: [
-              { text: 'Teastory 茶叶', link: '/tutorial/Teastory' }
+              { text: '茶风纪事', link: '/tutorial/Teastory' }
             ]
           },
           {
