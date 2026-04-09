@@ -158,3 +158,97 @@
   transform: translateZ(0);
 }
 
+/**
+ * Docs utility: item chips (icon + name) for recipe docs
+ * Reusable in markdown via:
+ * <span class="item-chip"><img src="...">名称</span>
+ */
+.VPDoc .item-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34em;
+  padding: 0.12em 0.48em;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  line-height: 1.35;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-size: 0.92em;
+}
+
+.VPDoc .item-chip > img {
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 2px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.VPDoc .item-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.36em 0.4em;
+  margin: 0.18rem 0;
+}
+
+.VPDoc .item-flow .arrow {
+  color: var(--vp-c-text-3);
+}
+
+/* 可轮询图标：在 item-chip 内放一组图标，按顺序淡入淡出 */
+.VPDoc .item-chip--cycle {
+  position: relative;
+}
+
+.VPDoc .item-chip__icon-stack {
+  position: relative;
+  width: 1.1em;
+  height: 1.1em;
+  flex: 0 0 1.1em;
+}
+
+.VPDoc .item-chip__icon-stack > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  opacity: 0;
+  animation-name: item-chip-cycle;
+  animation-duration: var(--item-cycle-duration, 9s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.VPDoc .item-chip__icon-stack > img:nth-child(1) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 0); }
+.VPDoc .item-chip__icon-stack > img:nth-child(2) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 1); }
+.VPDoc .item-chip__icon-stack > img:nth-child(3) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 2); }
+.VPDoc .item-chip__icon-stack > img:nth-child(4) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 3); }
+.VPDoc .item-chip__icon-stack > img:nth-child(5) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 4); }
+.VPDoc .item-chip__icon-stack > img:nth-child(6) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 5); }
+.VPDoc .item-chip__icon-stack > img:nth-child(7) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 6); }
+.VPDoc .item-chip__icon-stack > img:nth-child(8) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 7); }
+
+@keyframes item-chip-cycle {
+  0% { opacity: 0; }
+  8% { opacity: 1; }
+  42% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .VPDoc .item-chip__icon-stack > img {
+    animation: none;
+  }
+
+  .VPDoc .item-chip__icon-stack > img:first-child {
+    opacity: 1;
+  }
+}
+
