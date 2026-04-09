@@ -1,0 +1,278 @@
+translations:
+  en:
+    category.teastory.name: <#7EFAA5>The Tea Story
+    category.teastory_fresh: Fresh Tea
+    category.teastory_withered: Withered Tea
+    item.fresh_tea_leaf: Fresh Leaf
+    item.fresh_tea_leaf_bud: '<color:#FFD166>Single Bud'
+    item.fresh_tea_leaf_bud_leaf1: '<color:#7DFF9B>One Bud One Leaf'
+    item.fresh_tea_leaf_bud_leaf2: '<color:#45E06F>One Bud Two Leaves'
+    item.fresh_tea_leaf_bud_leaf3: '<color:#2E9F5A>One Bud Three Leaves'
+    item.fresh_tea_leaf_old_leaf: '<color:#A47148>Old Leaf'
+    item.failed_fixation_tea_leaf: Failed Fixation Leaf
+    item.tea_leaf: Green Leaf
+    item.wet_tea_leaf: Wet Tea Leaf
+    item.dried_tea: Dried Tea
+    item.broken_tea_leaf: Broken Tea Leaf
+    item.black_tea_leaf: Black Tea Leaf
+    item.green_tea_leaf: Green Tea Leaf
+    item.oolong_tea_leaf: Oolong Tea Leaf
+    item.puer_tea_leaf: Pu'er Tea Leaf
+    item.white_tea_leaf: White Tea Leaf
+    item.yellow_tea_leaf: Yellow Tea Leaf
+    item.matcha_tea_leaf: Matcha Leaf
+    item.black_tea_residue: Black Tea Residue
+    item.green_tea_residue: Green Tea Residue
+    item.oolong_tea_residue: Oolong Tea Residue
+    item.puer_tea_residue: Pu'er Tea Residue
+    item.white_tea_residue: White Tea Residue
+    item.yellow_tea_residue: Yellow Tea Residue
+    item.empty_tea_bag: Empty Tea Bag
+    item.black_tea_bag: Black Tea Bag
+    item.green_tea_bag: Green Tea Bag
+    item.oolong_tea_bag: Oolong Tea Bag
+    item.puer_tea_bag: Pu'er Tea Bag
+    item.white_tea_bag: White Tea Bag
+    item.yellow_tea_bag: Yellow Tea Bag
+    item.cup_glass: Glass Cup
+    item.black_tea_glass: Glass of Black Tea
+    item.green_tea_glass: Glass of Green Tea
+    item.lemon_tea_glass: Glass of Lemon Tea
+    item.matcha_drink_glass: Glass of Matcha Drink
+    item.milk_tea_glass: Glass of Milk Tea
+    item.oolong_tea_glass: Glass of Oolong Tea
+    item.puer_tea_glass: Glass of Pu'er Tea
+    item.white_tea_glass: Glass of White Tea
+    item.yellow_tea_glass: Glass of Yellow Tea
+    item.cup_stone: Stone Cup
+    item.black_tea_stone: Stone Cup of Black Tea
+    item.green_tea_stone: Stone Cup of Green Tea
+    item.lemon_tea_stone: Stone Cup of Lemon Tea
+    item.matcha_drink_stone: Stone Cup of Matcha Drink
+    item.milk_tea_stone: Stone Cup of Milk Tea
+    item.oolong_tea_stone: Stone Cup of Oolong Tea
+    item.puer_tea_stone: Stone Cup of Pu'er Tea
+    item.white_tea_stone: Stone Cup of White Tea
+    item.yellow_tea_stone: Stone Cup of Yellow Tea
+    item.cup_wood: Wooden Tea Cup
+    item.black_tea_wood: Wooden Cup of Black Tea
+    item.green_tea_wood: Wooden Cup of Green Tea
+    item.lemon_tea_wood: Wooden Cup of Lemon Tea
+    item.matcha_drink_wood: Wooden Cup of Matcha Drink
+    item.milk_tea_wood: Wooden Cup of Milk Tea
+    item.oolong_tea_wood: Wooden Cup of Oolong Tea
+    item.puer_tea_wood: Wooden Cup of Pu'er Tea
+    item.white_tea_wood: Wooden Cup of White Tea
+    item.yellow_tea_wood: Wooden Cup of Yellow Tea
+    item.zisha_clay: Zisha Clay
+    item.clay_cup: White Porcelain Cup Blank
+    item.zisha_clay_cup: Zisha Cup Base
+    item.pot_clay: White Porcelain Jar Blank
+    item.pot_zisha_clay: Zisha Jar Blank
+    item.pot_stone: Stone Jar
+    item.water_pot_stone: Stone Water Pot
+    item.boiled_water_pot_stone: Boiled Stone Water Pot
+    item.cup_porcelain: Porcelain Cup
+    item.black_tea_porcelain: Porcelain Cup of Black Tea
+    item.green_tea_porcelain: Porcelain Cup of Green Tea
+    item.lemon_tea_porcelain: Porcelain Cup of Lemon Tea
+    item.matcha_drink_porcelain: Porcelain Cup of Matcha Drink
+    item.milk_tea_porcelain: Porcelain Cup of Milk Tea
+    item.oolong_tea_porcelain: Porcelain Cup of Oolong Tea
+    item.puer_tea_porcelain: Porcelain Cup of Pu'er Tea
+    item.white_tea_porcelain: Porcelain Cup of White Tea
+    item.yellow_tea_porcelain: Porcelain Cup of Yellow Tea
+    item.empty_porcelain_kettle: Empty Porcelain Kettle
+    item.empty_zisha_kettle: Empty Zisha Kettle
+    item.clay_kettle: Clay Kettle
+    item.zisha_clay_kettle: Zisha Clay Kettle
+    item.black_tea_porcelain_kettle: Porcelain Kettle of Black Tea
+    item.green_tea_porcelain_kettle: Porcelain Kettle of Green Tea
+    item.lemon_tea_porcelain_kettle: Porcelain Kettle of Lemon Tea
+    item.matcha_drink_porcelain_kettle: Porcelain Kettle of Matcha Drink
+    item.milk_tea_porcelain_kettle: Porcelain Kettle of Milk Tea
+    item.oolong_tea_porcelain_kettle: Porcelain Kettle of Oolong Tea
+    item.puer_tea_porcelain_kettle: Porcelain Kettle of Pu'er Tea
+    item.white_tea_porcelain_kettle: Porcelain Kettle of White Tea
+    item.yellow_tea_porcelain_kettle: Porcelain Kettle of Yellow Tea
+    item.black_tea_zisha_kettle: Zisha Kettle of Black Tea
+    item.green_tea_zisha_kettle: Zisha Kettle of Green Tea
+    item.lemon_tea_zisha_kettle: Zisha Kettle of Lemon Tea
+    item.matcha_drink_zisha_kettle: Zisha Kettle of Matcha Drink
+    item.milk_tea_zisha_kettle: Zisha Kettle of Milk Tea
+    item.oolong_tea_zisha_kettle: Zisha Kettle of Oolong Tea
+    item.puer_tea_zisha_kettle: Zisha Kettle of Pu'er Tea
+    item.white_tea_zisha_kettle: Zisha Kettle of White Tea
+    item.yellow_tea_zisha_kettle: Zisha Kettle of Yellow Tea
+    item.pot_porcelain: White Porcelain Jar
+    item.water_pot_porcelain: Porcelain Water Pot
+    item.boiled_water_pot_porcelain: Boiled Porcelain Water Pot
+    item.pot_iron: Iron Jar
+    item.water_pot_iron: Iron Water Pot
+    item.boiled_water_pot_iron: Boiled Iron Water Pot
+    item.pot_zisha: Zisha Jar
+    item.water_pot_zisha: Zisha Water Pot
+    item.boiled_water_pot_zisha: Boiled Zisha Water Pot
+    item.cup_zisha: Zisha Cup
+    item.black_tea_zisha: Zisha Cup of Black Tea
+    item.green_tea_zisha: Zisha Cup of Green Tea
+    item.lemon_tea_zisha: Zisha Cup of Lemon Tea
+    item.matcha_drink_zisha: Zisha Cup of Matcha Drink
+    item.milk_tea_zisha: Zisha Cup of Milk Tea
+    item.oolong_tea_zisha: Zisha Cup of Oolong Tea
+    item.puer_tea_zisha: Zisha Cup of Pu'er Tea
+    item.white_tea_zisha: Zisha Cup of White Tea
+    item.yellow_tea_zisha: Zisha Cup of Yellow Tea
+    item.tea_seeds: Tea Seeds
+    item.tea_fixation_station: Tea Fixation Station
+    item.wooden_mortar_and_pestle: Wooden Mortar & Pestle
+    item.tea_whisk: Tea Whisk
+    item.sickle: Sickle
+    item.withered_tea_leaf: Withered Tea Leaf
+    item.withered_tea_leaf_bud: '<color:#FFD166>Withered Single Bud'
+    item.withered_tea_leaf_bud_leaf1: '<color:#7DFF9B>Withered One Bud One Leaf'
+    item.withered_tea_leaf_bud_leaf2: '<color:#45E06F>Withered One Bud Two Leaves'
+    item.withered_tea_leaf_bud_leaf3: '<color:#2E9F5A>Withered One Bud Three Leaves'
+    item.withered_tea_leaf_old_leaf: '<color:#A47148>Withered Old Leaf'
+    item.deep_fermented_tea_leaf: Deep Fermented Tea Leaf
+    item.semi_fermented_tea_leaf: Semi Fermented Tea Leaf
+    item.fully_fermented_tea_leaf: Fully Fermented Tea Leaf
+    item.baking_powder: Baking Powder
+  zh_cn:
+    category.teastory.name: '<#7EFAA5>茶风·纪事'
+    category.teastory_fresh: '鲜叶'
+    category.teastory_withered: '萎凋叶'
+    item.fresh_tea_leaf: '鲜叶'
+    item.fresh_tea_leaf_bud: '鲜叶 <gray>(品质: <color:#F29736>单芽<gray>)'
+    item.fresh_tea_leaf_bud_leaf1: '鲜叶 <gray>(品质: <color:#F7B064>一芽一叶<gray>)'
+    item.fresh_tea_leaf_bud_leaf2: '鲜叶 <gray>(品质: <color:#FBBE7E>一芽二叶<gray>)'
+    item.fresh_tea_leaf_bud_leaf3: '鲜叶 <gray>(品质: <color:#F7D9B9>一芽三叶<gray>)'
+    item.fresh_tea_leaf_old_leaf: '鲜叶 <gray>(品质: <color:#6A6A6A>老叶<gray>)'
+    item.failed_fixation_tea_leaf: '焦叶'
+    item.wet_tea_leaf: '湿茶'
+    item.tea_leaf: '青叶'
+    item.broken_tea_leaf: '碎茶'
+    item.black_tea_leaf: '红茶茶叶'
+    item.green_tea_leaf: '绿茶茶叶'
+    item.oolong_tea_leaf: '乌龙茶茶叶'
+    item.puer_tea_leaf: '普洱茶茶叶'
+    item.white_tea_leaf: '白茶茶叶'
+    item.yellow_tea_leaf: '黄茶茶叶'
+    item.matcha_tea_leaf: '抹茶叶'
+    item.black_tea_residue: '红茶茶渣'
+    item.green_tea_residue: '绿茶茶渣'
+    item.oolong_tea_residue: '乌龙茶茶渣'
+    item.puer_tea_residue: '普洱茶茶渣'
+    item.white_tea_residue: '白茶茶渣'
+    item.yellow_tea_residue: '黄茶茶渣'
+    item.empty_tea_bag: '空茶包'
+    item.black_tea_bag: '红茶茶包'
+    item.green_tea_bag: '绿茶茶包'
+    item.oolong_tea_bag: '乌龙茶茶包'
+    item.puer_tea_bag: '普洱茶茶包'
+    item.white_tea_bag: '白茶茶包'
+    item.yellow_tea_bag: '黄茶茶包'
+    item.cup_glass: '玻璃杯'
+    item.black_tea_glass: '红茶玻璃杯'
+    item.green_tea_glass: '绿茶玻璃杯'
+    item.lemon_tea_glass: '柠檬茶玻璃杯'
+    item.matcha_drink_glass: '抹茶饮玻璃杯'
+    item.milk_tea_glass: '奶茶玻璃杯'
+    item.oolong_tea_glass: '乌龙茶玻璃杯'
+    item.puer_tea_glass: '普洱茶玻璃杯'
+    item.white_tea_glass: '白茶玻璃杯'
+    item.yellow_tea_glass: '黄茶玻璃杯'
+    item.cup_stone: '石杯'
+    item.black_tea_stone: '红茶石杯'
+    item.green_tea_stone: '绿茶石杯'
+    item.lemon_tea_stone: '柠檬茶石杯'
+    item.matcha_drink_stone: '抹茶饮石杯'
+    item.milk_tea_stone: '奶茶石杯'
+    item.oolong_tea_stone: '乌龙茶石杯'
+    item.puer_tea_stone: '普洱茶石杯'
+    item.white_tea_stone: '白茶石杯'
+    item.yellow_tea_stone: '黄茶石杯'
+    item.cup_wood: '木茶杯'
+    item.black_tea_wood: '红茶木杯'
+    item.green_tea_wood: '绿茶木杯'
+    item.lemon_tea_wood: '柠檬茶木杯'
+    item.matcha_drink_wood: '抹茶饮木杯'
+    item.milk_tea_wood: '奶茶木杯'
+    item.oolong_tea_wood: '乌龙茶木杯'
+    item.puer_tea_wood: '普洱茶木杯'
+    item.white_tea_wood: '白茶木杯'
+    item.yellow_tea_wood: '黄茶木杯'
+    item.zisha_clay: '紫砂泥'
+    item.clay_cup: '白瓷杯坯'
+    item.zisha_clay_cup: '紫砂杯坯'
+    item.pot_clay: '白瓷罐坯'
+    item.pot_zisha_clay: '紫砂罐坯'
+    item.pot_stone: '石罐'
+    item.water_pot_stone: '石水壶'
+    item.boiled_water_pot_stone: '烧开的石水壶'
+    item.cup_porcelain: '瓷杯'
+    item.black_tea_porcelain: '红茶瓷杯'
+    item.green_tea_porcelain: '绿茶瓷杯'
+    item.lemon_tea_porcelain: '柠檬茶瓷杯'
+    item.matcha_drink_porcelain: '抹茶饮瓷杯'
+    item.milk_tea_porcelain: '奶茶瓷杯'
+    item.oolong_tea_porcelain: '乌龙茶瓷杯'
+    item.puer_tea_porcelain: '普洱茶瓷杯'
+    item.white_tea_porcelain: '白茶瓷杯'
+    item.yellow_tea_porcelain: '黄茶瓷杯'
+    item.empty_porcelain_kettle: '空瓷茶壶'
+    item.empty_zisha_kettle: '空紫砂茶壶'
+    item.clay_kettle: '陶土茶壶'
+    item.zisha_clay_kettle: '紫砂陶土茶壶'
+    item.black_tea_porcelain_kettle: '红茶瓷茶壶'
+    item.green_tea_porcelain_kettle: '绿茶瓷茶壶'
+    item.lemon_tea_porcelain_kettle: '柠檬茶瓷茶壶'
+    item.matcha_drink_porcelain_kettle: '抹茶饮瓷茶壶'
+    item.milk_tea_porcelain_kettle: '奶茶瓷茶壶'
+    item.oolong_tea_porcelain_kettle: '乌龙茶瓷茶壶'
+    item.puer_tea_porcelain_kettle: '普洱茶瓷茶壶'
+    item.white_tea_porcelain_kettle: '白茶瓷茶壶'
+    item.yellow_tea_porcelain_kettle: '黄茶瓷茶壶'
+    item.black_tea_zisha_kettle: '红茶紫砂茶壶'
+    item.green_tea_zisha_kettle: '绿茶紫砂茶壶'
+    item.lemon_tea_zisha_kettle: '柠檬茶紫砂茶壶'
+    item.matcha_drink_zisha_kettle: '抹茶饮紫砂茶壶'
+    item.milk_tea_zisha_kettle: '奶茶紫砂茶壶'
+    item.oolong_tea_zisha_kettle: '乌龙茶紫砂茶壶'
+    item.puer_tea_zisha_kettle: '普洱茶紫砂茶壶'
+    item.white_tea_zisha_kettle: '白茶紫砂茶壶'
+    item.yellow_tea_zisha_kettle: '黄茶紫砂茶壶'
+    item.pot_porcelain: '白瓷罐'
+    item.water_pot_porcelain: '瓷水壶'
+    item.boiled_water_pot_porcelain: '烧开的瓷水壶'
+    item.pot_iron: '铁罐'
+    item.water_pot_iron: '铁水壶'
+    item.boiled_water_pot_iron: '烧开的铁水壶'
+    item.pot_zisha: '紫砂罐'
+    item.water_pot_zisha: '紫砂水壶'
+    item.boiled_water_pot_zisha: '烧开的紫砂水壶'
+    item.cup_zisha: '紫砂杯'
+    item.black_tea_zisha: '红茶紫砂杯'
+    item.green_tea_zisha: '绿茶紫砂杯'
+    item.lemon_tea_zisha: '柠檬茶紫砂杯'
+    item.matcha_drink_zisha: '抹茶饮紫砂杯'
+    item.milk_tea_zisha: '奶茶紫砂杯'
+    item.oolong_tea_zisha: '乌龙茶紫砂杯'
+    item.puer_tea_zisha: '普洱茶紫砂杯'
+    item.white_tea_zisha: '白茶紫砂杯'
+    item.yellow_tea_zisha: '黄茶紫砂杯'
+    item.tea_seeds: '茶种子'
+    item.tea_fixation_station: '固化台'
+    item.wooden_mortar_and_pestle: '木制研钵研杵'
+    item.tea_whisk: '茶筅'
+    item.sickle: '镰刀'
+    item.withered_tea_leaf: '萎凋叶'
+    item.withered_tea_leaf_bud: '萎凋叶 <gray>(品质: <color:#F29736>单芽<gray>)'
+    item.withered_tea_leaf_bud_leaf1: '萎凋叶 <gray>(品质: <color:#F7B064>一芽一叶<gray>)'
+    item.withered_tea_leaf_bud_leaf2: '萎凋叶 <gray>(品质: <color:#FBBE7E>一芽二叶<gray>)'
+    item.withered_tea_leaf_bud_leaf3: '萎凋叶 <gray>(品质: <color:#F7D9B9>一芽三叶<gray>)'
+    item.withered_tea_leaf_old_leaf: '萎凋叶 <gray>(品质: <color:#6A6A6A>老叶<gray>)'
+    item.deep_fermented_tea_leaf: '重发酵茶'
+    item.semi_fermented_tea_leaf: '半发酵茶'
+    item.fully_fermented_tea_leaf: '全发酵茶'
+    item.baking_powder: '发酵粉'

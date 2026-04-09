@@ -198,6 +198,12 @@ export default defineConfig({
             ]
           },
           {
+            text: '玩法维基',
+            items: [
+              { text: 'Teastory 茶叶', link: '/tutorial/Teastory' }
+            ]
+          },
+          {
             text: '常用功能维基',
             items: [
               { text: '圈地教程', link: '/residence' }
@@ -271,6 +277,12 @@ export default defineConfig({
             text: 'Common Features Wiki',
             items: [
               { text: 'Land Claim Guide', link: '/en/residence' }
+            ]
+          },
+          {
+            text: 'Play Style Wiki',
+            items: [
+              { text: 'Teastory', link: '/en/tutorial/Teastory' }
             ]
           },
           {
