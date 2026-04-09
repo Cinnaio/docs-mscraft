@@ -6,6 +6,7 @@ import HomeShowcase from './components/HomeShowcase'
 import SkinAuthNav from './components/SkinAuthNav.vue'
 import SiteFooter from './components/SiteFooter.vue'
 import SiteContributors from './components/SiteContributors.vue'
+import { installItemChipTooltip } from './item-chip-tooltip'
 import './style.css'
 
 /**
@@ -65,6 +66,7 @@ export default {
   },
   enhanceApp({ app, router }) {
     app.component('SiteContributors', SiteContributors)
+    installItemChipTooltip()
     installAuthLinkFullNavigation()
     installAuthRouteGuard(router)
   }
