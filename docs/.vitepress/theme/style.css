@@ -316,9 +316,9 @@ html.dark .mc-item-tooltip {
     font-size: 0.72rem;
     color: var(--vp-c-text-3);
   }
-}
 
-html[lang^='zh'] .mc-item-tooltip::after {
-  content: '点空白处关闭';
+  html[lang^='zh'] .mc-item-tooltip::after {
+    content: '点空白处关闭';
+  }
 }
 
