@@ -132,10 +132,37 @@
  * -------------------------------------------------------------------------- */
 
 :root {
-  --vp-custom-block-tip-border: transparent;
+  --vp-custom-block-tip-border: var(--vp-c-divider);
   --vp-custom-block-tip-text: var(--vp-c-text-1);
-  --vp-custom-block-tip-bg: var(--vp-c-brand-soft);
-  --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
+  --vp-custom-block-tip-bg: color-mix(in srgb, var(--vp-c-brand-soft) 52%, var(--vp-c-bg-soft) 48%);
+  --vp-custom-block-tip-code-bg: color-mix(in srgb, var(--vp-c-brand-soft) 38%, var(--vp-c-bg-soft) 62%);
+}
+
+/* Custom container polish: close to default, just a bit softer */
+.VPDoc .custom-block {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.VPDoc .custom-block.tip {
+  background: var(--vp-custom-block-tip-bg);
+  border-color: var(--vp-custom-block-tip-border);
+}
+
+.VPDoc .custom-block-title {
+  font-weight: 600;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  margin-bottom: 0.35rem;
+}
+
+.VPDoc .custom-block.tip .custom-block-title {
+  color: color-mix(in srgb, var(--vp-c-brand-1) 68%, var(--vp-c-text-1) 32%);
+}
+
+.VPDoc .custom-block p {
+  color: var(--vp-c-text-2);
 }
 
 /**
