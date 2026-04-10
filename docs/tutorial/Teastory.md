@@ -1,11 +1,11 @@
-# TeaStory 茶系统基础指南
+# 茶风纪事 游玩指南
 
 > 致谢与许可：本玩法在充分尊重原创的基础上进行二次创作，遵循原项目许可。  
 > 原项目与许可证请见：[Tea-the-Story](https://github.com/RoShioLeo/Tea-the-Story?tab=readme-ov-file#license-%E8%AE%B8%E5%8F%AF%E8%AF%81)
 
 > **核心摘要**：TeaStory 的主线是「采茶 -> 萎凋 -> 制茶 -> 茶包/茶壶 -> 倒杯饮用 -> 茶渣回收」。
 
-## 参数速查（按当前配置）
+## 参数速查
 
 | 环节 | 参数 |
 |---|---|
@@ -24,22 +24,24 @@
 
 ## 快速流程
 
-1. 采集 <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="鲜叶" />鲜叶 x1</span>（芽头/叶片）。
-2. 营火萎凋，得到对应 <span class="item-chip"><img src="/images/teastory/withered_tea_leaf_bud.png" alt="萎凋叶" />萎凋叶 x1</span>。
-3. 熔炉制得青叶，再走不同加工线：
-   - 研钵线：
-     <div class="item-flow"><span class="item-chip"><img src="/images/teastory/tea_leaf.png" alt="青叶" />青叶 x1</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/broken_tea_leaf.png" alt="碎茶" />碎茶 x3</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/green_tea_leaf.png" alt="绿茶茶叶" />绿茶茶叶 x1</span></div>
-   - 发酵线：
-     <div class="item-flow"><span class="item-chip"><img src="/images/teastory/broken_tea_leaf.png" alt="碎茶" />碎茶 x1</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/semi_fermented_tea_leaf.png" alt="半发酵茶" />半发酵茶 x1</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/fully_fermented_tea_leaf.png" alt="全发酵茶" />全发酵茶 x1</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/deep_fermented_tea_leaf.png" alt="重发酵茶" />重发酵茶 x1</span></div>
-   - 干燥线：  
-     <div class="item-flow"><span class="item-chip"><img src="/images/teastory/semi_fermented_tea_leaf.png" alt="半发酵茶" />半发酵茶 x1</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/oolong_tea_leaf.png" alt="乌龙茶茶叶" />乌龙茶茶叶 x1</span></div>  
-     <div class="item-flow"><span class="item-chip"><img src="/images/teastory/fully_fermented_tea_leaf.png" alt="全发酵茶" />全发酵茶 x1</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/black_tea_leaf.png" alt="红茶茶叶" />红茶茶叶 x1</span></div>  
-     <div class="item-flow"><span class="item-chip"><img src="/images/teastory/deep_fermented_tea_leaf.png" alt="重发酵茶" />重发酵茶 x1</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/puer_tea_leaf.png" alt="普洱茶茶叶" />普洱茶茶叶 x1</span></div>
-4. <span class="item-chip"><img src="/images/teastory/tea_leaf.png" alt="茶叶" />茶叶 x6</span> + <span class="item-chip"><img src="/images/teastory/empty_tea_bag.png" alt="空茶包" />空茶包 x1</span> = 各类茶包 x1。
-5. 茶壶胚烧制成空壶；<span class="item-chip"><img src="/images/teastory/water_pot_stone.png" alt="水壶" />水壶</span>装水并烧开。
-6. <span class="item-chip"><img src="/images/teastory/green_tea_bag.png" alt="茶包" />茶包 x1</span> + <span class="item-chip"><img src="/images/teastory/empty_porcelain_kettle.png" alt="空壶" />空壶 x1</span> + <span class="item-chip"><img src="/images/teastory/water_pot_stone.png" alt="开水壶" />开水壶 x1</span> = 成品茶壶 x1（同时产出茶渣 x1）。
-7. <span class="item-chip item-chip--cycle"><span class="item-chip__icon-stack"><img src="/images/teastory/green_tea_porcelain_kettle.png" alt="绿茶瓷茶壶" /><img src="/images/teastory/black_tea_porcelain_kettle.png" alt="红茶瓷茶壶" /><img src="/images/teastory/oolong_tea_porcelain_kettle.png" alt="乌龙茶瓷茶壶" /><img src="/images/teastory/puer_tea_porcelain_kettle.png" alt="普洱茶瓷茶壶" /><img src="/images/teastory/white_tea_porcelain_kettle.png" alt="白茶瓷茶壶" /><img src="/images/teastory/yellow_tea_porcelain_kettle.png" alt="黄茶瓷茶壶" /></span>成品茶壶 x1</span> + <span class="item-chip item-chip--cycle"><span class="item-chip__icon-stack"><img src="/images/teastory/cup_glass.png" alt="玻璃杯" /><img src="/images/teastory/cup_stone.png" alt="石杯" /><img src="/images/teastory/cup_wood.png" alt="木杯" /><img src="/images/teastory/cup_porcelain.png" alt="瓷杯" /><img src="/images/teastory/cup_zisha.png" alt="紫砂杯" /></span>任意杯子 x1</span> = <span class="item-chip item-chip--cycle"><span class="item-chip__icon-stack"><img src="/images/teastory/green_tea_porcelain.png" alt="绿茶瓷杯" /><img src="/images/teastory/black_tea_porcelain.png" alt="红茶瓷杯" /><img src="/images/teastory/oolong_tea_porcelain.png" alt="乌龙茶瓷杯" /><img src="/images/teastory/puer_tea_porcelain.png" alt="普洱茶瓷杯" /><img src="/images/teastory/white_tea_porcelain.png" alt="白茶瓷杯" /><img src="/images/teastory/yellow_tea_porcelain.png" alt="黄茶瓷杯" /></span>对应茶饮 x1</span>。
-8. <span class="item-chip"><img src="/images/teastory/green_tea_residue.png" alt="茶渣" />茶渣 x2（任意类型）</span> 可回收为 <span class="item-chip"><img src="/images/teastory/baking_powder.png" alt="发酵粉" />发酵粉 x1</span>。
+::: tip 温馨小提示
+所有的作物种植均会受到季节、节气以及环境因素的影响。
+:::
+
+1. 在世界战利品箱获得 <span class="item-chip"><img src="/images/teastory/tea_seeds.png" alt="茶树种子" />茶树种子</span>，并在耕地上进行种植。
+2. 等待茶树成熟，采集 <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="鲜叶" />鲜叶</span>（芽头/叶片）。
+   - 补充：成熟采集时，<span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="鲜叶" />鲜叶</span> 的**品质与数量**会随机。
+
+3. 将 <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="鲜叶" />鲜叶</span> 放到营火进行萎凋，得到对应 <span class="item-chip"><img src="/images/teastory/withered_tea_leaf_bud.png" alt="萎凋叶" />萎凋叶</span>。
+   - 注意：雨天萎凋请确认营火**上方有遮挡**，否则可能变成 <span class="item-chip"><img src="/images/teastory/wet_tea_leaf.png" alt="湿茶叶" />湿茶叶</span>。
+
+4. 炒制：将萎凋叶用熔炉炒制为 <span class="item-chip"><img src="/images/teastory/tea_leaf.png" alt="青叶" />青叶</span>。
+5. 制茶：按目标口味选择路线（研钵 / 发酵 / 干燥定型）得到对应茶叶。详见下文「采茶与初制」。
+6. 做茶包：空茶包 + 对应茶叶 x6 -> 对应茶包。详见下文「茶包、茶壶与杯具」。
+7. 准备壶与水：制作茶壶胚并烧制成空壶；水壶装水并烧开成开水壶。详见下文「茶包、茶壶与杯具」。
+8. 泡壶：茶包 + 空壶 + 开水壶 -> 成品茶壶（会返还茶渣）。详见下文「茶包、茶壶与杯具」。
+9. 倒杯饮用：成品茶壶 + 任意杯子 -> 杯装茶饮（喝完返还空杯）。详见下文「茶包、茶壶与杯具」。
+10. 回收：任意茶渣 x2 -> 发酵粉 x1（可回到发酵流程）。详见下文「茶渣系统」。
 
 ## 采茶与初制
 
@@ -94,7 +96,7 @@
 
 > 这 3 条是连续升级链，每一步都消耗 1 份发酵粉，产出 1 份下一阶段茶叶。
 
-## 抹茶路线（已接入）
+## 抹茶路线
 
 ### 1) 制作茶筅
 
@@ -131,6 +133,13 @@
 - 茶壶：<span class="item-chip"><img src="/images/teastory/empty_porcelain_kettle.png" alt="瓷壶" />瓷壶</span>、<span class="item-chip"><img src="/images/teastory/empty_zisha_kettle.png" alt="紫砂壶" />紫砂壶</span>。
 - 开水壶：<span class="item-chip"><img src="/images/teastory/water_pot_stone.png" alt="水壶" />水壶 x1</span> 装水后可在熔炉/高炉烧开。
 
+茶壶胚与烧制（空壶来源）：
+- 茶壶胚（工作台，严格摆位；材料：黏土球 x6）：
+  - 第一行：` 空 黏土球 空 `
+  - 第二行：` 黏土球 空 黏土球 `
+  - 第三行：` 黏土球 黏土球 黏土球 `
+- 将茶壶胚烧制为 <span class="item-chip"><img src="/images/teastory/empty_porcelain_kettle.png" alt="空瓷茶壶" />空瓷茶壶</span>（熔炉/高炉均可；高炉更快）。
+
 玩家常用技巧：
 - 建议按批次做水壶：一次 9 个壶一起加水，效率更高。
 - 倒杯时不限制杯子材质，壶可以和任意杯组合出杯。
@@ -145,7 +154,7 @@
 - 常规六茶：<span class="item-chip item-chip--cycle"><span class="item-chip__icon-stack"><img src="/images/teastory/green_tea_leaf.png" alt="绿茶茶叶" /><img src="/images/teastory/black_tea_leaf.png" alt="红茶茶叶" /><img src="/images/teastory/oolong_tea_leaf.png" alt="乌龙茶茶叶" /><img src="/images/teastory/puer_tea_leaf.png" alt="普洱茶茶叶" /><img src="/images/teastory/white_tea_leaf.png" alt="白茶茶叶" /><img src="/images/teastory/yellow_tea_leaf.png" alt="黄茶茶叶" /></span>六类茶叶</span>（均支持瓷壶与紫砂壶）。
 - 抹茶：`绿茶叶 + 茶筅` 先做抹茶叶，再做抹茶壶。
 
-## 茶渣系统（已接入）
+## 茶渣系统
 
 ### 1) 茶渣产出
 

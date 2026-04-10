@@ -24,22 +24,22 @@
 
 ## Quick Flow
 
-1. Harvest <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="Fresh Leaf" />Fresh Leaf x1</span> (buds/leaves).
-2. Wither on campfire to get <span class="item-chip"><img src="/images/teastory/withered_tea_leaf_bud.png" alt="Withered Tea Leaf" />Withered Tea Leaf x1</span>.
-3. Smelt into Green Leaf, then follow one of these lines:
-   - Mortar line:
-     <div class="item-flow"><span class="item-chip"><img src="/images/teastory/tea_leaf.png" alt="Green Leaf" />Green Leaf x1</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/broken_tea_leaf.png" alt="Broken Tea Leaf" />Broken Tea Leaf x3</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/green_tea_leaf.png" alt="Green Tea Leaf" />Green Tea Leaf x1</span></div>
-   - Fermentation line:
-     <div class="item-flow"><span class="item-chip"><img src="/images/teastory/broken_tea_leaf.png" alt="Broken Tea Leaf" />Broken Tea Leaf x1</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/semi_fermented_tea_leaf.png" alt="Semi Fermented Tea Leaf" />Semi Fermented Tea Leaf x1</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/fully_fermented_tea_leaf.png" alt="Fully Fermented Tea Leaf" />Fully Fermented Tea Leaf x1</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/deep_fermented_tea_leaf.png" alt="Deep Fermented Tea Leaf" />Deep Fermented Tea Leaf x1</span></div>
-   - Drying lines:
-     <div class="item-flow"><span class="item-chip"><img src="/images/teastory/semi_fermented_tea_leaf.png" alt="Semi Fermented Tea Leaf" />Semi Fermented Tea Leaf x1</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/oolong_tea_leaf.png" alt="Oolong Tea Leaf" />Oolong Tea Leaf x1</span></div>
-     <div class="item-flow"><span class="item-chip"><img src="/images/teastory/fully_fermented_tea_leaf.png" alt="Fully Fermented Tea Leaf" />Fully Fermented Tea Leaf x1</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/black_tea_leaf.png" alt="Black Tea Leaf" />Black Tea Leaf x1</span></div>
-     <div class="item-flow"><span class="item-chip"><img src="/images/teastory/deep_fermented_tea_leaf.png" alt="Deep Fermented Tea Leaf" />Deep Fermented Tea Leaf x1</span><span class="arrow">-></span><span class="item-chip"><img src="/images/teastory/puer_tea_leaf.png" alt="Pu'er Tea Leaf" />Pu'er Tea Leaf x1</span></div>
-4. <span class="item-chip"><img src="/images/teastory/tea_leaf.png" alt="Tea Leaf" />Tea Leaf x6</span> + <span class="item-chip"><img src="/images/teastory/empty_tea_bag.png" alt="Empty Tea Bag" />Empty Tea Bag x1</span> = matching tea bag x1.
-5. Fire the kettle blank; fill and boil <span class="item-chip"><img src="/images/teastory/water_pot_stone.png" alt="Water Pot" />Water Pot</span>.
-6. <span class="item-chip"><img src="/images/teastory/green_tea_bag.png" alt="Tea Bag" />Tea Bag x1</span> + <span class="item-chip"><img src="/images/teastory/empty_porcelain_kettle.png" alt="Empty Kettle" />Empty Kettle x1</span> + <span class="item-chip"><img src="/images/teastory/water_pot_stone.png" alt="Boiled Water Pot" />Boiled Water Pot x1</span> = finished kettle x1 (also returns residue x1).
-7. <span class="item-chip item-chip--cycle"><span class="item-chip__icon-stack"><img src="/images/teastory/green_tea_porcelain_kettle.png" alt="Green Tea Porcelain Kettle" /><img src="/images/teastory/black_tea_porcelain_kettle.png" alt="Black Tea Porcelain Kettle" /><img src="/images/teastory/oolong_tea_porcelain_kettle.png" alt="Oolong Tea Porcelain Kettle" /><img src="/images/teastory/puer_tea_porcelain_kettle.png" alt="Puer Tea Porcelain Kettle" /><img src="/images/teastory/white_tea_porcelain_kettle.png" alt="White Tea Porcelain Kettle" /><img src="/images/teastory/yellow_tea_porcelain_kettle.png" alt="Yellow Tea Porcelain Kettle" /></span>Finished Kettle x1</span> + <span class="item-chip item-chip--cycle"><span class="item-chip__icon-stack"><img src="/images/teastory/cup_glass.png" alt="Glass Cup" /><img src="/images/teastory/cup_stone.png" alt="Stone Cup" /><img src="/images/teastory/cup_wood.png" alt="Wooden Cup" /><img src="/images/teastory/cup_porcelain.png" alt="Porcelain Cup" /><img src="/images/teastory/cup_zisha.png" alt="Zisha Cup" /></span>Any Cup x1</span> = <span class="item-chip item-chip--cycle"><span class="item-chip__icon-stack"><img src="/images/teastory/green_tea_porcelain.png" alt="Green Tea Porcelain Cup" /><img src="/images/teastory/black_tea_porcelain.png" alt="Black Tea Porcelain Cup" /><img src="/images/teastory/oolong_tea_porcelain.png" alt="Oolong Tea Porcelain Cup" /><img src="/images/teastory/puer_tea_porcelain.png" alt="Puer Tea Porcelain Cup" /><img src="/images/teastory/white_tea_porcelain.png" alt="White Tea Porcelain Cup" /><img src="/images/teastory/yellow_tea_porcelain.png" alt="Yellow Tea Porcelain Cup" /></span>Matching Tea Drink x1</span>.
-8. <span class="item-chip"><img src="/images/teastory/green_tea_residue.png" alt="Tea Residue" />Tea Residue x2 (any type)</span> can be recycled into <span class="item-chip"><img src="/images/teastory/baking_powder.png" alt="Baking Powder" />Baking Powder x1</span>.
+::: tip Quick note
+All crop growth is affected by season, solar terms, and environment.
+:::
+
+1. Get <span class="item-chip"><img src="/images/teastory/tea_seeds.png" alt="Tea Seeds" />Tea Seeds</span> from world loot chests, then plant them on farmland.
+2. Wait for the tea tree to mature, then harvest <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="Fresh Leaf" />Fresh Leaf</span> (buds/leaves).
+   - Extra: harvested <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="Fresh Leaf" />Fresh Leaf</span> has random quality and quantity.
+3. Wither <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="Fresh Leaf" />Fresh Leaf</span> on a campfire to get matching withered leaves.
+   - Note: in rain, make sure the campfire is covered from above, or it may turn into <span class="item-chip"><img src="/images/teastory/wet_tea_leaf.png" alt="Wet Tea Leaf" />Wet Tea Leaf</span>.
+4. Pan-fire: smelt withered leaves into <span class="item-chip"><img src="/images/teastory/tea_leaf.png" alt="Green Leaf" />Green Leaf</span>.
+5. Process tea: choose a route (mortar / fermentation / drying) to get the tea leaf you want. See "Harvest & Primary Processing" below.
+6. Make tea bags: Empty Tea Bag + matching tea leaf x6 -> matching tea bag. See "Tea Bags, Kettles, and Cups" below.
+7. Prepare kettle and water: craft a kettle blank and fire it into an empty kettle; fill a water pot and boil it. See "Tea Bags, Kettles, and Cups" below.
+8. Brew a kettle: Tea Bag + Empty Kettle + Boiled Water Pot -> finished kettle (returns tea residue). See "Tea Bags, Kettles, and Cups" below.
+9. Pour and drink: Finished Kettle + Any Cup -> cup drink (returns empty cup after drinking). See "Tea Bags, Kettles, and Cups" below.
+10. Recycle: any tea residue x2 -> Baking Powder x1 (feeds back into fermentation). See "Tea Residue System" below.
 
 ## Harvest & Primary Processing
 
@@ -130,6 +130,13 @@ Recipe layout:
 - Cups: <span class="item-chip"><img src="/images/teastory/cup_glass.png" alt="Glass Cup" />Glass Cup</span>, <span class="item-chip"><img src="/images/teastory/cup_stone.png" alt="Stone Cup" />Stone Cup</span>, <span class="item-chip"><img src="/images/teastory/cup_wood.png" alt="Wooden Cup" />Wooden Cup</span>, <span class="item-chip"><img src="/images/teastory/cup_porcelain.png" alt="Porcelain Cup" />Porcelain Cup</span>, <span class="item-chip"><img src="/images/teastory/cup_zisha.png" alt="Zisha Cup" />Zisha Cup</span>.
 - Kettles: <span class="item-chip"><img src="/images/teastory/empty_porcelain_kettle.png" alt="Porcelain Kettle" />Porcelain Kettle</span>, <span class="item-chip"><img src="/images/teastory/empty_zisha_kettle.png" alt="Zisha Kettle" />Zisha Kettle</span>.
 - Boiled water: <span class="item-chip"><img src="/images/teastory/water_pot_stone.png" alt="Water Pot" />Water Pot x1</span> can be boiled in furnace / blast furnace.
+
+Kettle blank and firing (empty kettle source):
+- Kettle blank (crafting table, strict pattern; material: Clay Ball x6):
+  - Row 1: ` empty clay ball empty `
+  - Row 2: ` clay ball empty clay ball `
+  - Row 3: ` clay ball clay ball clay ball `
+- Fire the kettle blank into <span class="item-chip"><img src="/images/teastory/empty_porcelain_kettle.png" alt="Empty Porcelain Kettle" />Empty Porcelain Kettle</span> (furnace or blast furnace; blast furnace is faster).
 
 Common tips:
 - Fill kettles in batch (e.g. 9 at once) for better efficiency.
