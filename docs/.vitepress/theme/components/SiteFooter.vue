@@ -14,7 +14,7 @@ function buildEraLine(en: boolean) {
 const EXTERNAL = {
   bilibiliSpace: 'https://www.bilibili.com/',
   qqChannel: 'https://pd.qq.com/',
-  liveMap: '#',
+  liveMap: 'https://map.mscraft.uk',
 } as const
 
 const { lang, site } = useData()
@@ -105,7 +105,9 @@ const copy = computed(() => {
                 }}</a>
               </li>
               <li>
-                <a :href="copy.links.map.href">{{ copy.links.map.text }}</a>
+                <a :href="copy.links.map.href" target="_blank" rel="noopener noreferrer">{{
+                  copy.links.map.text
+                }}</a>
               </li>
             </ul>
           </div>
