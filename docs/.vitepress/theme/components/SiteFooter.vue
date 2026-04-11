@@ -2,12 +2,13 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { useData, useRoute } from 'vitepress'
 
+/** 底栏年代：品牌 + 时间跨度 + 一句定位，避免仅「群隙 2022-2026」信息过薄 */
 function buildEraLine(en: boolean) {
   const y = new Date().getFullYear()
   if (en) {
-    return `ClusterGap 2022-${y}`
+    return `ClusterGap · Est. 2022 — ${y} · Player-driven Minecraft community`
   }
-  return `群隙 2022-${y}`
+  return `群隙 · 2022—${y} · 玩家驱动的 Minecraft 社区`
 }
 
 /** 按需改成你的 B 站空间、QQ 频道、实时地图等 */
@@ -67,7 +68,12 @@ const copy = computed(() => {
       qq: { text: en ? 'QQ Channel' : 'QQ 频道', href: EXTERNAL.qqChannel },
     },
     bilibiliCta: en ? 'Bilibili homepage' : '群隙时报 B站主页',
-    cloudflare: en ? 'Powered by Cloudflare 🧡' : '由 Cloudflare 驱动 🧡',
+    /** 底栏文案拆成「弱说明 + 品牌名」，避免整句同色、emoji 在各端颜色不一致 */
+    cf: en
+      ? { lead: 'Hosted on ', brand: 'Cloudflare', trail: '' }
+      : { lead: '由 ', brand: 'Cloudflare', trail: ' 提供网络与页面服务' },
+    /** 与文档/站点创作态度相关的一句话 */
+    heartLine: en ? 'Creating content with 🧡' : '用 🧡 创造内容',
   }
 })
 </script>
@@ -153,13 +159,31 @@ const copy = computed(() => {
         </div>
       </div>
 
-      <p class="site-footer__infra">
-        <span class="site-footer__era">{{ eraDisplay }}</span>
-        <span class="site-footer__infra-sep" aria-hidden="true">·</span>
-        <a href="https://www.cloudflare.com/" target="_blank" rel="noopener noreferrer">{{
-          copy.cloudflare
-        }}</a>
-      </p>
+      <div class="site-footer__bar" role="contentinfo">
+        <div class="site-footer__bar-meta">
+          <p class="site-footer__bar-era">{{ eraDisplay }}</p>
+          <p class="site-footer__bar-heart">{{ copy.heartLine }}</p>
+        </div>
+        <span class="site-footer__bar-rule" aria-hidden="true" />
+        <a
+          class="site-footer__bar-cf"
+          href="https://www.cloudflare.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="site-footer__bar-cf-text">
+            <span class="site-footer__bar-cf-muted">{{ copy.cf.lead }}</span>
+            <span class="site-footer__bar-cf-brand">{{ copy.cf.brand }}</span>
+            <span v-if="copy.cf.trail" class="site-footer__bar-cf-muted">{{ copy.cf.trail }}</span>
+          </span>
+          <svg class="site-footer__bar-cf-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            />
+          </svg>
+        </a>
+      </div>
     </div>
   </footer>
 </template>
@@ -167,9 +191,10 @@ const copy = computed(() => {
 <style scoped>
 /* 避免 color-mix + :global(scoped) 在部分环境下影响整页；仅用 var(--vp-*) */
 .site-footer {
+  /* 与 style.css 品牌/ Hero 同系，避免页脚单独一套高饱和霓虹 */
   --sf-warm: #f59e0b;
   --sf-warm-mid: #ea580c;
-  --sf-violet: #a855f7;
+  --sf-rose: #fb7185;
 
   position: relative;
   margin-top: 3rem;
@@ -265,47 +290,140 @@ html.dark .site-footer__grid {
   }
 }
 
-.site-footer__infra {
+/* 底栏：与正文容器一致的圆角条 + 层级字色，暗色不刺眼 */
+.site-footer__bar {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
-  gap: 0.45rem 0.65rem;
-  margin: 0;
+  justify-content: center;
+  gap: 0.65rem 1rem;
+  margin: 1.5rem auto 0;
   width: 100%;
+  max-width: min(42rem, 100%);
   flex: 0 0 auto;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--vp-c-divider);
-  font-size: 0.72rem;
-  line-height: 1.45;
-  letter-spacing: 0.02em;
-  color: var(--vp-c-text-3);
-  text-align: center;
-}
-
-.site-footer__era {
-  color: var(--vp-c-text-3);
-}
-
-.site-footer__infra-sep {
-  opacity: 0.55;
-  user-select: none;
+  padding: 0.85rem 1.15rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--vp-c-bg-alt) 72%, var(--vp-c-bg-soft) 28%);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--vp-c-bg) 55%, transparent) inset;
 }
 
 @media (min-width: 960px) {
-  .site-footer__infra {
-    padding-top: 1.5rem;
+  .site-footer__bar {
+    padding: 0.95rem 1.35rem;
+    gap: 0.75rem 1.25rem;
   }
 }
 
-.site-footer__infra a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.18s ease;
+.site-footer__bar-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: min(28rem, 100%);
+  text-align: center;
 }
 
-.site-footer__infra a:hover {
+.site-footer__bar-era {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
   color: var(--vp-c-text-2);
+  font-weight: 500;
+}
+
+.site-footer__bar-heart {
+  margin: 0;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  color: var(--vp-c-text-3);
+  font-weight: 500;
+}
+
+.site-footer__bar-rule {
+  width: 1px;
+  height: 0.85rem;
+  background: var(--vp-c-divider);
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.site-footer__bar-cf {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  max-width: 100%;
+  text-decoration: none;
+  color: var(--vp-c-text-1);
+  font-size: 0.75rem;
+  line-height: 1.45;
+  padding: 0.2rem 0.35rem;
+  margin: -0.2rem -0.35rem;
+  border-radius: 8px;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease;
+}
+
+.site-footer__bar-cf:hover {
+  color: var(--vp-c-brand-1);
+  background: color-mix(in srgb, var(--vp-c-brand-soft) 35%, transparent);
+}
+
+.site-footer__bar-cf-text {
+  display: inline;
+  text-align: left;
+}
+
+.site-footer__bar-cf-muted {
+  color: var(--vp-c-text-3);
+  font-weight: 400;
+}
+
+.site-footer__bar-cf:hover .site-footer__bar-cf-muted {
+  color: color-mix(in srgb, var(--vp-c-brand-1) 35%, var(--vp-c-text-3) 65%);
+}
+
+.site-footer__bar-cf-brand {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--vp-c-text-2);
+}
+
+.site-footer__bar-cf:hover .site-footer__bar-cf-brand {
+  color: var(--vp-c-brand-2);
+}
+
+.site-footer__bar-cf-icon {
+  width: 0.95rem;
+  height: 0.95rem;
+  flex-shrink: 0;
+  opacity: 0.55;
+  color: var(--vp-c-brand-3);
+  transition:
+    opacity 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.site-footer__bar-cf:hover .site-footer__bar-cf-icon {
+  opacity: 0.95;
+  color: var(--vp-c-brand-2);
+  transform: scale(1.06);
+}
+
+html.dark .site-footer__bar {
+  background: color-mix(in srgb, var(--vp-c-bg-alt) 55%, var(--vp-c-bg) 45%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 8px 28px rgba(0, 0, 0, 0.22);
+}
+
+html.dark .site-footer__bar-cf-icon {
+  opacity: 0.5;
 }
 
 /* 三栏外链：窄屏起即为「快捷链接 | 社交平台」两列，关注我们独占一行 */
@@ -380,8 +498,8 @@ html.dark .site-footer__logo {
   background: linear-gradient(
     105deg,
     var(--sf-warm) 0%,
-    var(--sf-warm-mid) 38%,
-    var(--sf-violet) 72%,
+    var(--sf-warm-mid) 42%,
+    var(--sf-rose) 78%,
     var(--vp-c-brand-2) 100%
   );
   -webkit-background-clip: text;
@@ -390,7 +508,16 @@ html.dark .site-footer__logo {
 }
 
 html.dark .site-footer__name {
-  filter: drop-shadow(0 0 10px rgba(100, 108, 255, 0.35));
+  background: linear-gradient(
+    105deg,
+    var(--vp-c-brand-2) 0%,
+    var(--vp-c-brand-1) 45%,
+    var(--sf-rose) 88%,
+    var(--vp-c-brand-3) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: none;
 }
 
 html:not(.dark) .site-footer__name {
