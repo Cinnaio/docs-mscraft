@@ -69,10 +69,11 @@
   --vp-c-tip-3: var(--vp-c-brand-3);
   --vp-c-tip-soft: var(--vp-c-brand-soft);
 
-  --vp-c-warning-1: var(--vp-c-yellow-1);
-  --vp-c-warning-2: var(--vp-c-yellow-2);
-  --vp-c-warning-3: var(--vp-c-yellow-3);
-  --vp-c-warning-soft: var(--vp-c-yellow-soft);
+  /* 警告：玫红/红色系，与 tip（奶茶）区分；danger 仍用默认正红偏「严重」 */
+  --vp-c-warning-1: #9f1239;
+  --vp-c-warning-2: #be123c;
+  --vp-c-warning-3: #e11d48;
+  --vp-c-warning-soft: color-mix(in srgb, #fb7185 24%, transparent);
 
   --vp-c-danger-1: var(--vp-c-red-1);
   --vp-c-danger-2: var(--vp-c-red-2);
@@ -85,6 +86,11 @@
   --vp-c-brand-2: #fbbf24;
   --vp-c-brand-3: #f59e0b;
   --vp-c-brand-soft: color-mix(in srgb, #fbbf24 18%, transparent);
+
+  --vp-c-warning-1: #fda4af;
+  --vp-c-warning-2: #fb7185;
+  --vp-c-warning-3: #f43f5e;
+  --vp-c-warning-soft: color-mix(in srgb, #fb7185 26%, transparent);
 }
 
 /**
@@ -142,10 +148,31 @@
  * -------------------------------------------------------------------------- */
 
 :root {
+  /*
+   * 自定义容器统一：与 tip 相同结构
+   * - 边框：divider
+   * - 背景 / 行内 code 底：对应 *-soft 与 vp-c-bg-soft 按 52/48、38/62 混色
+   * - 标题：对应 *-1 与 text-1 按 68/32 混色（见下方 .custom-block.* .custom-block-title）
+   */
   --vp-custom-block-tip-border: var(--vp-c-divider);
   --vp-custom-block-tip-text: var(--vp-c-text-1);
   --vp-custom-block-tip-bg: color-mix(in srgb, var(--vp-c-brand-soft) 52%, var(--vp-c-bg-soft) 48%);
   --vp-custom-block-tip-code-bg: color-mix(in srgb, var(--vp-c-brand-soft) 38%, var(--vp-c-bg-soft) 62%);
+
+  --vp-custom-block-warning-border: var(--vp-c-divider);
+  --vp-custom-block-warning-text: var(--vp-c-text-1);
+  --vp-custom-block-warning-bg: color-mix(in srgb, var(--vp-c-warning-soft) 52%, var(--vp-c-bg-soft) 48%);
+  --vp-custom-block-warning-code-bg: color-mix(in srgb, var(--vp-c-warning-soft) 38%, var(--vp-c-bg-soft) 62%);
+
+  --vp-custom-block-danger-border: var(--vp-c-divider);
+  --vp-custom-block-danger-text: var(--vp-c-text-1);
+  --vp-custom-block-danger-bg: color-mix(in srgb, var(--vp-c-danger-soft) 52%, var(--vp-c-bg-soft) 48%);
+  --vp-custom-block-danger-code-bg: color-mix(in srgb, var(--vp-c-danger-soft) 38%, var(--vp-c-bg-soft) 62%);
+
+  --vp-custom-block-info-border: var(--vp-c-divider);
+  --vp-custom-block-info-text: var(--vp-c-text-1);
+  --vp-custom-block-info-bg: color-mix(in srgb, var(--vp-c-default-soft) 52%, var(--vp-c-bg-soft) 48%);
+  --vp-custom-block-info-code-bg: color-mix(in srgb, var(--vp-c-default-soft) 38%, var(--vp-c-bg-soft) 62%);
 }
 
 /* Custom container polish: close to default, just a bit softer */
@@ -160,6 +187,21 @@
   border-color: var(--vp-custom-block-tip-border);
 }
 
+.VPDoc .custom-block.warning {
+  background: var(--vp-custom-block-warning-bg);
+  border-color: var(--vp-custom-block-warning-border);
+}
+
+.VPDoc .custom-block.danger {
+  background: var(--vp-custom-block-danger-bg);
+  border-color: var(--vp-custom-block-danger-border);
+}
+
+.VPDoc .custom-block.info {
+  background: var(--vp-custom-block-info-bg);
+  border-color: var(--vp-custom-block-info-border);
+}
+
 .VPDoc .custom-block-title {
   font-weight: 600;
   font-size: 0.92rem;
@@ -169,6 +211,38 @@
 
 .VPDoc .custom-block.tip .custom-block-title {
   color: color-mix(in srgb, var(--vp-c-brand-1) 68%, var(--vp-c-text-1) 32%);
+}
+
+.VPDoc .custom-block.warning .custom-block-title {
+  color: color-mix(in srgb, var(--vp-c-warning-1) 68%, var(--vp-c-text-1) 32%);
+}
+
+.VPDoc .custom-block.danger .custom-block-title {
+  color: color-mix(in srgb, var(--vp-c-danger-1) 68%, var(--vp-c-text-1) 32%);
+}
+
+.VPDoc .custom-block.info .custom-block-title {
+  color: color-mix(in srgb, var(--vp-c-default-1) 68%, var(--vp-c-text-1) 32%);
+}
+
+/*
+ * Dark：亮色模式下 tip 用 brand 偏棕、对比适中；暗色里 brand-1 过亮、info 标题易与正文拉不开。
+ * 统一用「中间色阶 *-2 + 更高比例 text-1」压低刺眼高亮，四类都有轻微色相、阅读负担接近。
+ */
+html.dark .VPDoc .custom-block.tip .custom-block-title {
+  color: color-mix(in srgb, var(--vp-c-brand-2) 36%, var(--vp-c-text-1) 64%);
+}
+
+html.dark .VPDoc .custom-block.warning .custom-block-title {
+  color: color-mix(in srgb, var(--vp-c-warning-2) 44%, var(--vp-c-text-1) 56%);
+}
+
+html.dark .VPDoc .custom-block.danger .custom-block-title {
+  color: color-mix(in srgb, var(--vp-c-danger-2) 44%, var(--vp-c-text-1) 56%);
+}
+
+html.dark .VPDoc .custom-block.info .custom-block-title {
+  color: color-mix(in srgb, var(--vp-c-default-2) 40%, var(--vp-c-text-1) 60%);
 }
 
 .VPDoc .custom-block p {
