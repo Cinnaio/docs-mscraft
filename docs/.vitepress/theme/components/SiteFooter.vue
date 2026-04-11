@@ -208,11 +208,6 @@ const copy = computed(() => {
 <style scoped>
 /* 避免 color-mix + :global(scoped) 在部分环境下影响整页；仅用 var(--vp-*) */
 .site-footer {
-  /* 与 style.css 品牌/ Hero 同系，避免页脚单独一套高饱和霓虹 */
-  --sf-warm: #f59e0b;
-  --sf-warm-mid: #ea580c;
-  --sf-rose: #fb7185;
-
   position: relative;
   margin-top: 3rem;
   padding: 2.75rem 1.5rem 3rem;
@@ -523,47 +518,22 @@ html.dark .site-footer__logo {
   font-size: clamp(0.6rem, 1.65vw, 0.72rem);
   line-height: 1.65;
   letter-spacing: 0.04em;
-  background: linear-gradient(
-    105deg,
-    var(--sf-warm) 0%,
-    var(--sf-warm-mid) 42%,
-    var(--sf-rose) 78%,
-    var(--vp-c-brand-2) 100%
-  );
+  /* 与首页 VPHero 标题同源：style.css 中 --vp-home-hero-name-* */
+  color: var(--vp-home-hero-name-color, transparent);
+  background: var(--vp-home-hero-name-background);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
 }
 
 html.dark .site-footer__name {
-  background: linear-gradient(
-    105deg,
-    var(--vp-c-brand-2) 0%,
-    var(--vp-c-brand-1) 45%,
-    var(--sf-rose) 88%,
-    var(--vp-c-brand-3) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
   filter: none;
-}
-
-html:not(.dark) .site-footer__name {
-  background: linear-gradient(
-    105deg,
-    #b45309 0%,
-    #c2410c 35%,
-    #6d28d9 72%,
-    #0369a1 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
 }
 
 @supports not (background-clip: text) {
   .site-footer__name {
     color: var(--vp-c-brand-1);
     background: none;
+    -webkit-text-fill-color: currentColor;
   }
 }
 
