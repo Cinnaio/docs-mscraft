@@ -17,8 +17,18 @@ hero:
   #   src: /images/vanilla-plains.png
   #   alt: ClusterGap Hero Image
 
+features:
+  - icon: 📖
+    title: Living documentation
+    details: New player guide, server rules, and wiki pages for brewing, Teastory, mounts, and more—updated as seasons evolve.
+  - icon: 🌍
+    title: Player-driven economy & society
+    details: "Production, logistics, market trade, and land claims—how players organize shapes the ClusterGap world and its stories."
+  - icon: 🏮
+    title: Chinese-inspired tone & seasons
+    details: Cohesive art direction—architecture, rituals, and tea culture—built around the server’s seasonal, immersive theme.
+
 showcase:
-  eyebrow: SHOWCASE
   title: Server Features
   subtitle: A world built by players, where every trade and every contract writes history.
   items:

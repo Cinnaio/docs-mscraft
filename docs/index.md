@@ -17,8 +17,18 @@ hero:
   #   src: /images/vanilla-plains.png
   #   alt: ClusterGap Hero Image
 
+features:
+  - icon: 📖
+    title: 文档维基
+    details: 新人指南、服务器守则与酿酒、茶风纪事、坐骑等玩法教程集中于此，随赛季补充更新。
+  - icon: 🌍
+    title: 玩家驱动的世界
+    details: 手动生产、地理物流、市场交易与领地契约——协作与分工推动群隙的生态与故事。
+  - icon: 🏮
+    title: 中式氛围与季节感
+    details: 建筑、器物与节令美术基调统一，配合季节与茶文化等扩展，形成辨识度与沉浸感。
+
 showcase:
-  eyebrow: SHOWCASE
   title: 服务器特色
   subtitle: 这是一个由玩家共同构建的世界，每一次交易、每一份契约都在书写历史。
   items:

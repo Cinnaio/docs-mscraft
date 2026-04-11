@@ -12,7 +12,7 @@ export default {
   extends: DefaultTheme,
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
-      'home-features-before': () => h(HomeShowcase),
+      'home-features-after': () => h(HomeShowcase),
       'layout-bottom': () => h(SiteFooter)
     })
   },

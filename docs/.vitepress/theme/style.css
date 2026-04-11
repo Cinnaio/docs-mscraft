@@ -169,6 +169,50 @@ html.dark {
 }
 
 /**
+ * 首页 VPHomeFeatures：Hero .main 带 z-index:10，可能与紧随其后的四宫格叠层；
+ * 另默认 VPFeature 使用 height:100% + details flex-grow，在 flex 行等高时易把图标/标题顶出可视区。
+ */
+.VPHome .VPHomeFeatures {
+  position: relative;
+  z-index: 20;
+}
+
+/* 与卡片同宽（VPFeatures .container 即 max-width:1152px），避免分割线拉满整屏 */
+.VPHome .VPHomeFeatures .container {
+  border-bottom: 1px solid var(--vp-c-divider);
+  padding-bottom: 2.5rem;
+}
+
+.VPHome .VPHomeFeatures .VPFeature {
+  height: auto;
+}
+
+.VPHome .VPHomeFeatures .VPFeature .box {
+  height: auto;
+}
+
+.VPHome .VPHomeFeatures .VPFeature .details {
+  flex-grow: 0;
+}
+
+.VPHome .VPHomeFeatures .VPFeature .title {
+  color: var(--vp-c-text-1);
+}
+
+.VPHome .VPHomeFeatures .VPFeature .icon {
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.VPHome .VPHomeFeatures .VPFeature .icon svg {
+  display: block;
+  max-width: 36px;
+  max-height: 36px;
+  width: auto;
+  height: auto;
+}
+
+/**
  * Component: Custom Block
  * -------------------------------------------------------------------------- */
 

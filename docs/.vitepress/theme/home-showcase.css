@@ -13,7 +13,8 @@
   margin: 0 auto;
   padding: 56px 24px 24px;
   max-width: var(--home-showcase-max);
-  border-top: 1px solid var(--vp-c-divider);
+  /* 与上方 VPHomeFeatures 底部分割线衔接，避免双线 */
+  border-top: none;
 }
 
 .VPHome .home-showcase__header {
