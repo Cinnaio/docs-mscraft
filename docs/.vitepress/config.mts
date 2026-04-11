@@ -102,8 +102,11 @@ export default defineConfig({
   lastUpdated: true,
   cleanUrls: true,
   head: [
-    ['link', { rel: 'icon', type: 'image/png', href: '/images/logo.png' }],
-    ['link', { rel: 'apple-touch-icon', href: '/images/logo.png' }],
+    // 站点图标：静态放在 docs/public/（favicon.png、apple-touch-icon.png）；换 logo 后可按需运行 npm run docs:favicon
+    ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png', sizes: '48x48' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png', sizes: '32x32' }],
+    ['link', { rel: 'shortcut icon', type: 'image/png', href: '/favicon.png' }],
+    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
     [
       'link',
       {

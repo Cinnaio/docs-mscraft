@@ -5,6 +5,7 @@
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "node scripts/unshallow-git.js && node scripts/optimize-images.js && vitepress build docs",
+    "docs:favicon": "node scripts/generate-favicon.js",
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
