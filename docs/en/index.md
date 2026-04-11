@@ -26,7 +26,7 @@ features:
     details: Emergent roles, trade, and a spirit of agreement—production and markets are player-driven, and the world’s story is co-written.
   - icon: 🏮
     title: Chinese-inspired theme & seasons
-    details: "Builds, seasonal beats, tea, and brewing all follow one Chinese × seasons thread—hooked into survival and the light economy layer, expanded season by season and refined together with the community."
+    details: From builds and seasonal beats to tea and brewing, it all follows one Chinese × seasons narrative—naturally meshed with survival and the light economy.
 
 showcase:
   title: Server Features
