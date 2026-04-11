@@ -11,6 +11,9 @@ function buildEraLine(en: boolean) {
   return `群隙 · 2022—${y} · 玩家驱动的 Minecraft 社区`
 }
 
+/** 底栏心意行署名，与 GitHub org 等保持一致时可改此处 */
+const HEART_FOR = 'Cinnaio'
+
 /** 按需改成你的 B 站空间、QQ 频道、实时地图等 */
 const EXTERNAL = {
   bilibiliSpace: 'https://www.bilibili.com/',
@@ -63,7 +66,7 @@ const copy = computed(() => {
       map: { text: en ? 'Live map' : '实时地图', href: EXTERNAL.liveMap },
     },
     social: {
-      github: { text: 'GitHub', href: 'https://github.com/Cinnaio/docs-mscraft' },
+      github: { text: 'GitHub', href: 'https://github.com/clustergap' },
       bilibili: { text: en ? 'ClusterGap on Bilibili' : '群隙时报（B站）', href: EXTERNAL.bilibiliSpace },
       qq: { text: en ? 'QQ Channel' : 'QQ 频道', href: EXTERNAL.qqChannel },
     },
@@ -72,8 +75,13 @@ const copy = computed(() => {
     cf: en
       ? { lead: 'Hosted on ', brand: 'Cloudflare', trail: '' }
       : { lead: '由 ', brand: 'Cloudflare', trail: ' 提供网络与页面服务' },
-    /** 与文档/站点创作态度相关的一句话 */
-    heartLine: en ? 'Creating content with 🧡' : '用 🧡 创造内容',
+    /** 心为矢量图标；英文含蓄、中文「心」+「意」由图标衔接 */
+    heart: en
+      ? { before: 'With ', after: ` from ${HEART_FOR}` }
+      : { before: `一份来自 ${HEART_FOR} 的`, after: '意' },
+    heartAria: en
+      ? `With love from ${HEART_FOR}`
+      : `一份来自 ${HEART_FOR} 的心意`,
   }
 })
 </script>
@@ -162,7 +170,16 @@ const copy = computed(() => {
       <div class="site-footer__bar" role="contentinfo">
         <div class="site-footer__bar-meta">
           <p class="site-footer__bar-era">{{ eraDisplay }}</p>
-          <p class="site-footer__bar-heart">{{ copy.heartLine }}</p>
+          <p class="site-footer__bar-heart" :aria-label="copy.heartAria">
+            <span class="site-footer__bar-heart-text">{{ copy.heart.before }}</span>
+            <svg class="site-footer__bar-heart-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+              />
+            </svg>
+            <span v-if="copy.heart.after" class="site-footer__bar-heart-text">{{ copy.heart.after }}</span>
+          </p>
         </div>
         <span class="site-footer__bar-rule" aria-hidden="true" />
         <a
@@ -335,12 +352,21 @@ html.dark .site-footer__grid {
 }
 
 .site-footer__bar-heart {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.28em;
   margin: 0;
   font-size: 0.6875rem;
   line-height: 1.4;
   letter-spacing: 0.06em;
   color: var(--vp-c-text-3);
   font-weight: 500;
+}
+
+.site-footer__bar-heart-text {
+  color: inherit;
 }
 
 .site-footer__bar-rule {
@@ -397,7 +423,8 @@ html.dark .site-footer__grid {
   color: var(--vp-c-brand-2);
 }
 
-.site-footer__bar-cf-icon {
+.site-footer__bar-cf-icon,
+.site-footer__bar-heart-icon {
   width: 0.95rem;
   height: 0.95rem;
   flex-shrink: 0;
@@ -422,7 +449,8 @@ html.dark .site-footer__bar {
     0 8px 28px rgba(0, 0, 0, 0.22);
 }
 
-html.dark .site-footer__bar-cf-icon {
+html.dark .site-footer__bar-cf-icon,
+html.dark .site-footer__bar-heart-icon {
   opacity: 0.5;
 }
 
