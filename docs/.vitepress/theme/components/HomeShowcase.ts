@@ -40,8 +40,10 @@ export default defineComponent({
       const sc = fm.showcase || {}
       const items = normalizeItems(sc.items).slice(0, 2)
 
+      const rawEyebrow = sc.eyebrow != null ? String(sc.eyebrow).trim() : ''
+
       return {
-        eyebrow: sc.eyebrow || 'SHOWCASE',
+        eyebrow: rawEyebrow,
         title: sc.title || (isZh.value ? '服务器特色' : 'Server Features'),
         subtitle:
           sc.subtitle ||
@@ -60,12 +62,15 @@ export default defineComponent({
       const aStyle = a.image ? { backgroundImage: `url(${withBase(a.image)})` } : undefined
       const bStyle = b.image ? { backgroundImage: `url(${withBase(b.image)})` } : undefined
 
+      const headerChildren: ReturnType<typeof h>[] = []
+      if (content.value.eyebrow) {
+        headerChildren.push(h('div', { class: 'home-showcase__eyebrow' }, content.value.eyebrow))
+      }
+      headerChildren.push(h('h2', { class: 'home-showcase__title' }, content.value.title))
+      headerChildren.push(h('p', { class: 'home-showcase__subtitle' }, content.value.subtitle))
+
       return h('section', { class: 'home-showcase' }, [
-        h('header', { class: 'home-showcase__header' }, [
-          h('div', { class: 'home-showcase__eyebrow' }, content.value.eyebrow),
-          h('h2', { class: 'home-showcase__title' }, content.value.title),
-          h('p', { class: 'home-showcase__subtitle' }, content.value.subtitle)
-        ]),
+        h('header', { class: 'home-showcase__header' }, headerChildren),
         h('div', { class: 'home-showcase__grid' }, [
           h('div', {
             class: ['home-showcase__card', 'home-showcase__card--media', a.image ? 'is-image' : 'is-fallback'].join(

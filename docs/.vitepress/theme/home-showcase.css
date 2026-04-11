@@ -3,7 +3,6 @@
  * -------------------------------------------------------------------------- */
 
 :root {
-  --home-showcase-accent: #c9a07a;
   --home-showcase-max: 1152px;
   --home-showcase-img-a: linear-gradient(135deg, rgba(254, 243, 199, 0.55), rgba(212, 184, 150, 0.28));
   --home-showcase-img-b: linear-gradient(135deg, rgba(212, 184, 150, 0.36), rgba(251, 191, 36, 0.18));
@@ -32,20 +31,14 @@
 .VPHome .home-showcase__title {
   position: relative;
   display: inline-block;
-  margin: 10px 0 0;
+  margin: 0;
   font-size: 30px;
   line-height: 1.2;
   color: var(--vp-c-text-1);
 }
 
-.VPHome .home-showcase__title::after {
-  content: '';
-  display: block;
-  height: 4px;
-  width: 52px;
-  margin: 12px auto 0;
-  border-radius: 999px;
-  background: var(--home-showcase-accent);
+.VPHome .home-showcase__eyebrow + .home-showcase__title {
+  margin-top: 10px;
 }
 
 .VPHome .home-showcase__subtitle {
