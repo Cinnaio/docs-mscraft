@@ -58,10 +58,11 @@
   --vp-c-default-3: var(--vp-c-gray-3);
   --vp-c-default-soft: var(--vp-c-gray-soft);
 
-  --vp-c-brand-1: var(--vp-c-indigo-1);
-  --vp-c-brand-2: var(--vp-c-indigo-2);
-  --vp-c-brand-3: var(--vp-c-indigo-3);
-  --vp-c-brand-soft: var(--vp-c-indigo-soft);
+  /* 主品牌色：奶茶/奶油感（低饱和焦糖、浅金，可在此微调） */
+  --vp-c-brand-1: #8b6045;
+  --vp-c-brand-2: #a67c52;
+  --vp-c-brand-3: #b8896e;
+  --vp-c-brand-soft: color-mix(in srgb, #d4b896 32%, transparent);
 
   --vp-c-tip-1: var(--vp-c-brand-1);
   --vp-c-tip-2: var(--vp-c-brand-2);
@@ -77,6 +78,13 @@
   --vp-c-danger-2: var(--vp-c-red-2);
   --vp-c-danger-3: var(--vp-c-red-3);
   --vp-c-danger-soft: var(--vp-c-red-soft);
+}
+
+.dark {
+  --vp-c-brand-1: #fcd34d;
+  --vp-c-brand-2: #fbbf24;
+  --vp-c-brand-3: #f59e0b;
+  --vp-c-brand-soft: color-mix(in srgb, #fbbf24 18%, transparent);
 }
 
 /**
@@ -101,16 +109,18 @@
 
 :root {
   --vp-home-hero-name-color: transparent;
+  /* 标题渐变：略鲜亮的黄→橙→浅珊瑚（与下方偏奶茶的 brand 色搭配） */
   --vp-home-hero-name-background: -webkit-linear-gradient(
     120deg,
-    #bd34fe 30%,
-    #41d1ff
+    #fbbf24 22%,
+    #fb923c 52%,
+    #fb7185 78%
   );
 
   --vp-home-hero-image-background-image: linear-gradient(
     -45deg,
-    #bd34fe 50%,
-    #47caff 50%
+    #fcd34d 50%,
+    #fdba74 50%
   );
   --vp-home-hero-image-filter: blur(44px);
 }

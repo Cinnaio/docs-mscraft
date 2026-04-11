@@ -3,10 +3,10 @@
  * -------------------------------------------------------------------------- */
 
 :root {
-  --home-showcase-accent: #3fb950;
+  --home-showcase-accent: #c9a07a;
   --home-showcase-max: 1152px;
-  --home-showcase-img-a: linear-gradient(135deg, rgba(65, 209, 255, 0.35), rgba(189, 52, 254, 0.25));
-  --home-showcase-img-b: linear-gradient(135deg, rgba(189, 52, 254, 0.30), rgba(65, 209, 255, 0.20));
+  --home-showcase-img-a: linear-gradient(135deg, rgba(254, 243, 199, 0.55), rgba(212, 184, 150, 0.28));
+  --home-showcase-img-b: linear-gradient(135deg, rgba(212, 184, 150, 0.36), rgba(251, 191, 36, 0.18));
 }
 
 .VPHome .home-showcase {
