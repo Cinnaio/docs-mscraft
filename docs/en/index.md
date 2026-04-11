@@ -18,15 +18,15 @@ hero:
   #   alt: ClusterGap Hero Image
 
 features:
-  - icon: 📖
-    title: Living documentation
-    details: New player guide, server rules, and wiki pages for brewing, Teastory, mounts, and more—updated as seasons evolve.
-  - icon: 🌍
-    title: Player-driven economy & society
-    details: "Production, logistics, market trade, and land claims—how players organize shapes the ClusterGap world and its stories."
+  - icon: ⛏️
+    title: Survival SMP first
+    details: Long-form survival at the core—explore, gather, build, and collaborate under clear rules, at a pace the community sets.
+  - icon: 🤝
+    title: Community character
+    details: Emergent roles, trade, and a spirit of agreement—production and markets are player-driven, and the world’s story is co-written.
   - icon: 🏮
-    title: Chinese-inspired tone & seasons
-    details: Cohesive art direction—architecture, rituals, and tea culture—built around the server’s seasonal, immersive theme.
+    title: Chinese-inspired theme & seasons
+    details: "Builds, seasonal beats, tea, and brewing all follow one Chinese × seasons thread—hooked into survival and the light economy layer, expanded season by season and refined together with the community."
 
 showcase:
   title: Server Features

@@ -169,8 +169,8 @@ html.dark {
 }
 
 /**
- * 首页 VPHomeFeatures：Hero .main 带 z-index:10，可能与紧随其后的四宫格叠层；
- * 另默认 VPFeature 使用 height:100% + details flex-grow，在 flex 行等高时易把图标/标题顶出可视区。
+ * 首页 VPHomeFeatures：Hero .main 带 z-index:10，避免与下方区块叠层冲突。
+ * 三列卡片：同一行内无论文案长短，卡片外框 y 轴等高（flex 拉伸 + 内层 column + details 吃剩余高度）。
  */
 .VPHome .VPHomeFeatures {
   position: relative;
@@ -183,16 +183,31 @@ html.dark {
   padding-bottom: 2.5rem;
 }
 
+.VPHome .VPHomeFeatures .items > .item {
+  display: flex;
+  align-items: stretch;
+}
+
 .VPHome .VPHomeFeatures .VPFeature {
+  flex: 1;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
   height: auto;
 }
 
 .VPHome .VPHomeFeatures .VPFeature .box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   height: auto;
 }
 
 .VPHome .VPHomeFeatures .VPFeature .details {
-  flex-grow: 0;
+  flex-grow: 1;
 }
 
 .VPHome .VPHomeFeatures .VPFeature .title {
