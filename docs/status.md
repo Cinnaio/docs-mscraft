@@ -15,18 +15,18 @@ layout: page
 <style>
 .status-note {
   max-width: 1040px;
-  margin: 10px auto 0;
-  padding: 0 2px;
+  margin: 16px auto 0;
+  padding: 0 min(2rem, 4vw);
 }
 
 .status-note > p {
   margin: 0;
-  padding: 12px 14px;
+  padding: 10px 12px;
   border-radius: 14px;
   border: 1px solid var(--vp-c-divider);
   background: var(--vp-c-bg);
   color: var(--vp-c-text-2);
-  font-size: 13px;
+  font-size: 0.95rem;
   line-height: 1.55;
   box-shadow:
     0 1px 1px color-mix(in srgb, var(--vp-c-text-1) 10%, transparent),

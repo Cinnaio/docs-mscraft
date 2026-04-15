@@ -25,6 +25,7 @@ type MCSMInstanceResponse = {
       type?: string
       processType?: string
     }
+    // MCSM may include additional runtime stats; we treat them as optional/unknown.
     info?: {
       currentPlayers?: number
       maxPlayers?: number
@@ -70,26 +71,26 @@ const labels = computed(() => {
       online: 'Online',
       offline: 'Offline',
       serverName: 'Server',
+      cpu: 'CPU',
+      memory: 'Memory',
+      storage: 'Storage',
+      network: 'Network',
       version: 'Version',
-      software: 'Software',
       players: 'Players',
-      lastUpdated: 'Last updated',
       currentTime: 'Current time',
-      refresh: `Auto refresh: ${refreshSeconds.value}s`,
-      retry: 'Retry',
     }
   }
   return {
     online: '在线',
     offline: '离线',
     serverName: '服务器',
+    cpu: 'CPU',
+    memory: '内存',
+    storage: '存储',
+    network: '网络',
     version: '版本',
-    software: '服务端',
     players: '在线人数',
-    lastUpdated: '更新时间',
     currentTime: '当前时间',
-    refresh: `自动刷新：${refreshSeconds.value} 秒`,
-    retry: '重试',
   }
 })
 
@@ -108,8 +109,101 @@ const playerLine = computed(() => {
   return `${o ?? '—'} / ${m ?? '—'}`
 })
 
-const softwareLine = computed(() => (data.value as any)?.software || '—')
 const versionLine = computed(() => (data.value as any)?.version || '—')
+
+function formatPercent(v?: number): string {
+  if (typeof v !== 'number' || !Number.isFinite(v)) return '—'
+  // Accept 0..1 or 0..100
+  const pct = v <= 1 ? v * 100 : v
+  return `${pct.toFixed(pct >= 10 ? 0 : 1)}%`
+}
+
+function formatRatioPercent(used?: number, total?: number): string {
+  if (
+    typeof used !== 'number' ||
+    typeof total !== 'number' ||
+    !Number.isFinite(used) ||
+    !Number.isFinite(total) ||
+    used < 0 ||
+    total <= 0
+  )
+    return '—'
+  return formatPercent((used / total) * 100)
+}
+
+function formatBytes(v?: number): string {
+  if (typeof v !== 'number' || !Number.isFinite(v) || v < 0) return '—'
+  const units = ['B', 'KB', 'MB', 'GB', 'TB']
+  let n = v
+  let i = 0
+  while (n >= 1024 && i < units.length - 1) {
+    n /= 1024
+    i++
+  }
+  const dp = i >= 3 ? 1 : 0
+  return `${n.toFixed(dp)} ${units[i]}`
+}
+
+function formatBytesPerSec(v?: number): string {
+  if (typeof v !== 'number' || !Number.isFinite(v) || v < 0) return '—'
+  return `${formatBytes(v)}/s`
+}
+
+function pickFirstNumber(obj: any, paths: string[]): number | undefined {
+  for (const p of paths) {
+    const parts = p.split('.')
+    let cur = obj
+    for (const key of parts) cur = cur?.[key]
+    if (typeof cur === 'number' && Number.isFinite(cur)) return cur
+  }
+}
+
+const cpuLine = computed(() => formatPercent((data.value as any)?.cpu))
+
+function parseJavaXmxBytes(cmd?: string): number | undefined {
+  const s = (cmd || '').toLowerCase()
+  if (!s) return
+  const m = s.match(/-xmx(\d+(?:\.\d+)?)([kmgt]?)/i)
+  if (!m) return
+  const n = Number(m[1])
+  if (!Number.isFinite(n) || n <= 0) return
+  const unit = (m[2] || '').toLowerCase()
+  const mul =
+    unit === 't'
+      ? 1024 ** 4
+      : unit === 'g'
+        ? 1024 ** 3
+        : unit === 'm'
+          ? 1024 ** 2
+          : unit === 'k'
+            ? 1024
+            : 1
+  return Math.round(n * mul)
+}
+
+const memoryLine = computed(() => {
+  const memObj = (data.value as any)?.memory
+  const ratio = typeof memObj?.ratio === 'number' ? memObj.ratio : undefined
+  if (typeof ratio === 'number') return formatPercent(ratio)
+  return '—'
+})
+const storageLine = computed(() => {
+  const stObj = (data.value as any)?.storage
+  const ratio = typeof stObj?.ratio === 'number' ? stObj.ratio : undefined
+  if (typeof ratio === 'number') return formatPercent(ratio)
+  return '—'
+})
+const networkLine = computed(() => {
+  const netObj = (data.value as any)?.network
+  const rxFromObj = typeof netObj?.rx === 'number' ? netObj.rx : undefined
+  const txFromObj = typeof netObj?.tx === 'number' ? netObj.tx : undefined
+
+  const rx = rxFromObj
+  const tx = txFromObj
+  if (typeof rx === 'number' && typeof tx === 'number')
+    return `↓ ${formatBytesPerSec(rx)}  ↑ ${formatBytesPerSec(tx)}`
+  return '—'
+})
 
 const motd = computed(() => {
   const clean = (data.value as any)?.motd?.clean
@@ -181,17 +275,13 @@ function normalizeMcsmToStatusPayload(r: MCSMInstanceResponse) {
   const maxPlayers = typeof inst?.info?.maxPlayers === 'number' ? inst?.info?.maxPlayers : undefined
 
   const version = (inst?.info?.version || '').trim() || undefined
-  const software =
-    guessSoftwareFromStartCommand(inst?.config?.startCommand) ||
-    (inst?.config?.type || '').toString().trim() ||
-    (inst?.config?.processType || '').toString().trim() ||
-    undefined
 
   return {
     online,
     players: { online: currentPlayers, max: maxPlayers },
     version,
-    software,
+    // Per requirement: CPU/memory/storage/network must come from node API (overview),
+    // never from instance fields.
     motd: { clean: [] as string[] },
     __mcsmTime: typeof r.time === 'number' ? r.time : undefined,
   }
@@ -224,6 +314,23 @@ async function fetchMcsmInstance(signal: AbortSignal) {
   return r
 }
 
+async function fetchMcsmOverview(signal: AbortSignal) {
+  const path = `${mcsmBase}/api/overview`
+  const u = new URL(path, window.location.origin)
+  const res = await fetch(u.toString(), {
+    method: 'GET',
+    signal,
+    headers: {
+      accept: 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+  })
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  const json = (await res.json()) as any
+  return json
+}
+
 async function load() {
   state.value = data.value ? 'loading' : 'loading'
   errorText.value = null
@@ -234,8 +341,32 @@ async function load() {
   if (props.useMcsm) {
     try {
       const r = await fetchMcsmInstance(abort.signal)
-      const payload =
-        import.meta.env.PROD ? (r as any) : (normalizeMcsmToStatusPayload(r as any) as any)
+      let payload = import.meta.env.PROD ? (r as any) : (normalizeMcsmToStatusPayload(r as any) as any)
+
+      // Dev-only: merge daemon overview fallback (node API) for cpu/memory totals if instance is missing them.
+      if (!import.meta.env.PROD) {
+        try {
+          const ov = await fetchMcsmOverview(abort.signal)
+          const daemonId =
+            (import.meta.env as any)?.VITE_MCSM_DAEMON_ID || (import.meta.env as any)?.VITE_MCSM_DAEMON || undefined
+          const remotes = Array.isArray(ov?.data?.remote) ? ov.data.remote : []
+          const remoteById = daemonId ? remotes.find((x: any) => x?.uuid === daemonId) : undefined
+          const remoteByRunning = remotes.find((x: any) => Number(x?.instance?.running || 0) > 0)
+          const remote = remoteById || remoteByRunning || remotes.find((x: any) => x?.available) || remotes[0]
+
+          // Per requirement: CPU/memory/storage/network should come from node API when possible.
+          if (remote?.system) {
+            if (typeof remote.system.cpuUsage === 'number') payload.cpu = remote.system.cpuUsage
+            if (typeof remote.system.memUsage === 'number') {
+              payload.memory = payload.memory || {}
+              payload.memory.ratio = remote.system.memUsage
+            }
+          }
+        } catch {
+          // ignore overview failures in dev
+        }
+      }
+
       data.value = payload as any
       lastUpdatedAt.value =
         typeof (payload as any).__mcsmTime === 'number'
@@ -344,12 +475,6 @@ onBeforeUnmount(() => {
           {{ labels.currentTime }}：{{ currentTimeText }}
         </div>
       </div>
-      <div class="status-top__right">
-        <span class="muted">{{ labels.refresh }}</span>
-        <button class="vp-button status-top__btn" type="button" @click="load">
-          {{ labels.retry }}
-        </button>
-      </div>
     </div>
 
     <div class="status-bar">
@@ -361,25 +486,32 @@ onBeforeUnmount(() => {
         </div>
       </div>
 
+      <div class="status-sep status-sep--main" aria-hidden="true" />
+
       <div class="status-bar__right">
         <div class="status-item">
           <div class="status-item__k">{{ labels.players }}</div>
           <div class="status-item__v">{{ playerLine }}</div>
         </div>
-        <div class="status-sep" aria-hidden="true" />
+        <div class="status-item">
+          <div class="status-item__k">{{ labels.cpu }}</div>
+          <div class="status-item__v">{{ cpuLine }}</div>
+        </div>
+        <div class="status-item">
+          <div class="status-item__k">{{ labels.memory }}</div>
+          <div class="status-item__v">{{ memoryLine }}</div>
+        </div>
+        <div class="status-item">
+          <div class="status-item__k">{{ labels.storage }}</div>
+          <div class="status-item__v">{{ storageLine }}</div>
+        </div>
+        <div class="status-item">
+          <div class="status-item__k">{{ labels.network }}</div>
+          <div class="status-item__v">{{ networkLine }}</div>
+        </div>
         <div class="status-item">
           <div class="status-item__k">{{ labels.version }}</div>
-        <div class="status-item__v">{{ versionLine }}</div>
-        </div>
-        <div class="status-sep" aria-hidden="true" />
-        <div class="status-item">
-          <div class="status-item__k">{{ labels.software }}</div>
-        <div class="status-item__v">{{ softwareLine }}</div>
-        </div>
-        <div class="status-sep" aria-hidden="true" />
-        <div class="status-item">
-          <div class="status-item__k">{{ labels.lastUpdated }}</div>
-          <div class="status-item__v">{{ lastUpdatedText }}</div>
+          <div class="status-item__v">{{ versionLine }}</div>
         </div>
       </div>
     </div>
@@ -401,9 +533,11 @@ onBeforeUnmount(() => {
 
 .status-panel {
   max-width: 1040px;
-  margin: 12px auto 0;
+  /* Match team page: keep distance from navbar */
+  margin: 0 auto;
+  padding: 3.25rem min(2rem, 4vw) 0.25rem;
   display: grid;
-  gap: 14px;
+  gap: 18px;
 }
 
 .status-top {
@@ -411,28 +545,20 @@ onBeforeUnmount(() => {
   align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
-  padding: 6px 2px 2px;
+  padding: 0;
 }
 .status-top__heading {
   font-weight: 900;
-  font-size: 16px;
+  font-size: clamp(1.75rem, 2.4vw, 2.25rem);
   line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 .status-top__sub {
   margin-top: 4px;
-  font-size: 11px;
+  font-size: 0.95rem;
 }
 .status-top__right {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-.status-top__btn {
-  font-size: 12px;
-  line-height: 1;
-  padding: 8px 10px;
 }
 
 .metric-dot {
@@ -454,7 +580,7 @@ onBeforeUnmount(() => {
 .status-bar {
   border: 1px solid var(--vp-c-divider);
   border-radius: 14px;
-  padding: 12px 14px;
+  padding: 20px 12px;
   background: var(--vp-c-bg);
   box-shadow:
     0 1px 1px color-mix(in srgb, var(--vp-c-text-1) 10%, transparent),
@@ -462,33 +588,35 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
+  gap: 10px;
 }
 
 .status-bar__left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   min-width: 240px;
 }
 
 .status-bar__name {
-  font-weight: 900;
+  font-weight: 700;
   color: var(--vp-c-text-1);
   white-space: nowrap;
-  font-size: 13px;
+  font-size: 0.92rem;
+  line-height: 1.1;
 }
 
 .status-bar__state {
-  font-weight: 800;
+  font-weight: 650;
   color: var(--vp-c-text-1);
-  font-size: 13px;
+  font-size: 0.92rem;
+  line-height: 1.1;
 }
 
 .status-bar__right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 18px;
   flex: 1;
   justify-content: flex-end;
   min-width: 0;
@@ -497,21 +625,26 @@ onBeforeUnmount(() => {
 .status-item {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  min-width: 120px;
+  gap: 0;
+  min-width: 92px;
 }
 
 .status-item__k {
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 0.74rem;
+  font-weight: 550;
   color: var(--vp-c-text-2);
+  line-height: 1.1;
+  letter-spacing: 0.015em;
 }
 
 .status-item__v {
-  font-size: 13px;
-  font-weight: 800;
+  margin-top: 3px;
+  font-size: 0.92rem;
+  font-weight: 700;
   color: var(--vp-c-text-1);
   overflow-wrap: anywhere;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
 }
 
 .status-sep {
@@ -519,6 +652,10 @@ onBeforeUnmount(() => {
   align-self: stretch;
   background: var(--vp-c-divider);
   opacity: 1;
+}
+
+.status-sep--main {
+  opacity: 0.9;
 }
 
 @media (max-width: 900px) {
