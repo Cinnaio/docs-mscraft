@@ -14,3 +14,7 @@ _worker.bundle
 
 # IDE
 .cursor/
+
+# Env (local secrets)
+.env
+.env.*

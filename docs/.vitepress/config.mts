@@ -11,6 +11,8 @@ import { createHash } from 'crypto'
 import fs from 'fs'
 // @ts-ignore
 import path from 'path'
+// @ts-ignore
+import process from 'process'
 
 type LastUpdatedMeta = {
   by?: string
@@ -57,6 +59,65 @@ function getAvatarUrl(by?: string, email?: string): string | undefined {
 type AutoSidebarItem = { text: string; link: string }
 
 const DOCS_DIR = fileURLToPath(new URL('..', import.meta.url)) // /docs
+
+function readEnvValueFromFile(absPath: string, key: string): string | undefined {
+  let raw = ''
+  try {
+    raw = fs.readFileSync(absPath, 'utf8')
+  } catch {
+    return
+  }
+  for (const line of raw.split(/\r?\n/)) {
+    const t = line.trim()
+    if (!t || t.startsWith('#')) continue
+    const m = t.match(/^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/)
+    if (!m) continue
+    const k = m[1]
+    let v = m[2] ?? ''
+    if (k !== key) continue
+    // strip quotes
+    if (
+      (v.startsWith('"') && v.endsWith('"')) ||
+      (v.startsWith("'") && v.endsWith("'"))
+    ) {
+      v = v.slice(1, -1)
+    }
+    return v.trim() || undefined
+  }
+}
+
+function getMcsmApiKey(): string {
+  const fromProcess = (process.env.VITE_MCSM_APIKEY || '').trim()
+  if (fromProcess) return fromProcess
+
+  // VitePress dev server does not always populate `process.env` from `.env.local`,
+  // so we read the repo-root env file as a fallback.
+  const repoRoot = path.join(DOCS_DIR, '..')
+  const fromLocal = readEnvValueFromFile(path.join(repoRoot, '.env.local'), 'VITE_MCSM_APIKEY')
+  if (fromLocal) return fromLocal
+  const fromEnv = readEnvValueFromFile(path.join(repoRoot, '.env'), 'VITE_MCSM_APIKEY')
+  return fromEnv || ''
+}
+
+function getMcsmDaemonId(): string {
+  const fromProcess = (process.env.VITE_MCSM_DAEMON_ID || '').trim()
+  if (fromProcess) return fromProcess
+  const repoRoot = path.join(DOCS_DIR, '..')
+  const fromLocal = readEnvValueFromFile(path.join(repoRoot, '.env.local'), 'VITE_MCSM_DAEMON_ID')
+  if (fromLocal) return fromLocal
+  const fromEnv = readEnvValueFromFile(path.join(repoRoot, '.env'), 'VITE_MCSM_DAEMON_ID')
+  return fromEnv || ''
+}
+
+function getMcsmInstanceId(): string {
+  const fromProcess = (process.env.VITE_MCSM_INSTANCE_ID || '').trim()
+  if (fromProcess) return fromProcess
+  const repoRoot = path.join(DOCS_DIR, '..')
+  const fromLocal = readEnvValueFromFile(path.join(repoRoot, '.env.local'), 'VITE_MCSM_INSTANCE_ID')
+  if (fromLocal) return fromLocal
+  const fromEnv = readEnvValueFromFile(path.join(repoRoot, '.env'), 'VITE_MCSM_INSTANCE_ID')
+  return fromEnv || ''
+}
 
 function readFirstH1(md: string): string | undefined {
   // remove frontmatter
@@ -174,6 +235,38 @@ export default defineConfig({
           ),
         },
       ],
+    },
+    server: {
+      proxy: {
+        // Dev-only proxy for MCSManager API to avoid mixed-content issues
+        // and to keep panel host out of the page UI.
+        '/mcsm': {
+          target: 'http://wh1.coreyun.net:35138',
+          changeOrigin: true,
+          rewrite: (p) => {
+            // Strip prefix
+            const raw = p.replace(/^\/mcsm/, '')
+
+            // Append apikey on the dev server side to avoid exposing it
+            // in the browser URL / devtools network panel.
+            const key = getMcsmApiKey()
+            if (!raw.startsWith('/api/')) return raw
+
+            const url = new URL(raw, 'http://local-proxy.invalid')
+            if (key && !url.searchParams.has('apikey')) url.searchParams.set('apikey', key)
+
+            // For instance endpoints, inject daemon/instance IDs too (dev only).
+            if (url.pathname === '/api/instance') {
+              const daemonId = getMcsmDaemonId()
+              const uuid = getMcsmInstanceId()
+              if (daemonId && !url.searchParams.has('daemonId')) url.searchParams.set('daemonId', daemonId)
+              if (uuid && !url.searchParams.has('uuid')) url.searchParams.set('uuid', uuid)
+            }
+
+            return url.pathname + (url.search ? url.search : '')
+          },
+        },
+      },
     },
   },
   locales: {

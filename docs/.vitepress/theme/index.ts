@@ -5,6 +5,7 @@ import DefaultTheme from 'vitepress/theme'
 import HomeShowcase from './components/HomeShowcase'
 import SiteFooter from './components/SiteFooter.vue'
 import SiteContributors from './components/SiteContributors.vue'
+import ServerStatus from './components/ServerStatus.vue'
 import { installItemChipTooltip } from './item-chip-tooltip'
 import './style.css'
 
@@ -18,6 +19,7 @@ export default {
   },
   enhanceApp({ app }) {
     app.component('SiteContributors', SiteContributors)
+    app.component('ServerStatus', ServerStatus)
     installItemChipTooltip()
   }
 } satisfies Theme

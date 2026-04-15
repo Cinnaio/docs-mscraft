@@ -61,7 +61,7 @@ const copy = computed(() => {
     colSocial: en ? 'Social' : '社交平台',
     colFollow: en ? 'Follow us' : '关注我们',
     links: {
-      wiki: { text: en ? 'Documentation' : '文档维基', href: `${base}/getting-started` },
+      status: { text: en ? 'Status monitor' : '状态监控', href: `${base}/status` },
       skin: { text: en ? 'Skin station' : '皮肤站', href: 'https://skin.cubem.cn' },
       map: { text: en ? 'Live map' : '实时地图', href: EXTERNAL.liveMap },
     },
@@ -111,7 +111,7 @@ const copy = computed(() => {
             <h2 class="site-footer__heading">{{ copy.colQuick }}</h2>
             <ul class="site-footer__list">
               <li>
-                <a :href="copy.links.wiki.href">{{ copy.links.wiki.text }}</a>
+                <a :href="copy.links.status.href">{{ copy.links.status.text }}</a>
               </li>
               <li>
                 <a :href="copy.links.skin.href" target="_blank" rel="noopener noreferrer">{{
