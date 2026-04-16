@@ -21,6 +21,8 @@
 | 烧水 | 熔炉 8 秒，高炉 4 秒 |
 | 茶渣回收 | 任意 2 份茶渣 -> 1 发酵粉 |
 | 茶筅 | 每次研磨掉 1 耐久（总 120） |
+| 水稻成熟掉落 | 仅掉落 <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="稻谷" />稻谷</span>（当前为 1~3） |
+| 大米加工 | <span class="item-chip"><img src="/images/teastory/wooden_mortar_and_pestle.png" alt="木制研钵研杵" />木制研钵研杵</span> + <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="稻谷" />稻谷</span> -> <span class="item-chip"><img src="/images/teastory/xian_rice.png" alt="大米" />大米</span> |
 
 ## 快速流程
 
@@ -42,6 +44,24 @@
 8. 泡壶：茶包 + 空壶 + 开水壶 -> 成品茶壶（会返还茶渣）。详见下文「茶包、茶壶与杯具」。
 9. 倒杯饮用：成品茶壶 + 任意杯子 -> 杯装茶饮（喝完返还空杯）。详见下文「茶包、茶壶与杯具」。
 10. 回收：任意茶渣 x2 -> 发酵粉 x1（可回到发酵流程）。详见下文「茶渣系统」。
+
+## 稻谷与水田线（新增）
+
+### 1) 两段式种植
+
+- 第一段（普通耕地）：使用 <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="稻谷" />稻谷</span> 在普通耕地育秧，成熟后收获 <span class="item-chip"><img src="/images/teastory/item_xian_rice_seedling.png" alt="水稻秧苗" />水稻秧苗</span>。
+- 第二段（水田移栽）：将 <span class="item-chip"><img src="/images/teastory/item_xian_rice_seedling.png" alt="水稻秧苗" />水稻秧苗</span> 移栽到 <span class="item-chip"><img src="/images/teastory/paddy_field.png" alt="水田" />水田</span> 继续生长。
+
+### 2) 水田机制
+
+- <span class="item-chip"><img src="/images/teastory/paddy_field.png" alt="水田" />水田</span> 支持放置、破坏和掉落回收（破坏掉回自身）。
+- 水田已限制桶交互：不能被空桶直接取走，也不会被水桶重复灌入。
+- 水田为浅水视觉（泥底 + 水面），并配置了水感相关交互音效。
+
+### 3) 成熟产物与加工
+
+- 成熟稻株仅掉落 <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="稻谷" />稻谷</span>（不直接掉 <span class="item-chip"><img src="/images/teastory/xian_rice.png" alt="大米" />大米</span>）。
+- 加工配方：<span class="item-chip"><img src="/images/teastory/wooden_mortar_and_pestle.png" alt="木制研钵研杵" />木制研钵研杵</span> + <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="稻谷" />稻谷</span> -> <span class="item-chip"><img src="/images/teastory/xian_rice.png" alt="大米" />大米</span>。
 
 ## 采茶与初制
 

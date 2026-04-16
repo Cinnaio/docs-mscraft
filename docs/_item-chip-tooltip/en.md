@@ -48,6 +48,10 @@
   "Zisha Cup": { "desc": "Can be used for pouring drinks." },
   "Porcelain Kettle": { "desc": "One of the available brewing kettle containers." },
   "Zisha Kettle": { "desc": "One of the available brewing kettle containers." },
-  "Water Pot": { "desc": "Fill with water, then heat it to use as a boiled water pot." }
+  "Water Pot": { "desc": "Fill with water, then heat it to use as a boiled water pot." },
+  "Rice Seed": { "desc": "Main rice harvest output; can be replanted or milled into Rice." },
+  "Rice Seedling": { "desc": "Obtained from farmland seedling stage; transplant into paddy fields to continue growth." },
+  "Paddy Field": { "desc": "Field block for transplanted rice growth, with shallow-water visuals and interaction limits." },
+  "Rice": { "desc": "Processed ingredient made from Rice Seed with Wooden Mortar & Pestle." }
 }
 ```

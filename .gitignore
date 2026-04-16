@@ -18,3 +18,4 @@ _worker.bundle
 # Env (local secrets)
 .env
 .env.*
+docs.zip

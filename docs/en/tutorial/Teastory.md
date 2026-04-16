@@ -21,6 +21,8 @@
 | Boiling water | Furnace 8 s, Blast Furnace 4 s |
 | Residue recycle | Any 2 residues -> 1 Baking Powder |
 | Tea Whisk | Loses 1 durability per grind (total 120) |
+| Mature rice drop | Only drops <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="Rice Seed" />Rice Seed</span> (currently 1~3) |
+| Rice processing | <span class="item-chip"><img src="/images/teastory/wooden_mortar_and_pestle.png" alt="Wooden Mortar & Pestle" />Wooden Mortar & Pestle</span> + <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="Rice Seed" />Rice Seed</span> -> <span class="item-chip"><img src="/images/teastory/xian_rice.png" alt="Rice" />Rice</span> |
 
 ## Quick Flow
 
@@ -40,6 +42,24 @@ All crop growth is affected by season, solar terms, and environment.
 8. Brew a kettle: Tea Bag + Empty Kettle + Boiled Water Pot -> finished kettle (returns tea residue). See "Tea Bags, Kettles, and Cups" below.
 9. Pour and drink: Finished Kettle + Any Cup -> cup drink (returns empty cup after drinking). See "Tea Bags, Kettles, and Cups" below.
 10. Recycle: any tea residue x2 -> Baking Powder x1 (feeds back into fermentation). See "Tea Residue System" below.
+
+## Rice & Paddy Line (new)
+
+### 1) Two-stage planting flow
+
+- Stage 1 (normal farmland): plant <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="Rice Seed" />Rice Seed</span> on normal farmland to raise seedlings, then harvest <span class="item-chip"><img src="/images/teastory/item_xian_rice_seedling.png" alt="Rice Seedling" />Rice Seedling</span>.
+- Stage 2 (paddy transplant): transplant <span class="item-chip"><img src="/images/teastory/item_xian_rice_seedling.png" alt="Rice Seedling" />Rice Seedling</span> into <span class="item-chip"><img src="/images/teastory/paddy_field.png" alt="Paddy Field" />Paddy Field</span> for continued growth.
+
+### 2) Paddy field behavior
+
+- <span class="item-chip"><img src="/images/teastory/paddy_field.png" alt="Paddy Field" />Paddy Field</span> can be placed, broken, and recovered as item drop.
+- Bucket interactions are restricted: empty buckets cannot pick it up, and water buckets cannot refill it again.
+- The field uses shallow-water visuals (mud base + water surface) with water-like interaction sounds.
+
+### 3) Harvest and processing
+
+- Mature rice plants now drop only <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="Rice Seed" />Rice Seed</span> (not direct <span class="item-chip"><img src="/images/teastory/xian_rice.png" alt="Rice" />Rice</span>).
+- Processing recipe: <span class="item-chip"><img src="/images/teastory/wooden_mortar_and_pestle.png" alt="Wooden Mortar & Pestle" />Wooden Mortar & Pestle</span> + <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="Rice Seed" />Rice Seed</span> -> <span class="item-chip"><img src="/images/teastory/xian_rice.png" alt="Rice" />Rice</span>.
 
 ## Harvest & Primary Processing
 
