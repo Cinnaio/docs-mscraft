@@ -163,6 +163,7 @@ export default defineConfig({
   lastUpdated: true,
   cleanUrls: true,
   head: [
+    ['meta', { name: 'msvalidate.01', content: 'C5C23CBE12D12A66CCEB53986B73B754' }],
     // 站点图标：静态放在 docs/public/（favicon.png、apple-touch-icon.png）；换 logo 后可按需运行 npm run docs:favicon
     ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png', sizes: '48x48' }],
     ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png', sizes: '32x32' }],
