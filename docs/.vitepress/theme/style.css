@@ -2,9 +2,30 @@
  * Customize default theme styling by overriding CSS variables:
  * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
  */
-
+ 
 @import './home-showcase.css';
 @import './team-page.css';
+
+/* Selection: softer highlight to match brand palette */
+::selection {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 25%, transparent);
+  color: var(--vp-c-text-1);
+}
+
+::-moz-selection {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 25%, transparent);
+  color: var(--vp-c-text-1);
+}
+
+html.dark ::selection {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 20%, transparent);
+  color: var(--vp-c-text-1);
+}
+
+html.dark ::-moz-selection {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 20%, transparent);
+  color: var(--vp-c-text-1);
+}
 
 /* 首页 Hero：与渐变标题同处一个 h1 时，避免副标题链路到透明填充而发灰/发白 */
 .VPHero .heading .text {
@@ -516,4 +537,3 @@ html.dark .mc-item-tooltip {
     content: '点空白处关闭';
   }
 }
-
