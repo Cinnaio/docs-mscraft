@@ -12,7 +12,7 @@ export function minotarHelm(playerName: string) {
 }
 
 export function mcHeadsAvatar(playerName: string) {
-  return `https://mc-heads.net/avatar/${encodeURIComponent(playerName)}/128`
+  return `https://minotar.net/helm/${encodeURIComponent(playerName)}/128.png`
 }
 
 /**
