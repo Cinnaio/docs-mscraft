@@ -1,156 +1,151 @@
-# 群隙 ClusterGap Docs（VitePress）
+# ClusterGap 文档站
 
-## 中文（简体）
+<p align="center">
+  <a href="https://cgap.moe">
+    <img src="https://minotar.net/helm/ClusterGap/128.png" alt="ClusterGap Logo" width="80" height="80" style="border-radius: 50%;">
+  </a>
+</p>
 
-这是一个使用 **VitePress** 构建的文档站点（含中英文）。
+<p align="center">
+  <strong>群隙 ClusterGap</strong> — 玩家驱动的轻度经济社会模拟 Minecraft 服务器文档
+</p>
 
-### 本地运行
+<p align="center">
+  <a href="https://cgap.moe">🌐 访问官网</a> •
+  <a href="https://docs.cgap.moe">📖 在线文档</a>
+</p>
+
+---
+
+## 📋 简介
+
+本项目是 **群隙 (ClusterGap)** 服务器的双语文档站点，基于 [VitePress](https://vitepress.dev/) 构建，提供中文/English 两种语言支持。
+
+### 核心特色
+
+- 🏮 **中式主题** — 建筑风格、节气活动、茶道与酿造等传统文化元素
+- 🌱 **季节玩法** — 四季更替的独特世界体验
+- 🤝 **社会模拟** — 玩家驱动的经济、市场与契约系统
+- ⛏️ **生存 SMP** — 长期生存、探索与协作
+
+### 文档涵盖
+
+- 新手指南与服务器规则
+- 玩法教程（茶道、经济附魔、交通运输等）
+- 领地系统与居住指南
+- 反馈与建议通道
+
+---
+
+## 🛠️ 技术栈
+
+- **框架**: VitePress v2
+- **构建工具**: Vite
+- **图片处理**: Sharp
+- **部署平台**: 静态站点托管
+
+---
+
+## 🚀 快速开始
+
+### 安装依赖
 
 ```bash
 npm install
+```
+
+### 本地开发
+
+```bash
 npm run docs:dev
 ```
 
-打开终端输出的本地地址即可预览。
+启动后访问 `http://localhost:5173`
 
-### 构建与预览（用于部署）
-
-```bash
-npm run docs:build
-npm run docs:preview
-```
-
-- `docs:build` 会在构建前做两件事：
-  - 尝试补全 Git 历史（用于 “最后提交于/最后提交者” 显示）
-  - 压缩 `docs/public/images` 下的图片，并将原图备份到 `docs/public/images/_originals/`
-
-### 目录结构速览
-
-- **中文文档**：`docs/`
-- **英文文档**：`docs/en/`
-- **站点配置**：`docs/.vitepress/config.mts`
-- **主题/样式**：`docs/.vitepress/theme/`
-- **静态资源**（图片等）：`docs/public/`（访问路径以 `/` 开头，例如 `/images/logo.png`）
-
----
-
-## 如何新增一篇文档（不懂 VitePress 也能用）
-
-### 1) 新建 Markdown 文件
-
-中文示例（会生成路由 `/my-page`）：
-
-- 创建：`docs/my-page.md`
-- 内容至少包含一个一级标题：
-
-```md
-# 我的新页面
-
-这里写内容……
-```
-
-英文示例（会生成路由 `/en/my-page`）：
-
-- 创建：`docs/en/my-page.md`
-
-### 2) 把它挂到侧边栏（目前是手动的）
-
-打开 `docs/.vitepress/config.mts`，在对应语言的 `themeConfig.sidebar` 里加一条：
-
-- 中文 sidebar 例子：
-  - `{ text: '我的新页面', link: '/my-page' }`
-- 英文 sidebar 例子：
-  - `{ text: 'My Page', link: '/en/my-page' }`
-
-> 备注：目前只有 `BreweryX` 这块做了“自动 sidebar”，其他栏目还是手动维护。
-
----
-
-## 如何给「酿酒 / BreweryX」新增文档（自动进入侧边栏）
-
-本项目对 `BreweryX` 目录做了 **自动 sidebar**：只要往目录里新增 `.md` 文件，就会自动出现在侧边栏（标题取文件内第一个 `# 一级标题`）。
-
-### 中文（酿酒）
-
-1. 在目录下新增文件：`docs/tutorial/BreweryX/<slug>.md`
-2. 在文件中写一个一级标题（用于侧边栏显示文字）：
-
-```md
-# 你的标题
-
-正文……
-```
-
-3. 访问路径会是：`/tutorial/BreweryX/<slug>`
-
-### English (BreweryX)
-
-1. Create: `docs/en/tutorial/BreweryX/<slug>.md`
-2. Add a first H1 title:
-
-```md
-# Your Title
-
-Content…
-```
-
-3. Route: `/en/tutorial/BreweryX/<slug>`
-
----
-
-## 图片怎么放？
-
-- 放到：`docs/public/images/xxx.png`
-- 在 Markdown 里引用：`/images/xxx.png`
-
-> 具体语法参考：[Markdown 图片语法](https://markdown.com.cn/basic-syntax/images.html#markdown-%E5%9B%BE%E7%89%87%E8%AF%AD%E6%B3%95)
-
-构建时会自动压缩 `docs/public/images` 下图片；原图会备份到 `docs/public/images/_originals/`，便于随时还原。
-
----
-
-## English
-
-This is a documentation site built with **VitePress** (Chinese + English).
-
-### Run locally
-
-```bash
-npm install
-npm run docs:dev
-```
-
-### Build & preview (for deployment)
+### 构建生产版本
 
 ```bash
 npm run docs:build
+```
+
+### 预览构建结果
+
+```bash
 npm run docs:preview
 ```
 
-`docs:build` also:
+---
 
-- fetches full Git history when needed (for “Last committed / Committed by”)
-- optimizes images under `docs/public/images`, and backs up originals to `docs/public/images/_originals/`
+## 📁 项目结构
 
-### Structure
+```
+.
+├── docs/                      # 文档源文件
+│   ├── .vitepress/            # VitePress 配置
+│   │   ├── config.mts         # 站点配置
+│   │   └── theme/             # 自定义主题
+│   │       ├── components/    # Vue 组件
+│   │       ├── utils/         # 工具函数
+│   │       └── style.css      # 样式覆盖
+│   ├── public/               # 静态资源
+│   │   └── images/           # 图片文件
+│   ├── index.md               # 中文首页
+│   ├── getting-started.md    # 新手指南
+│   ├── server-faq.md         # 服务器规则
+│   ├── residence.md          # 居住领地
+│   ├── feedback.md           # 反馈建议
+│   ├── team.md               # 团队页面
+│   ├── tutorial/             # 教程目录
+│   │   ├── Teastory.md       # 茶道
+│   │   ├── EcoEnchants.md    # 经济附魔
+│   │   └── transportation.md # 交通运输
+│   ├── _team-history/        # 团队历史
+│   └── en/                   # 英文文档
+│       └── ...               # 与中文对应
+├── scripts/                  # 构建脚本
+│   ├── optimize-images.js    # 图片优化
+│   └── unshallow-git.js      # Git 历史补全
+├── package.json
+└── README.md
+```
 
-- **ZH docs**: `docs/`
-- **EN docs**: `docs/en/`
-- **Config**: `docs/.vitepress/config.mts`
-- **Theme**: `docs/.vitepress/theme/`
-- **Static assets**: `docs/public/` (served from `/`, e.g. `/images/logo.png`)
+---
 
-### Add a new doc page
+## 📝 添加新文档
 
-1. Create a markdown file:
-   - ZH: `docs/my-page.md` → `/my-page`
-   - EN: `docs/en/my-page.md` → `/en/my-page`
-2. Add it to the sidebar in `docs/.vitepress/config.mts` (most sections are manual right now).
+1. 在 `docs/`（中文）或 `docs/en/`（英文）下创建 `.md` 文件
+2. 在 `docs/.vitepress/config.mts` 的 `sidebar` 中添加链接
 
-### Add a new BreweryX page (auto sidebar)
+> **注意**: 若在 `docs/tutorial/` 目录下添加新文档，需手动配置侧边栏。
 
-- ZH: add a file under `docs/tutorial/BreweryX/*.md`
-- EN: add a file under `docs/en/tutorial/BreweryX/*.md`
+---
 
-The sidebar items are generated automatically from filenames + the first `# H1` title in each file.
+## 🎨 自定义主题
 
+主题基于 VitePress 默认主题进行定制，主要包括：
+
+- **配色方案**: 奶茶/奶油感低饱和品牌色
+- **选中文字**: 柔和高亮样式
+- **自定义组件**:
+  - `ServerStatus` - 服务器状态显示
+  - `SiteContributors` - 贡献者列表
+  - `HomeShowcase` - 首页展示区块
+
+---
+
+## 📄 许可证
+
+本项目文档基于 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可证。
+
+---
+
+## 🤝 贡献
+
+欢迎提交 Pull Request 或 Issue！
+
+---
+
+## 📧 联系方式
+
+- 服务器官网: https://cgap.moe
+- 文档反馈: https://docs.cgap.moe/feedback
