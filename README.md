@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://mscraft.uk">
-    <img src="/images/logo.png" alt="ClusterGap Logo" width="80" height="80" style="border-radius: 50%;">
+    <img src="docs/public/images/logo.png" alt="ClusterGap Logo" width="80" height="80" style="border-radius: 50%;">
   </a>
 </p>
 
