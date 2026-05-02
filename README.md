@@ -1,8 +1,8 @@
 # ClusterGap 文档站
 
 <p align="center">
-  <a href="https://cgap.moe">
-    <img src="https://minotar.net/helm/ClusterGap/128.png" alt="ClusterGap Logo" width="80" height="80" style="border-radius: 50%;">
+  <a href="https://mscraft.uk">
+    <img src="/images/logo.png" alt="ClusterGap Logo" width="80" height="80" style="border-radius: 50%;">
   </a>
 </p>
 
@@ -11,8 +11,8 @@
 </p>
 
 <p align="center">
-  <a href="https://cgap.moe">🌐 访问官网</a> •
-  <a href="https://docs.cgap.moe">📖 在线文档</a>
+  <a href="https://mscraft.uk">🌐 访问官网</a> •
+  <a href="https://mscraft.uk/getting-started">📖 在线文档</a>
 </p>
 
 ---
@@ -147,5 +147,5 @@ npm run docs:preview
 
 ## 📧 联系方式
 
-- 服务器官网: https://cgap.moe
-- 文档反馈: https://docs.cgap.moe/feedback
+- 服务器官网: https://mscraft.uk
+- 文档反馈: https://mscraft.uk/feedback
