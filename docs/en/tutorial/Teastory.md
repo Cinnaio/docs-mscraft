@@ -1,8 +1,10 @@
-# TeaStory Basics Guide
+# TeaStory Basics Guide <Badge type="warning" text="Testing" />
+
+> This project is currently in beta testing. Some parameters may affect gameplay experience and will be continuously improved.
+> If you have any suggestions or ideas, feel free to contact me to make corrections. Thank you!
 
 > Credits & license: This adaptation is made with full respect for the original work and follows its license.  
 > Original project and license: [Tea-the-Story](https://github.com/RoShioLeo/Tea-the-Story?tab=readme-ov-file#license-%E8%AE%B8%E5%8F%AF%E8%AF%81)
->
 > **Core summary**: The TeaStory main loop is "harvest -> wither -> process -> tea bag/kettle -> pour into cup -> residue recycle".
 
 ## Quick Parameters (current config)
