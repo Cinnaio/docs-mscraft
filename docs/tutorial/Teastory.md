@@ -1,4 +1,7 @@
-# 茶风纪事 游玩指南
+# 茶风纪事 游玩指南 <Badge type="warning" text="测试ing" />
+
+> 本项目仍处于试运行阶段，可能会存在部分参数影响体验，后期会持续改进。
+> 如果你对本项目有任何想法，欢迎联系我进行修正，谢谢。
 
 > 致谢与许可：本玩法在充分尊重原创的基础上进行二次创作，遵循原项目许可。  
 > 原项目与许可证请见：[Tea-the-Story](https://github.com/RoShioLeo/Tea-the-Story?tab=readme-ov-file#license-%E8%AE%B8%E5%8F%AF%E8%AF%81)

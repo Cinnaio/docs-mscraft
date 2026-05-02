@@ -537,3 +537,57 @@ html.dark .mc-item-tooltip {
     content: '点空白处关闭';
   }
 }
+
+/* Badge: 与主站奶茶色主题一致 */
+.VPBadge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15em 0.65em;
+  border-radius: 6px;
+  line-height: 1.4;
+}
+
+.VPBadge.tip {
+  background-color: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  border: 1px solid transparent;
+}
+
+.VPBadge.warning {
+  background-color: var(--vp-c-warning-soft);
+  color: var(--vp-c-warning-1);
+  border: 1px solid transparent;
+}
+
+.VPBadge.danger {
+  background-color: var(--vp-c-danger-soft);
+  color: var(--vp-c-danger-1);
+  border: 1px solid transparent;
+}
+
+.VPBadge.note {
+  background-color: var(--vp-c-default-soft);
+  color: var(--vp-c-default-1);
+  border: 1px solid transparent;
+}
+
+/* Dark 模式下 Badge */
+.dark .VPBadge.tip {
+  background-color: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-2);
+}
+
+.dark .VPBadge.warning {
+  background-color: var(--vp-c-warning-soft);
+  color: var(--vp-c-warning-2);
+}
+
+.dark .VPBadge.danger {
+  background-color: var(--vp-c-danger-soft);
+  color: var(--vp-c-danger-2);
+}
+
+.dark .VPBadge.note {
+  background-color: var(--vp-c-default-soft);
+  color: var(--vp-c-default-2);
+}
