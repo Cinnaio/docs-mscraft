@@ -57,6 +57,9 @@ const copy = computed(() => {
     tagline: en
       ? 'Player-driven economy & seasons.'
       : '有你，才叫群隙',
+    license: en
+      ? 'Content licensed under CC BY-NC-SA 4.0'
+      : '内容采用 CC BY-NC-SA 4.0 许可证',
     colQuick: en ? 'Quick links' : '快捷链接',
     colSocial: en ? 'Social' : '社交平台',
     colFollow: en ? 'Follow us' : '关注我们',
@@ -82,6 +85,10 @@ const copy = computed(() => {
     heartAria: en
       ? `With love from ${HEART_FOR}`
       : `一份来自 ${HEART_FOR} 的心意`,
+    license: en
+      ? 'Content licensed under CC BY-NC-SA 4.0'
+      : '内容采用 CC BY-NC-SA 4.0 许可证',
+    licenseUrl: 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
   }
 })
 </script>
@@ -103,6 +110,12 @@ const copy = computed(() => {
           <div class="site-footer__brand-text">
             <span class="site-footer__name">{{ copy.brandPixel }}</span>
             <p class="site-footer__tagline">{{ copy.tagline }}</p>
+            <a
+              class="site-footer__license"
+              :href="copy.licenseUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >{{ copy.license }}</a>
           </div>
         </div>
 
@@ -543,6 +556,19 @@ html.dark .site-footer__name {
   line-height: 1.55;
   color: var(--vp-c-text-2);
   max-width: 20rem;
+}
+
+.site-footer__license {
+  display: block;
+  margin: 0.45rem 0 0;
+  font-size: 0.7rem;
+  color: var(--vp-c-text-3);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.site-footer__license:hover {
+  color: var(--vp-c-brand-1);
 }
 
 .site-footer__heading {
