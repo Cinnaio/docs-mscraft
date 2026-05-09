@@ -84,17 +84,20 @@ Weather changes every 90 seconds.
 
 ## FAQ
 
-**Q: Why is my crop not growing?**
+::: details Q: Why is my crop not growing?
 - Winter outdoor temperature is too low, crops freeze
 - Check if indoors/greenhouse, more stable environment
 - Use `/ne debug crop` to see specific reasons
+:::
 
-**Q: How to prevent crops from freezing?**
+::: details Q: How to prevent crops from freezing?
 - Build a greenhouse (enclosed on all sides + roof)
 - Plant indoors in Winter
 - Watch weather, rain is better than snow for planting
+:::
 
-**Q: How to grow tea trees?**
+::: details Q: How to grow tea trees?
 - Prefers warm & humid, grows in Spring, Summer, Autumn
 - Must use greenhouse in Winter or it withers easily
 - See [Teastory →](/en/tutorial/Teastory) for details
+:::
