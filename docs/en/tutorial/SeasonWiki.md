@@ -1,4 +1,4 @@
-# Season System <Badge type="tip" text="NatureEngine" />
+# Season System <Badge type="tip" text="Testing" />
 
 > The server uses **NatureEngine** plugin for seasonal changes and weather cycles. Spring, Summer, Autumn, and Winter each offer different gameplay experiences.
 

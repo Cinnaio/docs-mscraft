@@ -1,4 +1,4 @@
-# TeaStory Basics Guide <Badge type="warning" text="Testing" />
+# TeaStory Basics Guide <Badge type="tip" text="Testing" />
 
 > This project is currently in beta testing. Some parameters may affect gameplay experience and will be continuously improved.
 > If you have any suggestions or ideas, feel free to contact me to make corrections. Thank you!
