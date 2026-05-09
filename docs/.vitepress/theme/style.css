@@ -591,3 +591,11 @@ html.dark .mc-item-tooltip {
   background-color: var(--vp-c-default-soft);
   color: var(--vp-c-default-2);
 }
+
+/**
+ * Table: all cells centered
+ * -------------------------------------------------------------------------- */
+.vp-doc th,
+.vp-doc td {
+  text-align: center;
+}
