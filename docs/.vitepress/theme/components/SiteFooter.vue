@@ -57,9 +57,6 @@ const copy = computed(() => {
     tagline: en
       ? 'Player-driven economy & seasons.'
       : '有你，才叫群隙',
-    license: en
-      ? 'Content licensed under CC BY-NC-SA 4.0'
-      : '内容采用 CC BY-NC-SA 4.0 许可证',
     colQuick: en ? 'Quick links' : '快捷链接',
     colSocial: en ? 'Social' : '社交平台',
     colFollow: en ? 'Follow us' : '关注我们',
