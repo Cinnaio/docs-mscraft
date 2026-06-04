@@ -299,13 +299,15 @@ export default defineConfig({
             items: [
               { text: '茶风纪事', link: '/tutorial/Teastory' },
               { text: '季节玩法', link: '/tutorial/SeasonWiki' },
-              { text: '更多附魔', link: '/tutorial/EcoEnchants' }
+              { text: '更多附魔', link: '/tutorial/EcoEnchants' },
+              { text: '生存增强', link: '/tutorial/JourneyEngine' }
             ]
           },
           {
             text: '常用功能维基',
             items: [
-              { text: '圈地教程', link: '/residence' }
+              { text: '圈地教程', link: '/residence' },
+              { text: '商店工具', link: '/tutorial/AddonMarket' }
             ]
           },
           // 插件维基（酿酒 / 坐骑）：暂时不展示；恢复时把下面整块加回并保留 autoSidebarFromDir
@@ -378,13 +380,15 @@ export default defineConfig({
             items: [
               { text: 'Teastory', link: '/en/tutorial/Teastory' },
               { text: 'Season System', link: '/en/tutorial/SeasonWiki' },
-              { text: 'More Enchants', link: '/en/tutorial/EcoEnchants' }
+              { text: 'More Enchants', link: '/en/tutorial/EcoEnchants' },
+              { text: 'JourneyEngine Guide', link: '/en/tutorial/JourneyEngine' }
             ]
           },
           {
             text: 'Common Features Wiki',
             items: [
-              { text: 'Land Claim Guide', link: '/en/residence' }
+              { text: 'Land Claim Guide', link: '/en/residence' },
+              { text: 'Shop Tools', link: '/en/tutorial/AddonMarket' }
             ]
           },
           // Plugin Wiki (BreweryX / Transportation): hidden for now; restore block below to show again
