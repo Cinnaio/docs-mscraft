@@ -45,19 +45,6 @@ Each purchase increases price by 5%, capped at 100 iterations.
 > On shop creation, type the formula directly in chat instead of a number.
 
 
-## Shop Management GUI
-
-Visually manage all your shops with a simple interface.
-
-```
-/qs manage
-```
-
-- **Left click** a shop icon → Toggle **restock notification**
-- **Right click** a shop icon → Toggle **counter auto-reset**
-- Each slot shows: location, stock, mode (sell/buy), current status
-
-
 ## Item Search
 
 Search for shops trading a specific item in your current world.
@@ -67,28 +54,24 @@ Search for shops trading a specific item in your current world.
 /qs search 土豆     /qs search 马铃薯      /qs search tudou
 ```
 
-Supports English IDs, Chinese names, pinyin, and aliases. Partial matches work too.
-
-> Example: Searching for diamond sword shops — type `/qs search diamond_sword` or `/qs search zuanshijian` (pinyin).
+Supports English IDs, Chinese names, pinyin, and aliases. Partial matches work too. Coordinates in results are **clickable** — clicking creates a guiding beam to lead you there.
 
 ![Item Search](/images/wu-ping-sou-suo.png)
 
-![Item Search Result](/images/wu-ping-sou-suo-2.png)
+> Example: Searching for diamond sword shops — type `/qs search diamond_sword` or `/qs search zuanshijian` (pinyin).
 
-Coordinates in results are **clickable** — clicking creates a guiding beam to lead you there.
+![Item Search Result](/images/wu-ping-sou-suo-2.png)
 
 
 ## Restock Notification
 
-Automatically notifies the owner when a sell shop runs out of stock.
+Automatically notifies the owner when a sell shop runs out of stock. Coordinates in the message are clickable to create a waypoint beam.
 
 | Command | Description |
 |---------|-------------|
 | `/qs restock on` | Enable notifications for current shop |
 | `/qs restock off` | Disable |
 | `/qs restock status` | Check status |
-
-Out-of-stock shops show a white particle ring effect (visible within 10 blocks of the owner), and the guide auto-removes when you're within 5 blocks.
 
 ![Restock Notification](/images/bu-huo-ti-xing.png)
 
@@ -98,10 +81,16 @@ You can **click the coordinates** in the message to create a **highlighting beam
 
 ![Restock Notification Beam](/images/bu-huo-ti-xing-2.png)
 
+Out-of-stock shops show a white particle ring effect (visible within 10 blocks of the owner), and the guide auto-removes when you're within 5 blocks.
+
 ![Restock Notification Guide](/images/bu-huo-ti-xing-3.png)
 
+You can also use `/qs manage` to manage restock notifications for all your shops at once.
 
-## Player Counter Reset
+![Shop Management GUI](/images/qs-manage.png)
+
+
+## Player Counter Reset <font color="#c38285" size=3>(Admin only)</font>
 
 Periodically resets player trade counters to prevent a single player from dominating prices.
 
