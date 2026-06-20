@@ -291,7 +291,8 @@ export default defineConfig({
             text: '文档维基',
             items: [
               { text: '新玩家必看指南', link: '/getting-started' },
-              { text: '服务器FAQ与规则', link: '/server-faq' }
+              { text: '服务器FAQ与规则', link: '/server-faq' },
+              { text: '方块/家具查询编辑指南', link: '/block-list-guide' }
             ]
           },
           {
@@ -373,7 +374,8 @@ export default defineConfig({
             text: 'Documentation',
             items: [
               { text: 'New Player Guide', link: '/en/getting-started' },
-              { text: 'Server Rules & FAQ', link: '/en/server-faq' }
+              { text: 'Server Rules & FAQ', link: '/en/server-faq' },
+              { text: 'Block/Furniture Query Editor Guide', link: '/en/block-list-guide' }
             ]
           },
           {
