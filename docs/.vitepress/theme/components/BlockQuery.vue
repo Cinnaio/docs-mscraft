@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useData, withBase } from 'vitepress'
 import { allBlocks, CATEGORIES_ZH, CATEGORIES_EN, type BlockEntry } from './block-list-data'
 
@@ -56,6 +56,28 @@ function clearFilters() {
   searchQuery.value = ''
   activeCategory.value = null
 }
+
+function onKeyDown(e: KeyboardEvent) {
+  if (e.key === 'Escape' && selectedBlock.value) {
+    closeDetail()
+  }
+}
+
+watch(selectedBlock, (val) => {
+  if (val) {
+    document.addEventListener('keydown', onKeyDown)
+  } else {
+    document.removeEventListener('keydown', onKeyDown)
+  }
+})
+
+onMounted(() => {
+  document.addEventListener('keydown', onKeyDown)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', onKeyDown)
+})
 
 function selectBlock(block: BlockEntry) {
   selectedBlock.value = block
@@ -167,7 +189,6 @@ function findRelated(ids: string[]): BlockEntry[] {
         v-if="selectedBlock"
         class="block-query__modal-backdrop"
         @click.self="closeDetail"
-        @keydown.escape="closeDetail"
       >
         <div class="block-query__modal" role="dialog" :aria-label="isEn ? selectedBlock.nameEn : selectedBlock.nameZh">
           <button class="block-query__modal-close" @click="closeDetail" :aria-label="isEn ? 'Close' : '关闭'">
