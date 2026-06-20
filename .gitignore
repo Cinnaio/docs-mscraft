@@ -2,7 +2,8 @@
 node_modules/
 
 # Build
-docs/.vitepress/dist
+docs/.vitepress/dist/
+docs/.vitepress/cache/
 
 # Legacy: previously synced from repo-root functions/ for Cloudflare Pages (removed)
 docs/functions/
