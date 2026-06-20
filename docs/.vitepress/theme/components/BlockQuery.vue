@@ -665,18 +665,18 @@ function findRelated(ids: string[]): BlockEntry[] {
 }
 
 .block-query__prop-key {
-  width: 40%;
-  padding: 0.5rem 0.7rem;
+  width: 28%;
+  padding: 0.6rem 0.85rem;
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--vp-c-text-2);
-  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-brand-1);
+  background: color-mix(in srgb, var(--vp-c-brand-soft) 20%, var(--vp-c-bg-soft));
   border-right: 1px solid var(--vp-c-divider);
   text-align: left;
 }
 
 .block-query__prop-val {
-  padding: 0.5rem 0.7rem;
+  padding: 0.6rem 0.85rem;
   font-size: 0.82rem;
   color: var(--vp-c-text-1);
   text-align: left;
