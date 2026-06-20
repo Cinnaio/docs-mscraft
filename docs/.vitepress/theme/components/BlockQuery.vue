@@ -221,7 +221,7 @@ function findRelated(ids: string[]): BlockEntry[] {
 
             <section class="block-query__modal-section">
               <h3>{{ isEn ? 'How to Obtain' : '获取方式' }}</h3>
-              <p>{{ isEn ? selectedBlock.obtainEn : selectedBlock.obtainZh }}</p>
+              <p v-html="isEn ? selectedBlock.obtainEn : selectedBlock.obtainZh"></p>
             </section>
 
             <section v-if="selectedBlock.properties && Object.keys(selectedBlock.properties).length > 0" class="block-query__modal-section">
