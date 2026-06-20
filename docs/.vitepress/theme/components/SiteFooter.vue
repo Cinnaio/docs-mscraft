@@ -223,11 +223,6 @@ const copy = computed(() => {
   padding: 2.75rem 1.5rem 3rem;
   background: var(--vp-c-bg-soft);
   color: var(--vp-c-text-2);
-  font-family:
-    'Microsoft YaHei',
-    'PingFang SC',
-    system-ui,
-    sans-serif;
   border-top: 1px solid var(--vp-c-divider);
   width: 100%;
   max-width: 100%;
