@@ -385,30 +385,35 @@ html.dark .VPDoc .custom-block.info .custom-block-title {
  * Reusable in markdown via:
  * <span class="item-chip"><img src="...">名称</span>
  */
-.VPDoc .item-chip {
+.item-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.34em;
-  padding: 0.12em 0.48em;
+  gap: 0.2em;
+  padding: 0.15em 0.45em;
   border: 1px solid var(--vp-c-divider);
   border-radius: 999px;
   background: var(--vp-c-bg-soft);
   color: var(--vp-c-text-1);
-  line-height: 1.35;
+  line-height: 1;
   white-space: nowrap;
   vertical-align: middle;
   font-size: 0.92em;
+  min-height: 0;
 }
 
-.VPDoc .item-chip > img {
-  width: 1.1em;
-  height: 1.1em;
+.item-chip > img {
+  display: inline !important;
+  margin: 0;
+  width: 1em;
+  height: 1em;
   border-radius: 2px;
   object-fit: contain;
   image-rendering: pixelated;
+  flex-shrink: 0;
+  align-self: center;
 }
 
-.VPDoc .item-flow {
+.item-flow {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -416,27 +421,30 @@ html.dark .VPDoc .custom-block.info .custom-block-title {
   margin: 0.18rem 0;
 }
 
-.VPDoc .item-flow .arrow {
+.item-flow .arrow {
   color: var(--vp-c-text-3);
 }
 
 /* 可轮询图标：在 item-chip 内放一组图标，按顺序淡入淡出 */
-.VPDoc .item-chip--cycle {
+.item-chip--cycle {
   position: relative;
 }
 
-.VPDoc .item-chip__icon-stack {
+.item-chip--cycle .item-chip__icon-stack {
   position: relative;
+  display: block;
   width: 1.1em;
   height: 1.1em;
   flex: 0 0 1.1em;
 }
 
-.VPDoc .item-chip__icon-stack > img {
+.item-chip__icon-stack > img {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 0;
+  width: 1.1em;
+  height: 1.1em;
+  margin: 0;
   border-radius: 2px;
   object-fit: contain;
   image-rendering: pixelated;
@@ -447,14 +455,14 @@ html.dark .VPDoc .custom-block.info .custom-block-title {
   animation-iteration-count: infinite;
 }
 
-.VPDoc .item-chip__icon-stack > img:nth-child(1) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 0); }
-.VPDoc .item-chip__icon-stack > img:nth-child(2) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 1); }
-.VPDoc .item-chip__icon-stack > img:nth-child(3) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 2); }
-.VPDoc .item-chip__icon-stack > img:nth-child(4) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 3); }
-.VPDoc .item-chip__icon-stack > img:nth-child(5) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 4); }
-.VPDoc .item-chip__icon-stack > img:nth-child(6) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 5); }
-.VPDoc .item-chip__icon-stack > img:nth-child(7) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 6); }
-.VPDoc .item-chip__icon-stack > img:nth-child(8) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 7); }
+.item-chip__icon-stack > img:nth-child(1) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 0); }
+.item-chip__icon-stack > img:nth-child(2) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 1); }
+.item-chip__icon-stack > img:nth-child(3) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 2); }
+.item-chip__icon-stack > img:nth-child(4) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 3); }
+.item-chip__icon-stack > img:nth-child(5) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 4); }
+.item-chip__icon-stack > img:nth-child(6) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 5); }
+.item-chip__icon-stack > img:nth-child(7) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 6); }
+.item-chip__icon-stack > img:nth-child(8) { animation-delay: calc(var(--item-cycle-step, 1.5s) * 7); }
 
 @keyframes item-chip-cycle {
   0% { opacity: 0; }
@@ -465,11 +473,11 @@ html.dark .VPDoc .custom-block.info .custom-block-title {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .VPDoc .item-chip__icon-stack > img {
+  .item-chip__icon-stack > img {
     animation: none;
   }
 
-  .VPDoc .item-chip__icon-stack > img:first-child {
+  .item-chip__icon-stack > img:first-child {
     opacity: 1;
   }
 }
