@@ -1,6 +1,6 @@
 # Block/Furniture Query Editor Guide
 
-This document explains how to add, modify, or remove entries in the [Block/Furniture Query](/en/block-list) page.
+This document explains how to add, modify, or remove entries in the [Block/Furniture Query](/en/block-list/) page.
 
 ## Data File Location
 

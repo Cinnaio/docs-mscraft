@@ -302,7 +302,7 @@ export default defineConfig({
               { text: '季节玩法', link: '/tutorial/SeasonWiki' },
               { text: '更多附魔', link: '/tutorial/EcoEnchants' },
               { text: '生存增强', link: '/tutorial/JourneyEngine' },
-              { text: '方块/家具查询', link: '/block-list' }
+              { text: '方块/家具查询', link: '/block-list/' }
             ]
           },
           {
@@ -385,7 +385,7 @@ export default defineConfig({
               { text: 'Season System', link: '/en/tutorial/SeasonWiki' },
               { text: 'More Enchants', link: '/en/tutorial/EcoEnchants' },
               { text: 'JourneyEngine Guide', link: '/en/tutorial/JourneyEngine' },
-              { text: 'Block/Furniture Query', link: '/en/block-list' }
+              { text: 'Block/Furniture Query', link: '/en/block-list/' }
             ]
           },
           {
