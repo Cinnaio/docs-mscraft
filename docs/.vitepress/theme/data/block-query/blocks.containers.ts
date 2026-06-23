@@ -1,6 +1,6 @@
-import type { BlockEntry } from './types'
-import { clayBall, paper, stringItem } from './ingredients'
-import { teastoryIcon, prop } from './helpers'
+import type { BlockEntry, ProcessRecipe, RecipeItem } from './types'
+import { clayBall, paper, stringItem, waterBucket } from './ingredients'
+import { method, processIngredient, processRecipe, prop, teastoryIcon, teastoryItem } from './helpers'
 
 const cupProperties = [
   prop('用途', 'Use', '茶杯饮品的空杯返还物', 'Empty cup returned after drinking matching cup tea drinks'),
@@ -10,6 +10,56 @@ const potProperties = [
   prop('用途', 'Use', '装水、烧水与泡茶流程容器', 'Container for filling water, boiling water, and brewing tea'),
   prop('填水', 'Fill', '9 个空罐 + 1 水桶 → 9 个对应水壶', '9 empty jars + 1 water bucket → 9 matching water pots'),
 ]
+
+function entryIdFromTexture(textureId: string): string {
+  return textureId.replace(/_/g, '-')
+}
+
+function containerItem(textureId: string, nameZh: string, nameEn: string, options: Omit<RecipeItem, 'nameZh' | 'nameEn' | 'icon'> = {}): RecipeItem {
+  return teastoryItem(textureId, nameZh, nameEn, {
+    entryId: entryIdFromTexture(textureId),
+    ...options,
+  })
+}
+
+function firingProcesses(input: RecipeItem, result: RecipeItem, smeltingTicks: number, blastingTicks: number, experience: number, id: string): ProcessRecipe[] {
+  return [processRecipe(
+    [method('smelting', { timeTicks: smeltingTicks, experience }), method('blasting', { timeTicks: blastingTicks, experience })],
+    [processIngredient(input)],
+    result,
+    {
+      id,
+      noteZh: '可通过熔炉或高炉烧制完成。',
+      noteEn: 'Can be fired in either a furnace or a blast furnace.',
+    },
+  )]
+}
+
+function waterFillProcess(emptyPot: RecipeItem, waterPot: RecipeItem, id: string): ProcessRecipe[] {
+  return [processRecipe(
+    method('shapeless'),
+    [processIngredient(emptyPot, { count: 9 }), processIngredient(waterBucket)],
+    { ...waterPot, count: 9 },
+    {
+      id,
+      noteZh: '实际配方为无序合成；9 个空罐与 1 个水桶批量得到 9 个水壶。',
+      noteEn: 'Actual recipe is shapeless. Nine empty jars and one water bucket batch-craft into nine water pots.',
+    },
+  )]
+}
+
+function waterBoilProcess(waterPot: RecipeItem, boiledWaterPot: RecipeItem, id: string): ProcessRecipe[] {
+  return [processRecipe(
+    [method('smelting', { timeTicks: 160, experience: 0.05 }), method('blasting', { timeTicks: 80, experience: 0.05 })],
+    [processIngredient(waterPot)],
+    boiledWaterPot,
+    {
+      id,
+      noteZh: '烧开的水壶在配置中复用对应水壶贴图。',
+      noteEn: 'The boiled water pot reuses the matching water pot texture in config.',
+    },
+  )]
+}
 
 export const containerBlocks: BlockEntry[] = [
   {
@@ -117,6 +167,14 @@ export const containerBlocks: BlockEntry[] = [
     descriptionEn: 'Porcelain tea cup returned after drinking porcelain-cup tea variants.',
     obtainZh: '烧制或高炉烧制白瓷杯坯获得。',
     obtainEn: 'Smelt or blast a White Porcelain Cup Blank.',
+    processes: firingProcesses(
+      containerItem('clay_cup', '白瓷杯坯', 'White Porcelain Cup Blank', { entryId: 'clay-cup' }),
+      containerItem('cup_porcelain', '瓷杯', 'Porcelain Cup', { entryId: 'cup-porcelain' }),
+      200,
+      100,
+      0.15,
+      'fire-clay-cup-to-porcelain-cup',
+    ),
     properties: cupProperties,
     relatedIds: ['clay-cup', 'green-tea-porcelain'],
   },
@@ -148,6 +206,14 @@ export const containerBlocks: BlockEntry[] = [
     descriptionEn: 'Zisha tea cup returned after drinking zisha-cup tea variants.',
     obtainZh: '烧制或高炉烧制紫砂杯坯获得。',
     obtainEn: 'Smelt or blast a Zisha Cup Base.',
+    processes: firingProcesses(
+      containerItem('zisha_clay_cup', '紫砂杯坯', 'Zisha Cup Base', { entryId: 'zisha-clay-cup' }),
+      containerItem('cup_zisha', '紫砂杯', 'Zisha Cup', { entryId: 'cup-zisha' }),
+      220,
+      110,
+      0.2,
+      'fire-zisha-clay-cup-to-zisha-cup',
+    ),
     properties: cupProperties,
     relatedIds: ['zisha-clay-cup', 'green-tea-porcelain'],
   },
@@ -220,6 +286,14 @@ export const containerBlocks: BlockEntry[] = [
     descriptionEn: 'Empty porcelain jar that can be batch-filled with a water bucket into Porcelain Water Pots.',
     obtainZh: '烧制或高炉烧制白瓷罐坯获得。',
     obtainEn: 'Smelt or blast a White Porcelain Jar Blank.',
+    processes: firingProcesses(
+      containerItem('pot_clay', '白瓷罐坯', 'White Porcelain Jar Blank', { entryId: 'pot-clay' }),
+      containerItem('pot_porcelain', '白瓷罐', 'White Porcelain Jar', { entryId: 'pot-porcelain' }),
+      200,
+      100,
+      0.2,
+      'fire-pot-clay-to-pot-porcelain',
+    ),
     properties: potProperties,
     relatedIds: ['pot-clay', 'water-pot-stone'],
   },
@@ -251,6 +325,14 @@ export const containerBlocks: BlockEntry[] = [
     descriptionEn: 'Empty zisha jar that can be batch-filled with a water bucket into Zisha Water Pots.',
     obtainZh: '烧制或高炉烧制紫砂罐坯获得。',
     obtainEn: 'Smelt or blast a Zisha Jar Blank.',
+    processes: firingProcesses(
+      containerItem('pot_zisha_clay', '紫砂罐坯', 'Zisha Jar Blank', { entryId: 'pot-zisha-clay' }),
+      containerItem('pot_zisha', '紫砂罐', 'Zisha Jar', { entryId: 'pot-zisha' }),
+      220,
+      110,
+      0.25,
+      'fire-pot-zisha-clay-to-pot-zisha',
+    ),
     properties: potProperties,
     relatedIds: ['pot-zisha-clay', 'water-pot-stone'],
   },
@@ -265,6 +347,11 @@ export const containerBlocks: BlockEntry[] = [
     descriptionEn: 'Stone Jar filled with water. Smelt or blast it into a Boiled Stone Water Pot.',
     obtainZh: '9 石罐 + 1 水桶 → 9 石水壶。',
     obtainEn: '9 Stone Jars + 1 Water Bucket → 9 Stone Water Pots.',
+    processes: waterFillProcess(
+      containerItem('pot_stone', '石罐', 'Stone Jar', { entryId: 'pot-stone' }),
+      containerItem('water_pot_stone', '石水壶', 'Stone Water Pot', { entryId: 'water-pot-stone' }),
+      'fill-pot-stone-with-bucket',
+    ),
     properties: [
       prop('食物组件', 'Food', '营养值 5；饱和度 3.5；可随时饮用', 'nutrition 5; saturation 3.5; can always eat'),
       prop('饮用返还', 'Consume Replacement', '石罐', 'Stone Jar'),
@@ -283,6 +370,11 @@ export const containerBlocks: BlockEntry[] = [
     descriptionEn: 'Boiled Stone Water Pot used for brewing kettle tea drinks. It reuses the Stone Water Pot texture in config.',
     obtainZh: '烧制或高炉烧制石水壶。',
     obtainEn: 'Smelt or blast a Stone Water Pot.',
+    processes: waterBoilProcess(
+      containerItem('water_pot_stone', '石水壶', 'Stone Water Pot', { entryId: 'water-pot-stone' }),
+      containerItem('water_pot_stone', '烧开的石水壶', 'Boiled Stone Water Pot', { entryId: 'boiled-water-pot-stone' }),
+      'boil-water-pot-stone',
+    ),
     properties: [
       prop('饮用返还', 'Consume Replacement', '石罐', 'Stone Jar'),
     ],
@@ -299,6 +391,11 @@ export const containerBlocks: BlockEntry[] = [
     descriptionEn: 'White Porcelain Jar filled with water. Smelt or blast it into a Boiled Porcelain Water Pot.',
     obtainZh: '9 白瓷罐 + 1 水桶 → 9 瓷水壶。',
     obtainEn: '9 White Porcelain Jars + 1 Water Bucket → 9 Porcelain Water Pots.',
+    processes: waterFillProcess(
+      containerItem('pot_porcelain', '白瓷罐', 'White Porcelain Jar', { entryId: 'pot-porcelain' }),
+      containerItem('water_pot_porcelain', '瓷水壶', 'Porcelain Water Pot', { entryId: 'water-pot-porcelain' }),
+      'fill-pot-porcelain-with-bucket',
+    ),
     properties: [
       prop('食物组件', 'Food', '营养值 5；饱和度 3.5；可随时饮用', 'nutrition 5; saturation 3.5; can always eat'),
       prop('饮用返还', 'Consume Replacement', '白瓷罐', 'White Porcelain Jar'),
@@ -317,6 +414,11 @@ export const containerBlocks: BlockEntry[] = [
     descriptionEn: 'Boiled Porcelain Water Pot used for brewing kettle tea drinks. It reuses the Porcelain Water Pot texture in config.',
     obtainZh: '烧制或高炉烧制瓷水壶。',
     obtainEn: 'Smelt or blast a Porcelain Water Pot.',
+    processes: waterBoilProcess(
+      containerItem('water_pot_porcelain', '瓷水壶', 'Porcelain Water Pot', { entryId: 'water-pot-porcelain' }),
+      containerItem('water_pot_porcelain', '烧开的瓷水壶', 'Boiled Porcelain Water Pot', { entryId: 'boiled-water-pot-porcelain' }),
+      'boil-water-pot-porcelain',
+    ),
     properties: [
       prop('饮用返还', 'Consume Replacement', '白瓷罐', 'White Porcelain Jar'),
     ],
@@ -333,6 +435,11 @@ export const containerBlocks: BlockEntry[] = [
     descriptionEn: 'Iron Jar filled with water. Smelt or blast it into a Boiled Iron Water Pot.',
     obtainZh: '9 铁罐 + 1 水桶 → 9 铁水壶。',
     obtainEn: '9 Iron Jars + 1 Water Bucket → 9 Iron Water Pots.',
+    processes: waterFillProcess(
+      containerItem('pot_iron', '铁罐', 'Iron Jar', { entryId: 'pot-iron' }),
+      containerItem('water_pot_iron', '铁水壶', 'Iron Water Pot', { entryId: 'water-pot-iron' }),
+      'fill-pot-iron-with-bucket',
+    ),
     properties: [
       prop('食物组件', 'Food', '营养值 5；饱和度 3.5；可随时饮用', 'nutrition 5; saturation 3.5; can always eat'),
       prop('饮用返还', 'Consume Replacement', '铁罐', 'Iron Jar'),
@@ -351,6 +458,11 @@ export const containerBlocks: BlockEntry[] = [
     descriptionEn: 'Boiled Iron Water Pot used for brewing kettle tea drinks. It reuses the Iron Water Pot texture in config.',
     obtainZh: '烧制或高炉烧制铁水壶。',
     obtainEn: 'Smelt or blast an Iron Water Pot.',
+    processes: waterBoilProcess(
+      containerItem('water_pot_iron', '铁水壶', 'Iron Water Pot', { entryId: 'water-pot-iron' }),
+      containerItem('water_pot_iron', '烧开的铁水壶', 'Boiled Iron Water Pot', { entryId: 'boiled-water-pot-iron' }),
+      'boil-water-pot-iron',
+    ),
     properties: [
       prop('饮用返还', 'Consume Replacement', '铁罐', 'Iron Jar'),
     ],
@@ -367,6 +479,11 @@ export const containerBlocks: BlockEntry[] = [
     descriptionEn: 'Zisha Jar filled with water. Smelt or blast it into a Boiled Zisha Water Pot.',
     obtainZh: '9 紫砂罐 + 1 水桶 → 9 紫砂水壶。',
     obtainEn: '9 Zisha Jars + 1 Water Bucket → 9 Zisha Water Pots.',
+    processes: waterFillProcess(
+      containerItem('pot_zisha', '紫砂罐', 'Zisha Jar', { entryId: 'pot-zisha' }),
+      containerItem('water_pot_zisha', '紫砂水壶', 'Zisha Water Pot', { entryId: 'water-pot-zisha' }),
+      'fill-pot-zisha-with-bucket',
+    ),
     properties: [
       prop('食物组件', 'Food', '营养值 5；饱和度 3.5；可随时饮用', 'nutrition 5; saturation 3.5; can always eat'),
       prop('饮用返还', 'Consume Replacement', '紫砂罐', 'Zisha Jar'),
@@ -385,6 +502,11 @@ export const containerBlocks: BlockEntry[] = [
     descriptionEn: 'Boiled Zisha Water Pot used for brewing kettle tea drinks. It reuses the Zisha Water Pot texture in config.',
     obtainZh: '烧制或高炉烧制紫砂水壶。',
     obtainEn: 'Smelt or blast a Zisha Water Pot.',
+    processes: waterBoilProcess(
+      containerItem('water_pot_zisha', '紫砂水壶', 'Zisha Water Pot', { entryId: 'water-pot-zisha' }),
+      containerItem('water_pot_zisha', '烧开的紫砂水壶', 'Boiled Zisha Water Pot', { entryId: 'boiled-water-pot-zisha' }),
+      'boil-water-pot-zisha',
+    ),
     properties: [
       prop('饮用返还', 'Consume Replacement', '紫砂罐', 'Zisha Jar'),
     ],
@@ -449,6 +571,14 @@ export const containerBlocks: BlockEntry[] = [
     descriptionEn: 'Empty kettle for porcelain-kettle tea drinks. Porcelain kettle drinks return this item when consumed.',
     obtainZh: '烧制或高炉烧制陶土茶壶获得。',
     obtainEn: 'Smelt or blast a Clay Kettle.',
+    processes: firingProcesses(
+      containerItem('clay_kettle', '陶土茶壶', 'Clay Kettle', { entryId: 'clay-kettle' }),
+      containerItem('empty_porcelain_kettle', '空瓷茶壶', 'Empty Porcelain Kettle', { entryId: 'empty-porcelain-kettle' }),
+      200,
+      100,
+      0.2,
+      'fire-clay-kettle-to-empty-porcelain-kettle',
+    ),
     properties: [
       prop('壶装饮品耐久', 'Drink Kettle Max Damage', '4', '4'),
       prop('饮用返还', 'Consume Replacement', '空瓷茶壶', 'Empty Porcelain Kettle'),
@@ -466,6 +596,14 @@ export const containerBlocks: BlockEntry[] = [
     descriptionEn: 'Empty kettle for zisha-kettle tea drinks. Zisha kettle drinks return this item when consumed.',
     obtainZh: '烧制或高炉烧制紫砂陶土茶壶获得。',
     obtainEn: 'Smelt or blast a Zisha Clay Kettle.',
+    processes: firingProcesses(
+      containerItem('zisha_clay_kettle', '紫砂陶土茶壶', 'Zisha Clay Kettle', { entryId: 'zisha-clay-kettle' }),
+      containerItem('empty_zisha_kettle', '空紫砂茶壶', 'Empty Zisha Kettle', { entryId: 'empty-zisha-kettle' }),
+      220,
+      110,
+      0.25,
+      'fire-zisha-clay-kettle-to-empty-zisha-kettle',
+    ),
     properties: [
       prop('壶装饮品耐久', 'Drink Kettle Max Damage', '4', '4'),
       prop('饮用返还', 'Consume Replacement', '空紫砂茶壶', 'Empty Zisha Kettle'),

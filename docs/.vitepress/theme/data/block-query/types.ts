@@ -38,6 +38,42 @@ export interface CraftingRecipe {
   noteEn?: string
 }
 
+export type ProcessMethodKind =
+  | 'shapeless'
+  | 'smelting'
+  | 'blasting'
+  | 'smoking'
+  | 'campfire_cooking'
+  | 'brewing'
+
+export interface ProcessMethod {
+  kind: ProcessMethodKind
+  timeTicks?: number
+  experience?: number
+}
+
+export interface ProcessIngredient {
+  /** 单个 item 表示精确材料；多个 item 表示该材料位可接受的替代项 */
+  items: RecipeItem[]
+  /** 该材料组需要的数量，例如 6 份茶叶、9 个罐、任意 2 个茶渣 */
+  count?: number
+  roleZh?: string
+  roleEn?: string
+  noteZh?: string
+  noteEn?: string
+}
+
+export interface ProcessRecipe {
+  id?: string
+  methods: ProcessMethod[]
+  inputs: ProcessIngredient[]
+  result: RecipeItem
+  returns?: RecipeItem[]
+  byproducts?: RecipeItem[]
+  noteZh?: string
+  noteEn?: string
+}
+
 export interface BlockProperty {
   labelZh: string
   labelEn: string
@@ -65,6 +101,8 @@ export interface BlockEntry {
   aliasesEn?: string[]
   /** 可选合成配方，显示为 3×3 工作台合成表 */
   recipes?: CraftingRecipe[]
+  /** 非 3×3 的加工、无序合成、烧制、酿造等流程 */
+  processes?: ProcessRecipe[]
   /** 可选属性键值对，显示在详情弹窗的表格中 */
   properties?: BlockProperty[]
   /** 关联条目 id 列表，用于交叉链接 */

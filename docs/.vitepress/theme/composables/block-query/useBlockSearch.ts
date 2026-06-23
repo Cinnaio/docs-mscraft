@@ -1,5 +1,14 @@
 import { computed, ref, type ComputedRef, type Ref } from 'vue'
-import type { BlockEntry, BlockProperty } from '../../data/block-query'
+import type { BlockEntry, BlockProperty, ProcessRecipe } from '../../data/block-query'
+
+const processMethodTokens: Record<string, string[]> = {
+  shapeless: ['无序合成', 'shapeless'],
+  smelting: ['熔炉', '烧制', 'furnace', 'smelting'],
+  blasting: ['高炉', 'blast furnace', 'blasting'],
+  smoking: ['烟熏炉', 'smoker', 'smoking'],
+  campfire_cooking: ['营火', '篝火', 'campfire', 'campfire cooking'],
+  brewing: ['酿造', '发酵', 'brewing', 'fermentation'],
+}
 
 function propertyTokens(properties?: BlockProperty[]): string[] {
   if (!properties) return []
@@ -9,6 +18,30 @@ function propertyTokens(properties?: BlockProperty[]): string[] {
     property.valueZh,
     property.valueEn,
   ])
+}
+
+function processTokens(processes?: ProcessRecipe[]): string[] {
+  if (!processes) return []
+
+  return processes.flatMap((process) => [
+    process.id,
+    process.noteZh,
+    process.noteEn,
+    ...process.methods.flatMap((method) => processMethodTokens[method.kind] ?? [method.kind]),
+    ...process.inputs.flatMap((ingredient) => [
+      ingredient.roleZh,
+      ingredient.roleEn,
+      ingredient.noteZh,
+      ingredient.noteEn,
+      ...ingredient.items.flatMap((item) => [item.nameZh, item.nameEn, item.noteZh, item.noteEn]),
+    ]),
+    process.result.nameZh,
+    process.result.nameEn,
+    process.result.noteZh,
+    process.result.noteEn,
+    ...(process.returns ?? []).flatMap((item) => [item.nameZh, item.nameEn, item.noteZh, item.noteEn]),
+    ...(process.byproducts ?? []).flatMap((item) => [item.nameZh, item.nameEn, item.noteZh, item.noteEn]),
+  ]).filter((token): token is string => Boolean(token))
 }
 
 function blockSearchTokens(block: BlockEntry, isEn: boolean): string[] {
@@ -28,6 +61,7 @@ function blockSearchTokens(block: BlockEntry, isEn: boolean): string[] {
     ...(block.aliasesZh ?? []),
     ...(block.aliasesEn ?? []),
     ...propertyTokens(block.properties),
+    ...processTokens(block.processes),
   ].filter((token): token is string => Boolean(token))
 }
 

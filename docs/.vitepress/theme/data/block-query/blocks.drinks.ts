@@ -1,6 +1,6 @@
-import type { BlockEntry } from './types'
+import type { BlockEntry, ProcessRecipe, RecipeItem } from './types'
 import { emptyTeaBag } from './ingredients'
-import { teastoryIcon, prop } from './helpers'
+import { method, processIngredient, processRecipe, prop, teastoryIcon, teastoryItem } from './helpers'
 
 type TeaKind = {
   id: string
@@ -63,6 +63,72 @@ function foodDrink(entry: Omit<BlockEntry, 'categoryZh' | 'categoryEn'>): BlockE
   }
 }
 
+function entryIdFromTexture(textureId: string): string {
+  return textureId.replace(/_/g, '-')
+}
+
+function drinkItem(textureId: string, nameZh: string, nameEn: string, options: Omit<RecipeItem, 'nameZh' | 'nameEn' | 'icon'> = {}): RecipeItem {
+  return teastoryItem(textureId, nameZh, nameEn, {
+    entryId: entryIdFromTexture(textureId),
+    ...options,
+  })
+}
+
+const boiledWaterPots = [
+  drinkItem('water_pot_stone', '烧开的石水壶', 'Boiled Stone Water Pot', { entryId: 'boiled-water-pot-stone' }),
+  drinkItem('water_pot_porcelain', '烧开的瓷水壶', 'Boiled Porcelain Water Pot', { entryId: 'boiled-water-pot-porcelain' }),
+  drinkItem('water_pot_iron', '烧开的铁水壶', 'Boiled Iron Water Pot', { entryId: 'boiled-water-pot-iron' }),
+  drinkItem('water_pot_zisha', '烧开的紫砂水壶', 'Boiled Zisha Water Pot', { entryId: 'boiled-water-pot-zisha' }),
+]
+
+function kettleBrewingProcesses(tea: TeaKind, material: KettleMaterial): ProcessRecipe[] | undefined {
+  const idPart = tea.id.replace(/_/g, '-')
+  const emptyKettle = drinkItem(`empty_${material.id}_kettle`, material.replacementZh, material.replacementEn, { entryId: material.emptyId })
+  const result = drinkItem(`${tea.id}_${material.id}_kettle`, `${tea.nameZh}${material.zh}`, `${material.en} of ${tea.nameEn}`)
+
+  if (tea.id === 'lemon_tea' || tea.id === 'milk_tea') return undefined
+
+  if (tea.id === 'matcha_drink') {
+    return [processRecipe(
+      method('shapeless'),
+      [
+        processIngredient(drinkItem('matcha_tea_leaf', '抹茶叶', 'Matcha Leaf', { entryId: 'matcha-tea-leaf' })),
+        processIngredient(drinkItem('tea_whisk', '茶筅', 'Tea Whisk', { entryId: 'tea-whisk' })),
+        processIngredient(emptyKettle),
+        processIngredient(boiledWaterPots, {
+          roleZh: '任意烧开的水壶',
+          roleEn: 'Any boiled water pot',
+        }),
+      ],
+      result,
+      {
+        id: `craft-${idPart}-${material.id}-kettle`,
+        noteZh: '实际配方为无序合成；烧开的石/瓷/铁/紫砂水壶均可作为水源。',
+        noteEn: 'Actual recipe is shapeless. Any boiled stone, porcelain, iron, or zisha water pot can provide the water.',
+      },
+    )]
+  }
+
+  return [processRecipe(
+    method('shapeless'),
+    [
+      processIngredient(drinkItem(`${tea.id}_bag`, `${tea.nameZh}茶包`, `${tea.nameEn} Bag`, { entryId: `${idPart}-bag` })),
+      processIngredient(emptyKettle),
+      processIngredient(boiledWaterPots, {
+        roleZh: '任意烧开的水壶',
+        roleEn: 'Any boiled water pot',
+      }),
+    ],
+    result,
+    {
+      id: `craft-${idPart}-${material.id}-kettle`,
+      returns: [drinkItem(`${tea.id}_residue`, `${tea.nameZh}茶渣`, `${tea.nameEn} Residue`, { entryId: `${idPart}-residue` })],
+      noteZh: '实际配方为无序合成；茶包在壶装泡茶配方中返还对应茶渣。',
+      noteEn: 'Actual recipe is shapeless. The tea bag returns the matching residue in kettle-brewing recipes.',
+    },
+  )]
+}
+
 const teaBagEntries = teaBagKinds.map((tea) => {
   const leafEntryId = `${tea.id.replace(/_/g, '-')}-leaf`
   const residueEntryId = `${tea.id.replace(/_/g, '-')}-residue`
@@ -77,22 +143,20 @@ const teaBagEntries = teaBagKinds.map((tea) => {
     obtainEn: `Empty Tea Bag + 6 ${tea.nameEn} Leaves → 1 ${tea.nameEn} Bag (shapeless).`,
     aliasesZh: ['茶包', `${tea.nameZh}包`],
     aliasesEn: ['Tea Bag'],
-    recipes: [
-      {
-        pattern: [
-          emptyTeaBag, { nameZh: `${tea.nameZh}茶叶 ×6`, nameEn: `${tea.nameEn} Leaves ×6`, icon: teastoryIcon(`${tea.id}_leaf`), entryId: leafEntryId, count: 6 }, null,
-          null, null, null,
-          null, null, null,
+    processes: [
+      processRecipe(
+        method('shapeless'),
+        [
+          processIngredient(emptyTeaBag),
+          processIngredient(drinkItem(`${tea.id}_leaf`, `${tea.nameZh}茶叶`, `${tea.nameEn} Leaves`, { entryId: leafEntryId }), { count: 6 }),
         ],
-        result: {
-          nameZh: `${tea.nameZh}茶包`,
-          nameEn: `${tea.nameEn} Bag`,
-          entryId: `${tea.id.replace(/_/g, '-')}-bag`,
-          icon: teastoryIcon(`${tea.id}_bag`),
+        drinkItem(`${tea.id}_bag`, `${tea.nameZh}茶包`, `${tea.nameEn} Bag`, { entryId: `${tea.id.replace(/_/g, '-')}-bag` }),
+        {
+          id: `shapeless-${tea.id}-bag`,
+          noteZh: '实际配方为无序合成，材料顺序不限。',
+          noteEn: 'Actual recipe is shapeless; ingredient order does not matter.',
         },
-        noteZh: '实际配方为无序合成；此处仅作材料展示。',
-        noteEn: 'Actual recipe is shapeless; the grid is only a material display.',
-      },
+      ),
     ],
     properties: [
       prop('配方类型', 'Recipe Type', '无序合成', 'shapeless'),
@@ -103,8 +167,10 @@ const teaBagEntries = teaBagKinds.map((tea) => {
   })
 })
 
-const cupDrinkEntries = teaKinds.flatMap((tea) => cupMaterials.map((material) => foodDrink({
-  id: `${tea.id.replace(/_/g, '-')}-${material.id}`,
+const cupDrinkEntries = teaKinds.flatMap((tea) => cupMaterials.map((material) => {
+  const idPart = tea.id.replace(/_/g, '-')
+  return foodDrink({
+  id: `${idPart}-${material.id}`,
   icon: teastoryIcon(`${tea.id}_${material.id}`),
   nameZh: `${tea.nameZh}${material.zh}`,
   nameEn: `${material.en} of ${tea.nameEn}`,
@@ -114,32 +180,66 @@ const cupDrinkEntries = teaKinds.flatMap((tea) => cupMaterials.map((material) =>
   obtainEn: `Obtained by pouring the matching ${tea.nameEn} kettle drink into a ${material.replacementEn}.`,
   aliasesZh: [`${tea.nameZh}杯`, `${tea.nameZh}饮品`, material.zh],
   aliasesEn: [`${tea.nameEn} Cup Drink`, `${material.replacementEn}`],
+  processes: [
+    processRecipe(
+      method('shapeless'),
+      [
+        processIngredient([
+          drinkItem(`${tea.id}_porcelain_kettle`, `${tea.nameZh}瓷茶壶`, `Porcelain Kettle of ${tea.nameEn}`, { entryId: `${idPart}-porcelain-kettle` }),
+          drinkItem(`${tea.id}_zisha_kettle`, `${tea.nameZh}紫砂茶壶`, `Zisha Kettle of ${tea.nameEn}`, { entryId: `${idPart}-zisha-kettle` }),
+        ], {
+          roleZh: '对应壶装饮品',
+          roleEn: 'Matching kettle drink',
+        }),
+        processIngredient(drinkItem(`cup_${material.id}`, material.replacementZh, material.replacementEn, { entryId: material.replacementId })),
+      ],
+      drinkItem(`${tea.id}_${material.id}`, `${tea.nameZh}${material.zh}`, `${material.en} of ${tea.nameEn}`, { entryId: `${idPart}-${material.id}` }),
+      {
+        id: `kettle-pour-${tea.id}-${material.id}`,
+        noteZh: '实际配方为无序合成；壶装饮品作为配方返还物返还并损耗 1 耐久。',
+        noteEn: 'Actual recipe is shapeless. The kettle drink returns as a recipe remainder with 1 durability damage.',
+      },
+    ),
+  ],
   properties: [
     prop('效果', 'Effect', tea.effectZh, tea.effectEn),
     prop('食物组件', 'Food', '营养值 5；饱和度 3.5；可随时饮用', 'nutrition 5; saturation 3.5; can always eat'),
     prop('饮用返还', 'Consume Replacement', material.replacementZh, material.replacementEn),
   ],
   relatedIds: [material.replacementId, `${tea.id.replace(/_/g, '-')}-porcelain-kettle`, `${tea.id.replace(/_/g, '-')}-zisha-kettle`],
-})))
+  })
+}))
 
-const kettleDrinkEntries = teaKinds.flatMap((tea) => kettleMaterials.map((material) => foodDrink({
-  id: `${tea.id.replace(/_/g, '-')}-${material.id}-kettle`,
-  icon: teastoryIcon(`${tea.id}_${material.id}_kettle`),
-  nameZh: `${tea.nameZh}${material.zh}`,
-  nameEn: `${material.en} of ${tea.nameEn}`,
-  descriptionZh: `${material.zh}中的${tea.nameZh}，可继续配合茶杯制作杯装茶饮。`,
-  descriptionEn: `${tea.nameEn} in a ${material.en}, used with cups to make cup tea drinks.`,
-  obtainZh: `${tea.id === 'matcha_drink' ? '抹茶叶 + 茶筅' : `${tea.nameZh}茶包`} + 空${material.zh} + 烧开的水壶 → ${tea.nameZh}${material.zh}。`,
-  obtainEn: `${tea.id === 'matcha_drink' ? 'Matcha Leaf + Tea Whisk' : `${tea.nameEn} Bag`} + Empty ${material.en} + Boiled Water Pot → ${material.en} of ${tea.nameEn}.`,
-  aliasesZh: [`${tea.nameZh}壶`, `${tea.nameZh}茶壶`, material.zh],
-  aliasesEn: [`${tea.nameEn} Kettle Drink`, material.en],
-  properties: [
-    prop('耐久', 'Max Damage', '4', '4'),
-    prop('饮用返还', 'Consume Replacement', material.replacementZh, material.replacementEn),
-    prop('合成返还', 'Craft Remainder', '返还茶壶并损耗 1 耐久', 'returns the kettle with 1 durability damage'),
-  ],
-  relatedIds: [material.emptyId, 'water-pot-stone', 'water-pot-porcelain', 'water-pot-iron', 'water-pot-zisha'],
-})))
+const kettleDrinkEntries = teaKinds.flatMap((tea) => kettleMaterials.map((material) => {
+  const idPart = tea.id.replace(/_/g, '-')
+  const knownBrewingProcesses = kettleBrewingProcesses(tea, material)
+  const hasKnownBrewing = knownBrewingProcesses !== undefined
+
+  return foodDrink({
+    id: `${idPart}-${material.id}-kettle`,
+    icon: teastoryIcon(`${tea.id}_${material.id}_kettle`),
+    nameZh: `${tea.nameZh}${material.zh}`,
+    nameEn: `${material.en} of ${tea.nameEn}`,
+    descriptionZh: `${material.zh}中的${tea.nameZh}，可继续配合茶杯制作杯装茶饮。`,
+    descriptionEn: `${tea.nameEn} in a ${material.en}, used with cups to make cup tea drinks.`,
+    obtainZh: hasKnownBrewing
+      ? `${tea.id === 'matcha_drink' ? '抹茶叶 + 茶筅' : `${tea.nameZh}茶包`} + 空${material.zh} + 烧开的水壶 → ${tea.nameZh}${material.zh}。`
+      : `CraftEngine 配方中未找到${tea.nameZh}${material.zh}的壶装来源；仅确认它可继续倒入茶杯。`,
+    obtainEn: hasKnownBrewing
+      ? `${tea.id === 'matcha_drink' ? 'Matcha Leaf + Tea Whisk' : `${tea.nameEn} Bag`} + Empty ${material.en} + Boiled Water Pot → ${material.en} of ${tea.nameEn}.`
+      : `No source recipe for ${material.en} of ${tea.nameEn} was found in CraftEngine recipes; only its cup-pouring use is confirmed.`,
+    aliasesZh: [`${tea.nameZh}壶`, `${tea.nameZh}茶壶`, material.zh],
+    aliasesEn: [`${tea.nameEn} Kettle Drink`, material.en],
+    processes: knownBrewingProcesses,
+    properties: [
+      prop('耐久', 'Max Damage', '4', '4'),
+      prop('饮用返还', 'Consume Replacement', material.replacementZh, material.replacementEn),
+      prop('合成返还', 'Craft Remainder', '返还茶壶并损耗 1 耐久', 'returns the kettle with 1 durability damage'),
+      ...(!hasKnownBrewing ? [prop('壶装来源', 'Kettle Source', '未在 CraftEngine 配方中确认', 'not confirmed in CraftEngine recipes')] : []),
+    ],
+    relatedIds: [material.emptyId, 'water-pot-stone', 'water-pot-porcelain', 'water-pot-iron', 'water-pot-zisha'],
+  })
+}))
 
 export const drinkBlocks: BlockEntry[] = [
   ...teaBagEntries,

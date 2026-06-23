@@ -6,6 +6,7 @@ import { useModalScrollbar } from '../../composables/block-query/useModalScrollb
 import BlockPropertiesTable from './BlockPropertiesTable.vue'
 import BlockRelatedList from './BlockRelatedList.vue'
 import CraftingRecipeList from './CraftingRecipeList.vue'
+import ProcessRecipeList from './ProcessRecipeList.vue'
 import QueryFloatingTooltip from './QueryFloatingTooltip.vue'
 
 const props = defineProps<{
@@ -104,6 +105,21 @@ onUnmounted(() => {
                 :is-en="isEn"
                 :get-result="getRecipeResult"
                 :get-note="getRecipeNote"
+                :get-name="getRecipeItemName"
+                :get-count-label="getRecipeCountLabel"
+                :get-tooltip="getRecipeTooltip"
+                :can-open="canOpenRecipeItem"
+                @show-tooltip="(event, text) => emit('showTooltip', event, text)"
+                @hide-tooltip="emit('hideTooltip')"
+                @open="emit('openRecipeItem', $event)"
+              />
+            </section>
+
+            <section v-if="block.processes && block.processes.length > 0" class="block-query__modal-section">
+              <h3>{{ isEn ? 'Processing Methods' : '加工方式' }}</h3>
+              <ProcessRecipeList
+                :processes="block.processes"
+                :is-en="isEn"
                 :get-name="getRecipeItemName"
                 :get-count-label="getRecipeCountLabel"
                 :get-tooltip="getRecipeTooltip"

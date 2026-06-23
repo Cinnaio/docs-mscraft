@@ -1,6 +1,6 @@
 import type { BlockEntry } from './types'
 import { bamboo, bowl, ironIngot, stick, woodPlanks } from './ingredients'
-import { prop } from './helpers'
+import { method, processIngredient, processRecipe, prop, teastoryItem } from './helpers'
 
 export const toolBlocks: BlockEntry[] = [
   {
@@ -30,6 +30,22 @@ export const toolBlocks: BlockEntry[] = [
         noteZh: '严格摆位；在 cgap:shapeless_mortar_tea 中作为配方返还物损耗 1 耐久。',
         noteEn: 'Shaped recipe. In cgap:shapeless_mortar_tea it returns as a damaged remainder (-1 durability).',
       },
+    ],
+    processes: [
+      processRecipe(
+        method('shapeless'),
+        [
+          processIngredient(teastoryItem('wooden_mortar_and_pestle', '木制研钵研杵', 'Wooden Mortar & Pestle', { entryId: 'wooden-mortar-pestle' })),
+          processIngredient(teastoryItem('tea_leaf', '青叶', 'Green Leaf', { entryId: 'tea-leaf' })),
+        ],
+        teastoryItem('broken_tea_leaf', '碎茶', 'Broken Tea Leaf', { entryId: 'broken-tea-leaf', count: 3 }),
+        {
+          id: 'shapeless-mortar-tea',
+          returns: [teastoryItem('wooden_mortar_and_pestle', '木制研钵研杵', 'Wooden Mortar & Pestle', { entryId: 'wooden-mortar-pestle' })],
+          noteZh: '实际配方为无序合成；研钵研杵作为配方返还物返还并损耗 1 耐久。',
+          noteEn: 'Actual recipe is shapeless. The mortar and pestle returns as a damaged recipe remainder (-1 durability).',
+        },
+      ),
     ],
     properties: [
       prop('耐久', 'Max Damage', '80', '80'),
@@ -64,6 +80,22 @@ export const toolBlocks: BlockEntry[] = [
         noteZh: '严格摆位；在 cgap:shapeless_whisk_green_to_matcha 中作为配方返还物损耗 1 耐久。',
         noteEn: 'Shaped recipe. In cgap:shapeless_whisk_green_to_matcha it returns as a damaged remainder (-1 durability).',
       },
+    ],
+    processes: [
+      processRecipe(
+        method('shapeless'),
+        [
+          processIngredient(teastoryItem('tea_whisk', '茶筅', 'Tea Whisk', { entryId: 'tea-whisk' })),
+          processIngredient(teastoryItem('green_tea_leaf', '绿茶茶叶', 'Green Tea Leaf', { entryId: 'green-tea-leaf' })),
+        ],
+        teastoryItem('matcha_tea_leaf', '抹茶叶', 'Matcha Leaf', { entryId: 'matcha-tea-leaf' }),
+        {
+          id: 'shapeless-whisk-green-to-matcha',
+          returns: [teastoryItem('tea_whisk', '茶筅', 'Tea Whisk', { entryId: 'tea-whisk' })],
+          noteZh: '实际配方为无序合成；茶筅作为配方返还物返还并损耗 1 耐久。',
+          noteEn: 'Actual recipe is shapeless. The tea whisk returns as a damaged recipe remainder (-1 durability).',
+        },
+      ),
     ],
     properties: [
       prop('耐久', 'Max Damage', '120', '120'),
