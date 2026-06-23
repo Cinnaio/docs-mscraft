@@ -1,5 +1,6 @@
 import type { BlockEntry } from './types'
 import { dirt, waterBucket } from './ingredients'
+import { prop } from './helpers'
 
 export const functionalBlocks: BlockEntry[] = [
   {
@@ -33,14 +34,14 @@ export const functionalBlocks: BlockEntry[] = [
         noteEn: '3×3 display layout. Bucket return follows the server recipe behavior.',
       },
     ],
-    properties: {
-      '硬度 / Hardness': '0.5',
-      '爆炸抗性 / Resistance': '0.5',
-      '方块状态 / Block State': 'auto-state: solid；model: minecraft:block/teastory/water',
-      '声音 / Sounds': '湿草破坏、游泳脚步、桶放置、水命中、溅水掉落',
-      '交互 / Interaction': '主手右键空桶或水桶会取消事件并刷新交互 tick',
-      '承载作物 / Crop': '水稻秧苗（xian_rice_plant_crop）',
-    },
+    properties: [
+      prop('硬度', 'Hardness', '0.5', '0.5'),
+      prop('爆炸抗性', 'Resistance', '0.5', '0.5'),
+      prop('方块状态', 'Block State', 'auto-state: solid；model: minecraft:block/teastory/water', 'auto-state: solid；model: minecraft:block/teastory/water'),
+      prop('声音', 'Sounds', '湿草破坏、游泳脚步、桶放置、水命中、溅水掉落', 'wet grass break, swim step, bucket place, water hit, splash fall'),
+      prop('交互', 'Interaction', '主手右键空桶或水桶会取消事件并刷新交互 tick', 'right-clicking with an empty bucket or water bucket in the main hand is cancelled and refreshes the interaction tick'),
+      prop('承载作物', 'Crop', '水稻秧苗（xian_rice_plant_crop）', 'Rice Seedling (xian_rice_plant_crop)'),
+    ],
     relatedIds: ['item-xian-rice-seedling', 'xian-rice-seeds'],
   },
 ]

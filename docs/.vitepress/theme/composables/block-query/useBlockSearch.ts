@@ -1,9 +1,14 @@
 import { computed, ref, type ComputedRef, type Ref } from 'vue'
-import type { BlockEntry } from '../../data/block-query'
+import type { BlockEntry, BlockProperty } from '../../data/block-query'
 
-function propertyTokens(properties?: Record<string, string>): string[] {
+function propertyTokens(properties?: BlockProperty[]): string[] {
   if (!properties) return []
-  return Object.entries(properties).flatMap(([key, value]) => [key, value])
+  return properties.flatMap((property) => [
+    property.labelZh,
+    property.labelEn,
+    property.valueZh,
+    property.valueEn,
+  ])
 }
 
 function blockSearchTokens(block: BlockEntry, isEn: boolean): string[] {

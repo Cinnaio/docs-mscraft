@@ -1,5 +1,6 @@
 import type { BlockEntry } from './types'
 import { bamboo, bowl, ironIngot, stick, woodPlanks } from './ingredients'
+import { prop } from './helpers'
 
 export const toolBlocks: BlockEntry[] = [
   {
@@ -30,11 +31,10 @@ export const toolBlocks: BlockEntry[] = [
         noteEn: 'Shaped recipe. In cgap:shapeless_mortar_tea it returns as a damaged remainder (-1 durability).',
       },
     ],
-    properties: {
-      '材质 / Material': 'shears',
-      '耐久 / Max Damage': '80',
-      '配方返还 / Craft Remainder': 'hurt_and_break，damage 1（研磨茶叶配方）',
-    },
+    properties: [
+      prop('耐久', 'Max Damage', '80', '80'),
+      prop('配方返还', 'Craft Remainder', '研磨茶叶配方中返还并损耗 1 耐久', 'returns from tea-grinding recipes with 1 durability damage'),
+    ],
     relatedIds: ['tea-leaf', 'xian-rice'],
   },
   {
@@ -65,12 +65,11 @@ export const toolBlocks: BlockEntry[] = [
         noteEn: 'Shaped recipe. In cgap:shapeless_whisk_green_to_matcha it returns as a damaged remainder (-1 durability).',
       },
     ],
-    properties: {
-      '材质 / Material': 'shears',
-      '耐久 / Max Damage': '120',
-      '用途 / Use': '绿茶叶 → 抹茶叶',
-      '配方返还 / Craft Remainder': 'hurt_and_break，damage 1（抹茶配方）',
-    },
+    properties: [
+      prop('耐久', 'Max Damage', '120', '120'),
+      prop('用途', 'Use', '绿茶叶 → 抹茶叶', 'Green Tea Leaf → Matcha Leaf'),
+      prop('配方返还', 'Craft Remainder', '抹茶配方中返还并损耗 1 耐久', 'returns from matcha recipes with 1 durability damage'),
+    ],
     relatedIds: ['tea-leaf', 'green-tea-porcelain', 'matcha-drink-porcelain-kettle'],
   },
   {
@@ -101,10 +100,9 @@ export const toolBlocks: BlockEntry[] = [
         noteEn: 'Shaped recipe.',
       },
     ],
-    properties: {
-      '材质 / Material': 'iron_hoe',
-      '耐久 / Max Damage': '500',
-    },
+    properties: [
+      prop('耐久', 'Max Damage', '500', '500'),
+    ],
     relatedIds: ['tea-seeds', 'item-xian-rice-seedling'],
   },
 ]

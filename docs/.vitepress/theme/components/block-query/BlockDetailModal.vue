@@ -114,9 +114,9 @@ onUnmounted(() => {
               />
             </section>
 
-            <section v-if="block.properties && Object.keys(block.properties).length > 0" class="block-query__modal-section">
+            <section v-if="block.properties && block.properties.length > 0" class="block-query__modal-section">
               <h3>{{ isEn ? 'Properties' : '属性' }}</h3>
-              <BlockPropertiesTable :properties="block.properties" />
+              <BlockPropertiesTable :properties="block.properties" :is-en="isEn" />
             </section>
 
             <section v-if="block.relatedIds && block.relatedIds.length > 0" class="block-query__modal-section">

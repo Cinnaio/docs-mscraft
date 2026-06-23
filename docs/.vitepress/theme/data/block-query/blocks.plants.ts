@@ -1,4 +1,5 @@
 import type { BlockEntry } from './types'
+import { prop } from './helpers'
 
 export const plantBlocks: BlockEntry[] = [
   {
@@ -14,14 +15,14 @@ export const plantBlocks: BlockEntry[] = [
     obtainEn: 'Returned from mature tea crops. Tea crops can also generate in forest and jungle-like Overworld biomes.',
     aliasesZh: ['茶树种子', '茶树作物', '茶树', '鲜叶来源'],
     aliasesEn: ['Tea crop', 'Tea bush', 'Fresh leaf source'],
-    properties: {
-      '种植基底 / Soil': 'minecraft:farmland',
-      '生长阶段 / Ages': '0~6',
-      '生长 / Growth': 'grow-speed 0.25；light-requirement 9；可使用骨粉',
-      '成熟掉落 / Mature Loot': '带权重掉落鲜叶品质：单芽、一芽一叶、一芽二叶、一芽三叶、老叶；另掉落茶种子',
-      '未成熟掉落 / Immature Loot': '茶种子',
-      '自然生成 / Worldgen': '主世界森林/丛林类生物群系，Y 64~120，rarity chance 80',
-    },
+    properties: [
+      prop('种植基底', 'Soil', 'minecraft:farmland', 'minecraft:farmland'),
+      prop('生长阶段', 'Ages', '0~6', '0~6'),
+      prop('生长', 'Growth', '生长速度 0.25；亮度需求 9；可使用骨粉', 'grow speed 0.25; light requirement 9; bone meal supported'),
+      prop('成熟掉落', 'Mature Loot', '带权重掉落鲜叶品质：单芽、一芽一叶、一芽二叶、一芽三叶、老叶；另掉落茶种子', 'weighted fresh-leaf quality drops: Single Bud, One Bud One Leaf, One Bud Two Leaves, One Bud Three Leaves, Old Leaf; also drops Tea Seeds'),
+      prop('未成熟掉落', 'Immature Loot', '茶种子', 'Tea Seeds'),
+      prop('自然生成', 'Worldgen', '主世界森林/丛林类生物群系，Y 64~120，稀有度 80', 'Overworld forest/jungle-like biomes, Y 64-120, rarity chance 80'),
+    ],
     relatedIds: ['fresh-tea-leaf', 'tea-leaf'],
   },
   {
@@ -37,12 +38,12 @@ export const plantBlocks: BlockEntry[] = [
     obtainEn: 'Dropped by mature paddy rice plants (1-3). Also reused as seed for the seedling stage.',
     aliasesZh: ['水稻种子', '籼稻种子', '育秧'],
     aliasesEn: ['Rice seeds', 'Seedling crop', 'Xian rice seed'],
-    properties: {
-      '育秧基底 / Seedling Soil': 'minecraft:farmland',
-      '育秧阶段 / Seed Crop Ages': '0~3',
-      '育秧成熟掉落 / Seed Crop Mature Loot': '3 个水稻秧苗',
-      '水田成熟掉落 / Paddy Mature Loot': '1~3 个稻谷',
-    },
+    properties: [
+      prop('育秧基底', 'Seedling Soil', 'minecraft:farmland', 'minecraft:farmland'),
+      prop('育秧阶段', 'Seed Crop Ages', '0~3', '0~3'),
+      prop('育秧成熟掉落', 'Seed Crop Mature Loot', '3 个水稻秧苗', '3 Rice Seedlings'),
+      prop('水田成熟掉落', 'Paddy Mature Loot', '1~3 个稻谷', '1-3 Rice Seeds'),
+    ],
     relatedIds: ['item-xian-rice-seedling', 'paddy-field', 'xian-rice'],
   },
   {
@@ -58,13 +59,13 @@ export const plantBlocks: BlockEntry[] = [
     obtainEn: 'Dropped as 3 items from mature age-3 rice seed crops on farmland.',
     aliasesZh: ['秧苗', '水稻移栽', '水田作物'],
     aliasesEn: ['Seedling', 'Rice transplant', 'Paddy crop'],
-    properties: {
-      '移栽基底 / Transplant Soil': 'cgap:paddy_field',
-      '水田生长阶段 / Paddy Ages': '0~7',
-      '生长 / Growth': 'grow-speed 0.2；light-requirement 9；可使用骨粉',
-      '成熟掉落 / Mature Loot': '1~3 个稻谷',
-      '未成熟掉落 / Immature Loot': '水稻秧苗',
-    },
+    properties: [
+      prop('移栽基底', 'Transplant Soil', 'cgap:paddy_field', 'cgap:paddy_field'),
+      prop('水田生长阶段', 'Paddy Ages', '0~7', '0~7'),
+      prop('生长', 'Growth', '生长速度 0.2；亮度需求 9；可使用骨粉', 'grow speed 0.2; light requirement 9; bone meal supported'),
+      prop('成熟掉落', 'Mature Loot', '1~3 个稻谷', '1-3 Rice Seeds'),
+      prop('未成熟掉落', 'Immature Loot', '水稻秧苗', 'Rice Seedling'),
+    ],
     relatedIds: ['xian-rice-seeds', 'paddy-field'],
   },
   {

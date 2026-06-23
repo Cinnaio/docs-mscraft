@@ -38,6 +38,13 @@ export interface CraftingRecipe {
   noteEn?: string
 }
 
+export interface BlockProperty {
+  labelZh: string
+  labelEn: string
+  valueZh: string
+  valueEn: string
+}
+
 export interface BlockEntry {
   /** kebab-case 唯一标识，用于去重和关联引用 */
   id: string
@@ -59,7 +66,7 @@ export interface BlockEntry {
   /** 可选合成配方，显示为 3×3 工作台合成表 */
   recipes?: CraftingRecipe[]
   /** 可选属性键值对，显示在详情弹窗的表格中 */
-  properties?: Record<string, string>
+  properties?: BlockProperty[]
   /** 关联条目 id 列表，用于交叉链接 */
   relatedIds?: string[]
 }

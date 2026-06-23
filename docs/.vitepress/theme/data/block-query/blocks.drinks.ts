@@ -1,6 +1,6 @@
 import type { BlockEntry } from './types'
 import { emptyTeaBag } from './ingredients'
-import { teastoryIcon } from './helpers'
+import { teastoryIcon, prop } from './helpers'
 
 type TeaKind = {
   id: string
@@ -94,11 +94,11 @@ const teaBagEntries = teaBagKinds.map((tea) => {
         noteEn: 'Actual recipe is shapeless; the grid is only a material display.',
       },
     ],
-    properties: {
-      '配方类型 / Recipe Type': 'shapeless',
-      '茶叶 / Leaves': `6 × ${tea.nameZh}茶叶 / ${tea.nameEn} Leaves`,
-      '泡壶返还 / Brewing Remainder': `${tea.nameZh}茶渣 / ${tea.nameEn} Residue`,
-    },
+    properties: [
+      prop('配方类型', 'Recipe Type', '无序合成', 'shapeless'),
+      prop('茶叶', 'Leaves', `6 × ${tea.nameZh}茶叶`, `6 × ${tea.nameEn} Leaves`),
+      prop('泡壶返还', 'Brewing Remainder', `${tea.nameZh}茶渣`, `${tea.nameEn} Residue`),
+    ],
     relatedIds: ['empty-tea-bag', leafEntryId, residueEntryId, `${tea.id.replace(/_/g, '-')}-porcelain-kettle`, `${tea.id.replace(/_/g, '-')}-zisha-kettle`],
   })
 })
@@ -114,11 +114,11 @@ const cupDrinkEntries = teaKinds.flatMap((tea) => cupMaterials.map((material) =>
   obtainEn: `Obtained by pouring the matching ${tea.nameEn} kettle drink into a ${material.replacementEn}.`,
   aliasesZh: [`${tea.nameZh}杯`, `${tea.nameZh}饮品`, material.zh],
   aliasesEn: [`${tea.nameEn} Cup Drink`, `${material.replacementEn}`],
-  properties: {
-    '效果 / Effect': `${tea.effectZh} / ${tea.effectEn}`,
-    '食物组件 / Food': 'nutrition 5；saturation 3.5；can-always-eat true',
-    '饮用返还 / Consume Replacement': `${material.replacementZh} / ${material.replacementEn}`,
-  },
+  properties: [
+    prop('效果', 'Effect', tea.effectZh, tea.effectEn),
+    prop('食物组件', 'Food', '营养值 5；饱和度 3.5；可随时饮用', 'nutrition 5; saturation 3.5; can always eat'),
+    prop('饮用返还', 'Consume Replacement', material.replacementZh, material.replacementEn),
+  ],
   relatedIds: [material.replacementId, `${tea.id.replace(/_/g, '-')}-porcelain-kettle`, `${tea.id.replace(/_/g, '-')}-zisha-kettle`],
 })))
 
@@ -133,11 +133,11 @@ const kettleDrinkEntries = teaKinds.flatMap((tea) => kettleMaterials.map((materi
   obtainEn: `${tea.id === 'matcha_drink' ? 'Matcha Leaf + Tea Whisk' : `${tea.nameEn} Bag`} + Empty ${material.en} + Boiled Water Pot → ${material.en} of ${tea.nameEn}.`,
   aliasesZh: [`${tea.nameZh}壶`, `${tea.nameZh}茶壶`, material.zh],
   aliasesEn: [`${tea.nameEn} Kettle Drink`, material.en],
-  properties: {
-    '耐久 / Max Damage': '4',
-    '饮用返还 / Consume Replacement': `${material.replacementZh} / ${material.replacementEn}`,
-    '合成返还 / Craft Remainder': 'hurt_and_break，damage 1',
-  },
+  properties: [
+    prop('耐久', 'Max Damage', '4', '4'),
+    prop('饮用返还', 'Consume Replacement', material.replacementZh, material.replacementEn),
+    prop('合成返还', 'Craft Remainder', '返还茶壶并损耗 1 耐久', 'returns the kettle with 1 durability damage'),
+  ],
   relatedIds: [material.emptyId, 'water-pot-stone', 'water-pot-porcelain', 'water-pot-iron', 'water-pot-zisha'],
 })))
 

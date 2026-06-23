@@ -1,15 +1,18 @@
 <script setup lang="ts">
+import type { BlockProperty } from '../../data/block-query'
+
 defineProps<{
-  properties: Record<string, string>
+  properties: BlockProperty[]
+  isEn: boolean
 }>()
 </script>
 
 <template>
   <table class="block-query__prop-table">
     <tbody>
-      <tr v-for="(val, key) in properties" :key="key">
-        <td class="block-query__prop-key">{{ key }}</td>
-        <td class="block-query__prop-val">{{ val }}</td>
+      <tr v-for="property in properties" :key="`${property.labelZh}-${property.labelEn}`">
+        <td class="block-query__prop-key">{{ isEn ? property.labelEn : property.labelZh }}</td>
+        <td class="block-query__prop-val">{{ isEn ? property.valueEn : property.valueZh }}</td>
       </tr>
     </tbody>
   </table>

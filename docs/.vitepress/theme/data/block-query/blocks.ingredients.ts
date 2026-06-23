@@ -1,6 +1,6 @@
 import type { BlockEntry } from './types'
 import { wheat } from './ingredients'
-import { teastoryIcon } from './helpers'
+import { teastoryIcon, prop } from './helpers'
 
 type IngredientEntry = Pick<BlockEntry, 'id' | 'icon' | 'nameZh' | 'nameEn' | 'descriptionZh' | 'descriptionEn' | 'obtainZh' | 'obtainEn' | 'aliasesZh' | 'aliasesEn' | 'properties' | 'recipes' | 'relatedIds'>
 
@@ -215,10 +215,10 @@ const residueEntries = residueData.map(([id, textureId, nameZh, nameEn]) => teaI
   obtainEn: 'Returned as a recipe-based craft remainder when the matching tea bag is used in kettle recipes.',
   aliasesZh: ['茶渣', '泡茶返还物'],
   aliasesEn: ['Tea Residue', 'Brewing remainder'],
-  properties: {
-    '来源 / Source': '茶包泡壶配方返还',
-    '用途 / Use': '回收或后续 TeaStory 配方',
-  },
+  properties: [
+    prop('来源', 'Source', '茶包泡壶配方返还', 'returned from tea bag kettle-brewing recipes'),
+    prop('用途', 'Use', '回收或后续 TeaStory 配方', 'recycling or later TeaStory recipes'),
+  ],
   relatedIds: ['tea-bags', 'baking-powder'],
 }))
 
@@ -253,10 +253,10 @@ export const ingredientBlocks: BlockEntry[] = [
         noteEn: 'Actual recipe is shapeless; the grid is only a material display.',
       },
     ],
-    properties: {
-      '配方类型 / Recipe Type': 'shapeless',
-      '用途 / Use': '发酵流程材料',
-    },
+    properties: [
+      prop('配方类型', 'Recipe Type', 'shapeless', 'shapeless'),
+      prop('用途', 'Use', '发酵流程材料', 'fermentation workflow ingredient'),
+    ],
     relatedIds: ['semi-fermented-tea-leaf', 'fully-fermented-tea-leaf', 'deep-fermented-tea-leaf'],
   }),
   teaIngredient({
@@ -268,11 +268,11 @@ export const ingredientBlocks: BlockEntry[] = [
     descriptionEn: 'TeaStory material used for zisha cup bases, zisha jar blanks, and zisha clay kettles.',
     obtainZh: '工作台合成（黏土球、泥土、红沙 → 4 紫砂泥）。',
     obtainEn: 'Crafted from clay balls, dirt, and red sand → 4 Zisha Clay.',
-    properties: {
-      '配方摆位 / Pattern': 'CDC / DRD / CDC',
-      '产物数量 / Result Count': '4',
-      '用途 / Use': '紫砂杯、紫砂罐、紫砂茶壶坯',
-    },
+    properties: [
+      prop('配方摆位', 'Pattern', 'CDC / DRD / CDC', 'CDC / DRD / CDC'),
+      prop('产物数量', 'Result Count', '4', '4'),
+      prop('用途', 'Use', '紫砂杯、紫砂罐、紫砂茶壶坯', 'zisha cups, zisha jars, and zisha kettle blanks'),
+    ],
     relatedIds: ['zisha-clay-cup', 'cup-zisha', 'pot-zisha-clay', 'pot-zisha', 'zisha-clay-kettle'],
   }),
 ]
