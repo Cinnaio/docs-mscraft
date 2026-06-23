@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useData, withBase } from 'vitepress'
 import {
   allBlocks,
@@ -16,6 +16,13 @@ const isEn = computed(() => lang.value === 'en-US')
 const searchQuery = ref('')
 const activeCategory = ref<string | null>(null)
 const selectedBlock = ref<BlockEntry | null>(null)
+const modalScrollRef = ref<HTMLElement | null>(null)
+const modalScrollbarRef = ref<HTMLElement | null>(null)
+const modalThumbTop = ref(0)
+const modalThumbHeight = ref(0)
+const isDraggingModalThumb = ref(false)
+let modalThumbDragStartY = 0
+let modalThumbDragStartScrollTop = 0
 
 const categories = computed(() => (isEn.value ? CATEGORIES_EN : CATEGORIES_ZH) as readonly string[])
 
@@ -73,6 +80,7 @@ function onKeyDown(e: KeyboardEvent) {
 watch(selectedBlock, (val) => {
   if (val) {
     document.addEventListener('keydown', onKeyDown)
+    nextTick(updateModalScrollbar)
   } else {
     document.removeEventListener('keydown', onKeyDown)
   }
@@ -80,20 +88,94 @@ watch(selectedBlock, (val) => {
 
 onMounted(() => {
   document.addEventListener('keydown', onKeyDown)
+  window.addEventListener('resize', updateModalScrollbar)
 })
 
 onUnmounted(() => {
   document.removeEventListener('keydown', onKeyDown)
+  window.removeEventListener('resize', updateModalScrollbar)
+  stopModalThumbDrag()
+  document.body.style.overflow = ''
 })
 
 function selectBlock(block: BlockEntry) {
   selectedBlock.value = block
   document.body.style.overflow = 'hidden'
+  nextTick(updateModalScrollbar)
 }
 
 function closeDetail() {
   selectedBlock.value = null
   document.body.style.overflow = ''
+  modalThumbTop.value = 0
+  modalThumbHeight.value = 0
+}
+
+function updateModalScrollbar() {
+  const scrollEl = modalScrollRef.value
+  const trackEl = modalScrollbarRef.value
+  if (!scrollEl || !trackEl) return
+
+  const maxScrollTop = scrollEl.scrollHeight - scrollEl.clientHeight
+  if (maxScrollTop <= 0) {
+    modalThumbTop.value = 0
+    modalThumbHeight.value = 0
+    return
+  }
+
+  const trackHeight = trackEl.clientHeight
+  const thumbHeight = Math.max(44, (scrollEl.clientHeight / scrollEl.scrollHeight) * trackHeight)
+  const maxThumbTop = Math.max(0, trackHeight - thumbHeight)
+
+  modalThumbHeight.value = thumbHeight
+  modalThumbTop.value = (scrollEl.scrollTop / maxScrollTop) * maxThumbTop
+}
+
+function onModalTrackPointerDown(event: PointerEvent) {
+  if (event.target !== modalScrollbarRef.value) return
+
+  const scrollEl = modalScrollRef.value
+  const trackEl = modalScrollbarRef.value
+  if (!scrollEl || !trackEl || modalThumbHeight.value <= 0) return
+
+  const rect = trackEl.getBoundingClientRect()
+  const targetTop = event.clientY - rect.top - modalThumbHeight.value / 2
+  const maxThumbTop = Math.max(1, rect.height - modalThumbHeight.value)
+  const maxScrollTop = scrollEl.scrollHeight - scrollEl.clientHeight
+
+  scrollEl.scrollTop = (Math.min(Math.max(targetTop, 0), maxThumbTop) / maxThumbTop) * maxScrollTop
+  updateModalScrollbar()
+}
+
+function onModalThumbPointerDown(event: PointerEvent) {
+  const scrollEl = modalScrollRef.value
+  if (!scrollEl) return
+
+  isDraggingModalThumb.value = true
+  modalThumbDragStartY = event.clientY
+  modalThumbDragStartScrollTop = scrollEl.scrollTop
+  document.addEventListener('pointermove', onModalThumbPointerMove)
+  document.addEventListener('pointerup', stopModalThumbDrag, { once: true })
+  document.addEventListener('pointercancel', stopModalThumbDrag, { once: true })
+}
+
+function onModalThumbPointerMove(event: PointerEvent) {
+  const scrollEl = modalScrollRef.value
+  const trackEl = modalScrollbarRef.value
+  if (!isDraggingModalThumb.value || !scrollEl || !trackEl) return
+
+  const maxScrollTop = scrollEl.scrollHeight - scrollEl.clientHeight
+  const maxThumbTop = Math.max(1, trackEl.clientHeight - modalThumbHeight.value)
+  const deltaY = event.clientY - modalThumbDragStartY
+
+  scrollEl.scrollTop = modalThumbDragStartScrollTop + (deltaY / maxThumbTop) * maxScrollTop
+  updateModalScrollbar()
+}
+
+function stopModalThumbDrag() {
+  isDraggingModalThumb.value = false
+  document.removeEventListener('pointermove', onModalThumbPointerMove)
+  document.removeEventListener('pointercancel', stopModalThumbDrag)
 }
 
 function findRelated(ids: string[]): BlockEntry[] {
@@ -274,23 +356,24 @@ function openRecipeItem(item: RecipeItem) {
             </svg>
           </button>
 
-          <div class="block-query__modal-header">
-            <img
-              class="block-query__modal-icon"
-              :src="withBase(selectedBlock.icon)"
-              :alt="isEn ? selectedBlock.nameEn : selectedBlock.nameZh"
-            />
-            <div>
-              <h2 class="block-query__modal-title">
-                {{ isEn ? selectedBlock.nameEn : selectedBlock.nameZh }}
-              </h2>
-              <span class="block-query__modal-badge">
-                {{ isEn ? selectedBlock.categoryEn : selectedBlock.categoryZh }}
-              </span>
+          <div ref="modalScrollRef" class="block-query__modal-scroll" @scroll="updateModalScrollbar">
+            <div class="block-query__modal-header">
+              <img
+                class="block-query__modal-icon"
+                :src="withBase(selectedBlock.icon)"
+                :alt="isEn ? selectedBlock.nameEn : selectedBlock.nameZh"
+              />
+              <div>
+                <h2 class="block-query__modal-title">
+                  {{ isEn ? selectedBlock.nameEn : selectedBlock.nameZh }}
+                </h2>
+                <span class="block-query__modal-badge">
+                  {{ isEn ? selectedBlock.categoryEn : selectedBlock.categoryZh }}
+                </span>
+              </div>
             </div>
-          </div>
 
-          <div class="block-query__modal-body">
+            <div class="block-query__modal-body">
             <section class="block-query__modal-section">
               <h3>{{ isEn ? 'Description' : '描述' }}</h3>
               <p>{{ isEn ? selectedBlock.descriptionEn : selectedBlock.descriptionZh }}</p>
@@ -418,6 +501,21 @@ function openRecipeItem(item: RecipeItem) {
                 </span>
               </div>
             </section>
+            </div>
+          </div>
+
+          <div
+            ref="modalScrollbarRef"
+            class="block-query__modal-scrollbar"
+            :class="{ 'has-scrollbar': modalThumbHeight > 0, 'is-dragging': isDraggingModalThumb }"
+            aria-hidden="true"
+            @pointerdown="onModalTrackPointerDown"
+          >
+            <div
+              class="block-query__modal-scrollbar-thumb"
+              :style="{ height: `${modalThumbHeight}px`, transform: `translateY(${modalThumbTop}px)` }"
+              @pointerdown.stop.prevent="onModalThumbPointerDown"
+            ></div>
           </div>
         </div>
       </div>
@@ -697,11 +795,67 @@ function openRecipeItem(item: RecipeItem) {
   max-width: 640px;
   width: 100%;
   max-height: 85vh;
-  overflow-y: auto;
+  overflow: hidden;
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.04),
     0 24px 48px rgba(0, 0, 0, 0.18);
   animation: block-query-modal-in 0.18s ease;
+}
+
+.block-query__modal-scroll {
+  max-height: 85vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.block-query__modal-scroll::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.block-query__modal-scrollbar {
+  position: absolute;
+  top: 18px;
+  right: 6px;
+  bottom: 18px;
+  z-index: 2;
+  width: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--vp-c-bg-soft) 68%, transparent);
+  opacity: 0;
+  transition: opacity 0.16s ease, background-color 0.16s ease;
+}
+
+.block-query__modal:hover .block-query__modal-scrollbar.has-scrollbar,
+.block-query__modal-scrollbar.has-scrollbar.is-dragging {
+  opacity: 1;
+}
+
+.block-query__modal-scrollbar:hover,
+.block-query__modal-scrollbar.is-dragging {
+  background: color-mix(in srgb, var(--vp-c-brand-soft) 34%, var(--vp-c-bg-soft));
+}
+
+.block-query__modal-scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  left: 1px;
+  right: 1px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--vp-c-brand-2) 46%, var(--vp-c-divider));
+  cursor: grab;
+  transition: background-color 0.16s ease;
+}
+
+.block-query__modal-scrollbar-thumb:hover,
+.block-query__modal-scrollbar.is-dragging .block-query__modal-scrollbar-thumb {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 58%, var(--vp-c-divider));
+}
+
+.block-query__modal-scrollbar.is-dragging .block-query__modal-scrollbar-thumb {
+  cursor: grabbing;
 }
 
 @keyframes block-query-modal-in {
@@ -1131,6 +1285,10 @@ function openRecipeItem(item: RecipeItem) {
   .block-query__modal {
     max-height: 90vh;
     border-radius: 14px;
+  }
+
+  .block-query__modal-scroll {
+    max-height: 90vh;
   }
 
   .block-query__modal-header {
