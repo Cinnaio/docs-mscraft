@@ -29,15 +29,15 @@ type KettleMaterial = {
 }
 
 const teaKinds: TeaKind[] = [
-  { id: 'black_tea', nameZh: '红茶', nameEn: 'Black Tea', effectZh: '力量，220 ticks，等级 I', effectEn: 'Strength, 220 ticks, level I' },
-  { id: 'green_tea', nameZh: '绿茶', nameEn: 'Green Tea', effectZh: '急迫，260 ticks，等级 I', effectEn: 'Haste, 260 ticks, level I' },
-  { id: 'lemon_tea', nameZh: '柠檬茶', nameEn: 'Lemon Tea', effectZh: '速度，240 ticks，等级 I', effectEn: 'Speed, 240 ticks, level I' },
-  { id: 'matcha_drink', nameZh: '抹茶饮', nameEn: 'Matcha Drink', effectZh: '跳跃提升，200 ticks，等级 II', effectEn: 'Jump Boost, 200 ticks, level II' },
-  { id: 'milk_tea', nameZh: '奶茶', nameEn: 'Milk Tea', effectZh: '抗性提升，220 ticks，等级 I', effectEn: 'Resistance, 220 ticks, level I' },
-  { id: 'oolong_tea', nameZh: '乌龙茶', nameEn: 'Oolong Tea', effectZh: '水下呼吸，260 ticks，等级 I', effectEn: 'Water Breathing, 260 ticks, level I' },
-  { id: 'puer_tea', nameZh: '普洱茶', nameEn: "Pu'er Tea", effectZh: '生命提升，240 ticks，等级 I', effectEn: 'Health Boost, 240 ticks, level I' },
-  { id: 'white_tea', nameZh: '白茶', nameEn: 'White Tea', effectZh: '生命恢复，140 ticks，等级 I', effectEn: 'Regeneration, 140 ticks, level I' },
-  { id: 'yellow_tea', nameZh: '黄茶', nameEn: 'Yellow Tea', effectZh: '伤害吸收，200 ticks，等级 I', effectEn: 'Absorption, 200 ticks, level I' },
+  { id: 'black_tea', nameZh: '红茶', nameEn: 'Black Tea', effectZh: '力量，11 秒，等级 I', effectEn: 'Strength, 11s, level I' },
+  { id: 'green_tea', nameZh: '绿茶', nameEn: 'Green Tea', effectZh: '急迫，13 秒，等级 I', effectEn: 'Haste, 13s, level I' },
+  { id: 'lemon_tea', nameZh: '柠檬茶', nameEn: 'Lemon Tea', effectZh: '速度，12 秒，等级 I', effectEn: 'Speed, 12s, level I' },
+  { id: 'matcha_drink', nameZh: '抹茶饮', nameEn: 'Matcha Drink', effectZh: '跳跃提升，10 秒，等级 II', effectEn: 'Jump Boost, 10s, level II' },
+  { id: 'milk_tea', nameZh: '奶茶', nameEn: 'Milk Tea', effectZh: '抗性提升，11 秒，等级 I', effectEn: 'Resistance, 11s, level I' },
+  { id: 'oolong_tea', nameZh: '乌龙茶', nameEn: 'Oolong Tea', effectZh: '水下呼吸，13 秒，等级 I', effectEn: 'Water Breathing, 13s, level I' },
+  { id: 'puer_tea', nameZh: '普洱茶', nameEn: "Pu'er Tea", effectZh: '生命提升，12 秒，等级 I', effectEn: 'Health Boost, 12s, level I' },
+  { id: 'white_tea', nameZh: '白茶', nameEn: 'White Tea', effectZh: '生命恢复，7 秒，等级 I', effectEn: 'Regeneration, 7s, level I' },
+  { id: 'yellow_tea', nameZh: '黄茶', nameEn: 'Yellow Tea', effectZh: '伤害吸收，10 秒，等级 I', effectEn: 'Absorption, 10s, level I' },
 ]
 
 const teaBagKinds = teaKinds.filter((tea) => !['lemon_tea', 'matcha_drink', 'milk_tea'].includes(tea.id))

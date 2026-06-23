@@ -192,11 +192,6 @@ const processedLeafEntries = processedLeafData.map(([id, textureId, nameZh, name
   obtainEn: 'Produced from fresh or withered leaves through TeaStory drying, grinding, fermentation, fixation, and related recipe workflows.',
   aliasesZh: ['加工茶叶', '制茶原料'],
   aliasesEn: ['Processed Tea Leaf', 'Tea ingredient'],
-  properties: {
-    '基础模板 / Template': 'cgap:teastory_item',
-    '材质 / Material': 'paper',
-    '贴图 / Texture': `minecraft:item/teastory/${textureId}`,
-  },
   relatedIds: ['wooden-mortar-pestle', 'tea-whisk', 'tea-bags'],
 }))
 

@@ -4,7 +4,6 @@ import { teastoryIcon } from './helpers'
 
 const cupProperties = {
   '用途 / Use': '茶杯饮品的空杯返还物',
-  '贴图 / Texture': 'minecraft:item/teastory/<id>',
 }
 
 const potProperties = {
@@ -102,8 +101,8 @@ export const containerBlocks: BlockEntry[] = [
     obtainZh: '工作台合成（黏土块、玻璃杯、黏土球）。',
     obtainEn: 'Crafted from clay blocks, a glass cup, and clay balls.',
     properties: {
-      '烧制 / Smelting': '200 ticks，0.15 experience → 瓷杯',
-      '高炉 / Blasting': '100 ticks，0.15 experience → 瓷杯',
+      '烧制 / Smelting': '10 秒，0.15 experience → 瓷杯',
+      '高炉 / Blasting': '5 秒，0.15 experience → 瓷杯',
     },
     relatedIds: ['cup-glass', 'cup-porcelain'],
   },
@@ -133,8 +132,8 @@ export const containerBlocks: BlockEntry[] = [
     obtainZh: '工作台合成（黏土块、紫砂泥）。',
     obtainEn: 'Crafted from clay blocks and zisha clay.',
     properties: {
-      '烧制 / Smelting': '220 ticks，0.2 experience → 紫砂杯',
-      '高炉 / Blasting': '110 ticks，0.2 experience → 紫砂杯',
+      '烧制 / Smelting': '11 秒，0.2 experience → 紫砂杯',
+      '高炉 / Blasting': '5.5 秒，0.2 experience → 紫砂杯',
     },
     relatedIds: ['zisha-clay', 'cup-zisha'],
   },
@@ -204,8 +203,8 @@ export const containerBlocks: BlockEntry[] = [
           entryId: 'pot-clay',
           icon: teastoryIcon('pot_clay'),
         },
-        noteZh: '严格摆位；烧制 200 ticks 或高炉 100 ticks 得到白瓷罐。',
-        noteEn: 'Shaped recipe. Smelt for 200 ticks or blast for 100 ticks into a White Porcelain Jar.',
+        noteZh: '严格摆位；烧制 10 秒或高炉 5 秒得到白瓷罐。',
+        noteEn: 'Shaped recipe. Smelt for 10s or blast for 5s into a White Porcelain Jar.',
       },
     ],
     relatedIds: ['pot-porcelain'],
@@ -236,8 +235,8 @@ export const containerBlocks: BlockEntry[] = [
     obtainZh: '工作台合成（8 紫砂泥）。',
     obtainEn: 'Crafted from 8 zisha clay.',
     properties: {
-      '烧制 / Smelting': '220 ticks，0.25 experience → 紫砂罐',
-      '高炉 / Blasting': '110 ticks，0.25 experience → 紫砂罐',
+      '烧制 / Smelting': '11 秒，0.25 experience → 紫砂罐',
+      '高炉 / Blasting': '5.5 秒，0.25 experience → 紫砂罐',
     },
     relatedIds: ['zisha-clay', 'pot-zisha'],
   },
@@ -269,7 +268,7 @@ export const containerBlocks: BlockEntry[] = [
     properties: {
       '食物组件 / Food': 'nutrition 5；saturation 3.5；can-always-eat true',
       '饮用返还 / Consume Replacement': '石罐 / Stone Jar',
-      '烧水 / Boiling': 'smelting 160 ticks / blasting 80 ticks，experience 0.05',
+      '烧水 / Boiling': '熔炉 8 秒 / 高炉 4 秒，experience 0.05',
     },
     relatedIds: ['pot-stone', 'boiled-water-pot-stone'],
   },
@@ -304,7 +303,7 @@ export const containerBlocks: BlockEntry[] = [
     properties: {
       '食物组件 / Food': 'nutrition 5；saturation 3.5；can-always-eat true',
       '饮用返还 / Consume Replacement': '白瓷罐 / White Porcelain Jar',
-      '烧水 / Boiling': 'smelting 160 ticks / blasting 80 ticks，experience 0.05',
+      '烧水 / Boiling': '熔炉 8 秒 / 高炉 4 秒，experience 0.05',
     },
     relatedIds: ['pot-porcelain', 'boiled-water-pot-porcelain'],
   },
@@ -339,7 +338,7 @@ export const containerBlocks: BlockEntry[] = [
     properties: {
       '食物组件 / Food': 'nutrition 5；saturation 3.5；can-always-eat true',
       '饮用返还 / Consume Replacement': '铁罐 / Iron Jar',
-      '烧水 / Boiling': 'smelting 160 ticks / blasting 80 ticks，experience 0.05',
+      '烧水 / Boiling': '熔炉 8 秒 / 高炉 4 秒，experience 0.05',
     },
     relatedIds: ['pot-iron', 'boiled-water-pot-iron'],
   },
@@ -374,7 +373,7 @@ export const containerBlocks: BlockEntry[] = [
     properties: {
       '食物组件 / Food': 'nutrition 5；saturation 3.5；can-always-eat true',
       '饮用返还 / Consume Replacement': '紫砂罐 / Zisha Jar',
-      '烧水 / Boiling': 'smelting 160 ticks / blasting 80 ticks，experience 0.05',
+      '烧水 / Boiling': '熔炉 8 秒 / 高炉 4 秒，experience 0.05',
     },
     relatedIds: ['pot-zisha', 'boiled-water-pot-zisha'],
   },
@@ -437,8 +436,8 @@ export const containerBlocks: BlockEntry[] = [
     obtainZh: '工作台合成（紫砂泥茶壶形摆位；也可使用瓷杯作芯的配方）。',
     obtainEn: 'Crafted from zisha clay in a kettle-shaped pattern; an alternate porcelain-cup-core recipe also exists.',
     properties: {
-      '烧制 / Smelting': '220 ticks，0.25 experience → 空紫砂茶壶',
-      '高炉 / Blasting': '110 ticks，0.25 experience → 空紫砂茶壶',
+      '烧制 / Smelting': '11 秒，0.25 experience → 空紫砂茶壶',
+      '高炉 / Blasting': '5.5 秒，0.25 experience → 空紫砂茶壶',
       '替代配方 / Alternate Recipe': '紫砂泥 + 瓷杯作芯',
     },
     relatedIds: ['zisha-clay', 'empty-zisha-kettle'],
