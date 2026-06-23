@@ -18,9 +18,12 @@ const activeCategory = ref<string | null>(null)
 const selectedBlock = ref<BlockEntry | null>(null)
 const modalScrollRef = ref<HTMLElement | null>(null)
 const modalScrollbarRef = ref<HTMLElement | null>(null)
+const recipeTooltipRef = ref<HTMLElement | null>(null)
 const modalThumbTop = ref(0)
 const modalThumbHeight = ref(0)
 const isDraggingModalThumb = ref(false)
+const recipeTooltipText = ref('')
+const recipeTooltipStyle = ref<Record<string, string>>({})
 let modalThumbDragStartY = 0
 let modalThumbDragStartScrollTop = 0
 
@@ -109,9 +112,12 @@ function closeDetail() {
   document.body.style.overflow = ''
   modalThumbTop.value = 0
   modalThumbHeight.value = 0
+  hideRecipeTooltip()
 }
 
 function updateModalScrollbar() {
+  hideRecipeTooltip()
+
   const scrollEl = modalScrollRef.value
   const trackEl = modalScrollbarRef.value
   if (!scrollEl || !trackEl) return
@@ -238,7 +244,20 @@ function recipeItemDetail(item: RecipeItem): BlockEntry {
   }
 }
 
+function isCurrentRecipeItem(item: RecipeItem): boolean {
+  const current = selectedBlock.value
+  if (!current) return false
+
+  return item.entryId === current.id || item.nameZh === current.nameZh || item.nameEn === current.nameEn
+}
+
+function canOpenRecipeItem(item: RecipeItem): boolean {
+  return !isCurrentRecipeItem(item)
+}
+
 function recipeTooltip(item: RecipeItem): string {
+  if (isCurrentRecipeItem(item)) return ''
+
   const linkedEntry = recipeEntry(item)
   const name = recipeItemName(item)
   const note = recipeItemNote(item)
@@ -248,7 +267,41 @@ function recipeTooltip(item: RecipeItem): string {
   return [name, description, action].filter(Boolean).join('\n')
 }
 
+function showRecipeTooltip(event: FocusEvent | MouseEvent, item: RecipeItem) {
+  const text = recipeTooltip(item)
+  if (!text) return
+
+  recipeTooltipText.value = text
+  nextTick(() => positionRecipeTooltip(event.currentTarget as HTMLElement))
+}
+
+function positionRecipeTooltip(target: HTMLElement) {
+  const tooltip = recipeTooltipRef.value
+  if (!tooltip) return
+
+  const targetRect = target.getBoundingClientRect()
+  const tooltipRect = tooltip.getBoundingClientRect()
+  const gap = 10
+  const viewportPadding = 12
+  const maxLeft = window.innerWidth - viewportPadding - tooltipRect.width
+  const preferredLeft = targetRect.left + targetRect.width / 2 - tooltipRect.width / 2
+  const left = Math.min(Math.max(preferredLeft, viewportPadding), Math.max(viewportPadding, maxLeft))
+  const topCandidate = targetRect.top - tooltipRect.height - gap
+  const top = topCandidate >= viewportPadding ? topCandidate : targetRect.bottom + gap
+
+  recipeTooltipStyle.value = {
+    left: `${left}px`,
+    top: `${top}px`,
+  }
+}
+
+function hideRecipeTooltip() {
+  recipeTooltipText.value = ''
+}
+
 function openRecipeItem(item: RecipeItem) {
+  if (!canOpenRecipeItem(item)) return
+  hideRecipeTooltip()
   selectBlock(recipeEntry(item) ?? recipeItemDetail(item))
 }
 </script>
@@ -401,7 +454,7 @@ function openRecipeItem(item: RecipeItem) {
                       v-for="(slot, slotIndex) in recipe.pattern"
                       :key="slotIndex"
                       class="block-query__crafting-slot"
-                      :class="{ 'is-empty': !slot, 'has-icon': slot?.icon, 'is-clickable': slot }"
+                      :class="{ 'is-empty': !slot, 'has-icon': slot?.icon, 'is-clickable': slot && canOpenRecipeItem(slot) }"
                       role="gridcell"
                       :aria-label="slot ? recipeItemName(slot) : (isEn ? 'Empty slot' : '空槽')"
                     >
@@ -409,9 +462,13 @@ function openRecipeItem(item: RecipeItem) {
                         v-if="slot"
                         type="button"
                         class="block-query__crafting-item"
-                        :class="{ 'is-clickable': true }"
-                        :data-tip="recipeTooltip(slot)"
-                        :aria-label="recipeTooltip(slot)"
+                        :class="{ 'is-clickable': canOpenRecipeItem(slot) }"
+                        :disabled="!canOpenRecipeItem(slot)"
+                        :aria-label="recipeTooltip(slot) || recipeItemName(slot)"
+                        @mouseenter="showRecipeTooltip($event, slot)"
+                        @focus="showRecipeTooltip($event, slot)"
+                        @mouseleave="hideRecipeTooltip"
+                        @blur="hideRecipeTooltip"
                         @click.stop="openRecipeItem(slot)"
                       >
                         <img
@@ -437,9 +494,13 @@ function openRecipeItem(item: RecipeItem) {
                   <button
                     type="button"
                     class="block-query__recipe-result"
-                    :class="{ 'is-clickable': true }"
-                    :data-tip="recipeTooltip(recipeResult(recipe))"
-                    :aria-label="recipeTooltip(recipeResult(recipe))"
+                    :class="{ 'is-clickable': canOpenRecipeItem(recipeResult(recipe)) }"
+                    :disabled="!canOpenRecipeItem(recipeResult(recipe))"
+                    :aria-label="recipeTooltip(recipeResult(recipe)) || recipeItemName(recipeResult(recipe))"
+                    @mouseenter="showRecipeTooltip($event, recipeResult(recipe))"
+                    @focus="showRecipeTooltip($event, recipeResult(recipe))"
+                    @mouseleave="hideRecipeTooltip"
+                    @blur="hideRecipeTooltip"
                     @click.stop="openRecipeItem(recipeResult(recipe))"
                   >
                     <img
@@ -502,6 +563,15 @@ function openRecipeItem(item: RecipeItem) {
               </div>
             </section>
             </div>
+          </div>
+
+          <div
+            v-if="recipeTooltipText"
+            ref="recipeTooltipRef"
+            class="block-query__recipe-tooltip"
+            :style="recipeTooltipStyle"
+          >
+            {{ recipeTooltipText }}
           </div>
 
           <div
@@ -1042,21 +1112,23 @@ function openRecipeItem(item: RecipeItem) {
   cursor: pointer;
 }
 
+.block-query__crafting-item:disabled,
+.block-query__recipe-result:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
 .block-query__crafting-item.is-clickable:focus-visible,
 .block-query__recipe-result.is-clickable:focus-visible {
   outline: none;
 }
 
-.block-query__crafting-item::before,
-.block-query__recipe-result::before {
-  content: attr(data-tip);
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 10px);
-  z-index: 3;
+.block-query__recipe-tooltip {
+  position: fixed;
+  z-index: 1001;
   width: max-content;
   min-width: 132px;
-  max-width: 220px;
+  max-width: min(220px, calc(100vw - 24px));
   padding: 0.45rem 0.58rem;
   border: 1px solid color-mix(in srgb, var(--vp-c-brand-2) 42%, var(--vp-c-divider));
   border-radius: 9px;
@@ -1068,18 +1140,7 @@ function openRecipeItem(item: RecipeItem) {
   line-height: 1.35;
   white-space: pre-line;
   text-align: left;
-  transform: translate(-50%, 4px) scale(0.96);
-  opacity: 0;
   pointer-events: none;
-  transition: opacity 0.15s ease, transform 0.15s ease;
-}
-
-.block-query__crafting-item:hover::before,
-.block-query__crafting-item:focus-visible::before,
-.block-query__recipe-result:hover::before,
-.block-query__recipe-result:focus-visible::before {
-  opacity: 1;
-  transform: translate(-50%, 0) scale(1);
 }
 
 .block-query__crafting-icon,
@@ -1204,36 +1265,51 @@ function openRecipeItem(item: RecipeItem) {
 /* ─── Properties table ─── */
 .block-query__prop-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  padding: 0.35rem;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 10px;
-  overflow: hidden;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--vp-c-bg-soft) 72%, var(--vp-c-bg));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--vp-c-bg) 68%, transparent);
 }
 
-.block-query__prop-table tr {
-  border-bottom: 1px solid var(--vp-c-divider);
-}
-
-.block-query__prop-table tr:last-child {
-  border-bottom: none;
+.block-query__prop-table tr + tr .block-query__prop-key,
+.block-query__prop-table tr + tr .block-query__prop-val {
+  border-top: 1px solid color-mix(in srgb, var(--vp-c-divider) 76%, transparent);
 }
 
 .block-query__prop-key {
-  width: 28%;
-  padding: 0.6rem 0.85rem;
-  font-size: 0.82rem;
-  font-weight: 600;
+  width: 30%;
+  min-width: 6.5rem;
+  padding: 0.62rem 0.8rem;
+  border-radius: 10px 0 0 10px;
   color: var(--vp-c-brand-1);
-  background: color-mix(in srgb, var(--vp-c-brand-soft) 20%, var(--vp-c-bg-soft));
-  border-right: 1px solid var(--vp-c-divider);
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.45;
   text-align: left;
+  letter-spacing: 0.01em;
+  background: color-mix(in srgb, var(--vp-c-brand-soft) 18%, transparent);
 }
 
 .block-query__prop-val {
-  padding: 0.6rem 0.85rem;
-  font-size: 0.82rem;
+  padding: 0.62rem 0.8rem;
+  border-radius: 0 10px 10px 0;
   color: var(--vp-c-text-1);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.45;
   text-align: left;
+  background: color-mix(in srgb, var(--vp-c-bg) 78%, transparent);
+}
+
+.block-query__prop-table tr:hover .block-query__prop-key {
+  background: color-mix(in srgb, var(--vp-c-brand-soft) 28%, transparent);
+}
+
+.block-query__prop-table tr:hover .block-query__prop-val {
+  background: color-mix(in srgb, var(--vp-c-bg) 88%, var(--vp-c-brand-soft));
 }
 
 /* ─── Related items ─── */
