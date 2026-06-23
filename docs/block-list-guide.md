@@ -107,6 +107,7 @@ docs/.vitepress/theme/components/block-list-data.ts
 - 图标建议 32×32 像素 PNG，透明背景，`image-rendering: pixelated`
 - 图片放在 `docs/public/images/` 下
   - Teastory 相关图标放 `docs/public/images/teastory/`
+  - 原版 Minecraft 物品贴图放 `docs/public/images/minecraft/block/` 或 `docs/public/images/minecraft/item/`
   - 其他方块建议新建目录如 `docs/public/images/blocks/`
 
 ### `nameZh` / `nameEn`
@@ -135,7 +136,7 @@ docs/.vitepress/theme/components/block-list-data.ts
 
 示例：
 ```typescript
-const clayBall = { nameZh: '黏土球', nameEn: 'Clay Ball' }
+const clayBall = { nameZh: '黏土球', nameEn: 'Clay Ball', icon: '/images/minecraft/item/clay_ball.png' }
 
 recipes: [
   {
@@ -186,6 +187,7 @@ recipes: [
 | 目录 | 用途 |
 |------|------|
 | `/images/teastory/` | TeaStory 茶道相关物品（约 105 个） |
+| `/images/minecraft/block/`、`/images/minecraft/item/` | Minecraft 原版物品贴图 |
 | `/images/` | 通用截图和 logo |
 
 > **提示**：如果还没有图标，可以先借用 `teastory/` 下已有图标测试，正式上线前替换。

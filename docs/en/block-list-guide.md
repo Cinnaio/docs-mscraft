@@ -107,6 +107,7 @@ Delete the entire block from `{` to `},` for the target entry.
 - Recommended: 32×32 PNG, transparent background, pixel art style
 - Place images under `docs/public/images/`
   - Teastory items → `docs/public/images/teastory/`
+  - Vanilla Minecraft item textures → `docs/public/images/minecraft/block/` or `docs/public/images/minecraft/item/`
   - Other blocks → create a new directory like `docs/public/images/blocks/`
 
 ### `nameZh` / `nameEn`
@@ -134,7 +135,7 @@ Delete the entire block from `{` to `},` for the target entry.
 
 Example:
 ```typescript
-const clayBall = { nameZh: '黏土球', nameEn: 'Clay Ball' }
+const clayBall = { nameZh: '黏土球', nameEn: 'Clay Ball', icon: '/images/minecraft/item/clay_ball.png' }
 
 recipes: [
   {
@@ -185,6 +186,7 @@ Existing icon directories:
 | Directory | Usage |
 |------|------|
 | `/images/teastory/` | Teastory items (approx. 105 icons) |
+| `/images/minecraft/block/`, `/images/minecraft/item/` | Vanilla Minecraft item textures |
 | `/images/` | General screenshots and logo |
 
 > **Tip**: If you don't have an icon yet, you can borrow one from `teastory/` for testing and replace it later.
