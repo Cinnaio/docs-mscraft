@@ -28,6 +28,18 @@ docs/.vitepress/theme/components/block-list-data.ts
   descriptionEn: 'Short description.', // 必填
   obtainZh: '获取方式说明',     // 必填，可使用 HTML 标签
   obtainEn: 'How to obtain',    // 必填
+  recipes: [                   // 可选，3×3 工作台合成表
+    {
+      pattern: [
+        null, clayBall, null,
+        clayBall, null, clayBall,
+        clayBall, clayBall, clayBall,
+      ],
+      result: { nameZh: '方块中文名', nameEn: 'Block English Name', entryId: 'unique-block-id', icon: '/images/xxx/icon.png' },
+      noteZh: '严格摆位。',
+      noteEn: 'Shaped recipe.',
+    },
+  ],
   properties: { '硬度': '2.0' },  // 可选，属性键值对
   relatedIds: ['other-id'],     // 可选，关联方块 id 列表
 }
@@ -110,6 +122,39 @@ docs/.vitepress/theme/components/block-list-data.ts
 - 获取方式说明
 - 支持 HTML 标签，如 `<span class="item-chip"><img src="..." alt="" />物品名</span>`
 - 纯文字说明也可以，如 `'工作台合成'`
+
+### `recipes`
+- 可选字段；不填写则详情弹窗不显示合成表
+- 每个配方的 `pattern` 必须正好 9 格，顺序为从左到右、从上到下
+- 空槽用 `null`
+- 原料可先在数据文件顶部定义为 `RecipeItem` 常量，再在多个配方中复用
+- `entryId` 可选；填写后原料或产物可点击打开对应条目详情，如 `entryId: 'empty-tea-bag'`
+- `count` 用于显示堆叠数量；如产物 `count: 3` 会在右下角显示 `3`
+- `noteZh` / `noteEn` 可说明“严格摆位”“无序配方示例摆位”“水桶是否返还”等
+- 不要只凭“工作台合成”猜摆位；没有可靠摆位时可以先不填 `recipes`
+
+示例：
+```typescript
+const clayBall = { nameZh: '黏土球', nameEn: 'Clay Ball' }
+
+recipes: [
+  {
+    pattern: [
+      null, clayBall, null,
+      clayBall, null, clayBall,
+      clayBall, clayBall, clayBall,
+    ],
+    result: {
+      nameZh: '陶壶（湿胚）',
+      nameEn: 'Clay Kettle (Wet)',
+      entryId: 'clay-kettle',
+      icon: '/images/teastory/clay_kettle.png',
+    },
+    noteZh: '严格摆位。',
+    noteEn: 'Shaped recipe.',
+  },
+]
+```
 
 ### `properties`
 - 可选字段，不填则不显示属性表格

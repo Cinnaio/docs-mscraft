@@ -28,6 +28,18 @@ Each entry is a `BlockEntry` object added to the `allBlocks` array:
   descriptionEn: 'Short description.', // Required
   obtainZh: '获取方式说明',      // Required, supports HTML tags
   obtainEn: 'How to obtain',     // Required
+  recipes: [                    // Optional, 3×3 crafting table recipes
+    {
+      pattern: [
+        null, clayBall, null,
+        clayBall, null, clayBall,
+        clayBall, clayBall, clayBall,
+      ],
+      result: { nameZh: '方块中文名', nameEn: 'Block English Name', entryId: 'unique-block-id', icon: '/images/xxx/icon.png' },
+      noteZh: '严格摆位。',
+      noteEn: 'Shaped recipe.',
+    },
+  ],
   properties: { '硬度': '2.0' },   // Optional, key-value pairs
   relatedIds: ['other-id'],      // Optional, list of related block IDs
 }
@@ -109,6 +121,39 @@ Delete the entire block from `{` to `},` for the target entry.
 - How to obtain the item
 - Supports HTML tags like `<span class="item-chip"><img src="..." alt="" />Item</span>`
 - Plain text is also fine: `'Crafted at a crafting table'`
+
+### `recipes`
+- Optional; omit it to hide the crafting table section in the detail modal
+- Each recipe `pattern` must contain exactly 9 slots, ordered left-to-right and top-to-bottom
+- Use `null` for empty slots
+- Define reusable `RecipeItem` constants near the top of the data file when multiple recipes share an ingredient
+- `entryId` is optional; when set, the ingredient or result can be clicked to open that entry, e.g. `entryId: 'empty-tea-bag'`
+- `count` displays a stack count badge; for example, result `count: 3` shows `3` in the lower-right corner
+- Use `noteZh` / `noteEn` for shaped recipes, shapeless display layouts, bucket returns, or other recipe notes
+- Do not guess a layout from “Crafted” alone; if the exact placement is unknown, leave `recipes` empty for now
+
+Example:
+```typescript
+const clayBall = { nameZh: '黏土球', nameEn: 'Clay Ball' }
+
+recipes: [
+  {
+    pattern: [
+      null, clayBall, null,
+      clayBall, null, clayBall,
+      clayBall, clayBall, clayBall,
+    ],
+    result: {
+      nameZh: '陶壶（湿胚）',
+      nameEn: 'Clay Kettle (Wet)',
+      entryId: 'clay-kettle',
+      icon: '/images/teastory/clay_kettle.png',
+    },
+    noteZh: '严格摆位。',
+    noteEn: 'Shaped recipe.',
+  },
+]
+```
 
 ### `properties`
 - Optional; omit to hide the properties table

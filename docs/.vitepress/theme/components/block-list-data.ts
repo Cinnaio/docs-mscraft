@@ -5,6 +5,44 @@
  * 注意保持中英文描述同步填写。
  */
 
+export interface RecipeItem {
+  nameZh: string
+  nameEn: string
+  /** 可选关联条目；存在时合成表物品可点击打开对应详情 */
+  entryId?: string
+  /** 图标路径，相对于站点根目录；缺省时在合成格中显示文字 */
+  icon?: string
+  /** 物品数量，省略时按 1 处理 */
+  count?: number
+  /** 可选补充说明，用于任意材料、返还物等提示 */
+  noteZh?: string
+  noteEn?: string
+}
+
+export type CraftingPattern = [
+  RecipeItem | null,
+  RecipeItem | null,
+  RecipeItem | null,
+  RecipeItem | null,
+  RecipeItem | null,
+  RecipeItem | null,
+  RecipeItem | null,
+  RecipeItem | null,
+  RecipeItem | null,
+]
+
+export interface CraftingRecipe {
+  /** 3×3 工作台摆位：从左到右、从上到下；空槽用 null */
+  pattern: CraftingPattern
+  /** 产物；省略时详情弹窗会回退到当前条目 */
+  result?: RecipeItem
+  /** result 省略时使用的产物数量 */
+  resultCount?: number
+  /** 配方说明，例如严格摆位、无序示例摆放、返还物等 */
+  noteZh?: string
+  noteEn?: string
+}
+
 export interface BlockEntry {
   /** kebab-case 唯一标识，用于去重和关联引用 */
   id: string
@@ -20,6 +58,8 @@ export interface BlockEntry {
   /** 获取方式说明 */
   obtainZh: string
   obtainEn: string
+  /** 可选合成配方，显示为 3×3 工作台合成表 */
+  recipes?: CraftingRecipe[]
   /** 可选属性键值对，显示在详情弹窗的表格中 */
   properties?: Record<string, string>
   /** 关联方块 id 列表，用于交叉链接 */
@@ -63,6 +103,55 @@ export function isCategoryEn(value: string): value is CategoryEn {
   return (CATEGORIES_EN as readonly string[]).includes(value)
 }
 
+const dirt: RecipeItem = {
+  nameZh: '泥土',
+  nameEn: 'Dirt',
+  noteZh: '原版方块，用作水田合成原料。',
+  noteEn: 'Vanilla block used as a paddy field ingredient.',
+}
+const waterBucket: RecipeItem = {
+  nameZh: '水桶',
+  nameEn: 'Water Bucket',
+  noteZh: '原版物品，用于提供水源。',
+  noteEn: 'Vanilla item used as the water source.',
+}
+const clayBall: RecipeItem = {
+  nameZh: '黏土球',
+  nameEn: 'Clay Ball',
+  noteZh: '原版物品，用作陶壶胚原料。',
+  noteEn: 'Vanilla item used for the clay kettle body.',
+}
+const stick: RecipeItem = {
+  nameZh: '木棍',
+  nameEn: 'Stick',
+  noteZh: '原版物品，用作茶筅柄部。',
+  noteEn: 'Vanilla item used as the tea whisk handle.',
+}
+const bamboo: RecipeItem = {
+  nameZh: '竹子',
+  nameEn: 'Bamboo',
+  noteZh: '原版物品，用作茶筅刷头。',
+  noteEn: 'Vanilla item used for the tea whisk bristles.',
+}
+const woodPlanks: RecipeItem = {
+  nameZh: '任意木板',
+  nameEn: 'Any Planks',
+  noteZh: '任意木板均可',
+  noteEn: 'Any plank type works',
+}
+const paper: RecipeItem = {
+  nameZh: '纸',
+  nameEn: 'Paper',
+  noteZh: '原版物品，用作茶包外层。',
+  noteEn: 'Vanilla item used as the tea bag wrapper.',
+}
+const stringItem: RecipeItem = {
+  nameZh: '线',
+  nameEn: 'String',
+  noteZh: '原版物品，用作茶包束口。',
+  noteEn: 'Vanilla item used to tie the tea bag.',
+}
+
 export const allBlocks: BlockEntry[] = [
   // ─── 功能性方块 ───
   {
@@ -76,6 +165,24 @@ export const allBlocks: BlockEntry[] = [
     descriptionEn: 'A flooded field for transplanting rice seedlings, with shallow-water visuals and interaction limits.',
     obtainZh: '工作台合成（6 泥土 + 1 水桶 → 6 水田）',
     obtainEn: 'Crafted (6 Dirt + 1 Water Bucket → 6 Paddy Fields)',
+    recipes: [
+      {
+        pattern: [
+          dirt, dirt, dirt,
+          dirt, waterBucket, dirt,
+          dirt, null, null,
+        ],
+        result: {
+          nameZh: '水田',
+          nameEn: 'Paddy Field',
+          entryId: 'paddy-field',
+          icon: '/images/teastory/paddy_field.png',
+          count: 6,
+        },
+        noteZh: '3×3 展示摆位；水桶返还以服务器实际配置为准。',
+        noteEn: '3×3 display layout. Bucket return follows server configuration.',
+      },
+    ],
     properties: {
       硬度: '2.0',
       爆炸抗性: '3.0',
@@ -94,6 +201,23 @@ export const allBlocks: BlockEntry[] = [
     descriptionEn: 'Unfired clay kettle body. Smelt it in a furnace to obtain an empty clay kettle.',
     obtainZh: '工作台合成（陶土+粘土 → 陶壶胚）',
     obtainEn: 'Crafted from clay',
+    recipes: [
+      {
+        pattern: [
+          null, clayBall, null,
+          clayBall, null, clayBall,
+          clayBall, clayBall, clayBall,
+        ],
+        result: {
+          nameZh: '陶壶（湿胚）',
+          nameEn: 'Clay Kettle (Wet)',
+          entryId: 'clay-kettle',
+          icon: '/images/teastory/clay_kettle.png',
+        },
+        noteZh: '严格摆位；烧制后可获得陶壶。',
+        noteEn: 'Shaped recipe. Smelt it to obtain a clay pot.',
+      },
+    ],
     relatedIds: ['pot-clay'],
   },
   {
@@ -350,6 +474,23 @@ export const allBlocks: BlockEntry[] = [
     descriptionEn: 'Tool for preparing matcha. Consumes 1 durability per use.',
     obtainZh: '工作台合成',
     obtainEn: 'Crafted',
+    recipes: [
+      {
+        pattern: [
+          null, stick, null,
+          bamboo, bamboo, bamboo,
+          null, woodPlanks, null,
+        ],
+        result: {
+          nameZh: '茶筅',
+          nameEn: 'Tea Whisk',
+          entryId: 'tea-whisk',
+          icon: '/images/teastory/tea_whisk.png',
+        },
+        noteZh: '严格摆位；参与抹茶配方会损耗耐久。',
+        noteEn: 'Shaped recipe. Preparing matcha consumes durability.',
+      },
+    ],
     properties: {
       耐久: '120',
       用途: '制作抹茶粉',
@@ -443,6 +584,24 @@ export const allBlocks: BlockEntry[] = [
     descriptionEn: 'Empty bag for holding tea leaves. Holds 6 portions of tea leaves.',
     obtainZh: '工作台合成（1 线 + 5 纸 → 3 空茶包）',
     obtainEn: 'Crafted (1 String + 5 Paper → 3 Empty Tea Bags)',
+    recipes: [
+      {
+        pattern: [
+          null, stringItem, null,
+          paper, paper, paper,
+          paper, paper, null,
+        ],
+        result: {
+          nameZh: '空茶包',
+          nameEn: 'Empty Tea Bag',
+          entryId: 'empty-tea-bag',
+          icon: '/images/teastory/empty_tea_bag.png',
+          count: 3,
+        },
+        noteZh: '3×3 查询页展示摆位。',
+        noteEn: '3×3 display layout for the query page.',
+      },
+    ],
     properties: {
       容量: '6 茶叶 → 1 茶包',
     },

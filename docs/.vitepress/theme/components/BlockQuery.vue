@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useData, withBase } from 'vitepress'
-import { allBlocks, CATEGORIES_ZH, CATEGORIES_EN, type BlockEntry } from './block-list-data'
+import {
+  allBlocks,
+  CATEGORIES_ZH,
+  CATEGORIES_EN,
+  type BlockEntry,
+  type CraftingRecipe,
+  type RecipeItem,
+} from './block-list-data'
 
 const { lang } = useData()
 const isEn = computed(() => lang.value === 'en-US')
@@ -91,6 +98,76 @@ function closeDetail() {
 
 function findRelated(ids: string[]): BlockEntry[] {
   return allBlocks.filter((b) => ids.includes(b.id))
+}
+
+function recipeItemName(item: RecipeItem): string {
+  return isEn.value ? item.nameEn : item.nameZh
+}
+
+function recipeItemNote(item: RecipeItem): string | undefined {
+  return isEn.value ? item.noteEn : item.noteZh
+}
+
+function recipeNote(recipe: CraftingRecipe): string | undefined {
+  return isEn.value ? recipe.noteEn : recipe.noteZh
+}
+
+function recipeResult(recipe: CraftingRecipe): RecipeItem {
+  return recipe.result ?? {
+    nameZh: selectedBlock.value?.nameZh ?? '',
+    nameEn: selectedBlock.value?.nameEn ?? '',
+    entryId: selectedBlock.value?.id,
+    icon: selectedBlock.value?.icon,
+    count: recipe.resultCount,
+  }
+}
+
+function recipeCountLabel(count?: number): string {
+  return count && count > 1 ? String(count) : ''
+}
+
+function recipeEntry(item: RecipeItem): BlockEntry | undefined {
+  if (item.entryId) {
+    return allBlocks.find((block) => block.id === item.entryId)
+  }
+
+  return allBlocks.find(
+    (block) => block.nameZh === item.nameZh || block.nameEn === item.nameEn,
+  )
+}
+
+function recipeItemDetail(item: RecipeItem): BlockEntry {
+  const nameZh = item.nameZh
+  const nameEn = item.nameEn
+  const noteZh = item.noteZh ?? '配方原料。'
+  const noteEn = item.noteEn ?? 'Recipe ingredient.'
+
+  return {
+    id: `recipe-item-${nameEn.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+    icon: item.icon ?? '/images/logo.png',
+    nameZh,
+    nameEn,
+    categoryZh: '其他',
+    categoryEn: 'Other',
+    descriptionZh: noteZh,
+    descriptionEn: noteEn,
+    obtainZh: noteZh,
+    obtainEn: noteEn,
+  }
+}
+
+function recipeTooltip(item: RecipeItem): string {
+  const linkedEntry = recipeEntry(item)
+  const name = recipeItemName(item)
+  const note = recipeItemNote(item)
+  const description = linkedEntry ? (isEn.value ? linkedEntry.descriptionEn : linkedEntry.descriptionZh) : note
+  const action = linkedEntry ? (isEn.value ? 'Click to open entry details' : '点击打开条目详情') : (isEn.value ? 'Click to view ingredient notes' : '点击查看原料说明')
+
+  return [name, description, action].filter(Boolean).join('\n')
+}
+
+function openRecipeItem(item: RecipeItem) {
+  selectBlock(recipeEntry(item) ?? recipeItemDetail(item))
 }
 </script>
 
@@ -222,6 +299,92 @@ function findRelated(ids: string[]): BlockEntry[] {
             <section class="block-query__modal-section">
               <h3>{{ isEn ? 'How to Obtain' : '获取方式' }}</h3>
               <p v-html="isEn ? selectedBlock.obtainEn : selectedBlock.obtainZh"></p>
+            </section>
+
+            <section v-if="selectedBlock.recipes && selectedBlock.recipes.length > 0" class="block-query__modal-section">
+              <h3>{{ isEn ? 'Crafting Recipe' : '合成表' }}</h3>
+              <div class="block-query__recipes">
+                <div
+                  v-for="(recipe, recipeIndex) in selectedBlock.recipes"
+                  :key="recipeIndex"
+                  class="block-query__recipe"
+                >
+                  <div
+                    class="block-query__crafting-grid"
+                    role="grid"
+                    :aria-label="isEn ? '3 by 3 crafting grid' : '3×3 工作台合成表'"
+                  >
+                    <div
+                      v-for="(slot, slotIndex) in recipe.pattern"
+                      :key="slotIndex"
+                      class="block-query__crafting-slot"
+                      :class="{ 'is-empty': !slot, 'has-icon': slot?.icon, 'is-clickable': slot }"
+                      role="gridcell"
+                      :aria-label="slot ? recipeItemName(slot) : (isEn ? 'Empty slot' : '空槽')"
+                    >
+                      <button
+                        v-if="slot"
+                        type="button"
+                        class="block-query__crafting-item"
+                        :class="{ 'is-clickable': true }"
+                        :title="recipeTooltip(slot)"
+                        :data-tip="recipeTooltip(slot)"
+                        :aria-label="recipeTooltip(slot)"
+                        @click.stop="openRecipeItem(slot)"
+                      >
+                        <img
+                          v-if="slot.icon"
+                          class="block-query__crafting-icon"
+                          :src="withBase(slot.icon)"
+                          :alt="recipeItemName(slot)"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <span v-else class="block-query__crafting-name">
+                          {{ recipeItemName(slot) }}
+                        </span>
+                        <span v-if="recipeCountLabel(slot.count)" class="block-query__crafting-count">
+                          {{ recipeCountLabel(slot.count) }}
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="block-query__recipe-arrow" aria-hidden="true">→</div>
+
+                  <button
+                    type="button"
+                    class="block-query__recipe-result"
+                    :class="{ 'is-clickable': true }"
+                    :title="recipeTooltip(recipeResult(recipe))"
+                    :data-tip="recipeTooltip(recipeResult(recipe))"
+                    :aria-label="recipeTooltip(recipeResult(recipe))"
+                    @click.stop="openRecipeItem(recipeResult(recipe))"
+                  >
+                    <img
+                      v-if="recipeResult(recipe).icon"
+                      class="block-query__recipe-result-icon"
+                      :src="withBase(recipeResult(recipe).icon || '')"
+                      :alt="recipeItemName(recipeResult(recipe))"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span v-else class="block-query__recipe-result-initial">
+                      {{ recipeItemName(recipeResult(recipe)).slice(0, 2) }}
+                    </span>
+                    <span v-if="recipeCountLabel(recipeResult(recipe).count)" class="block-query__crafting-count">
+                      {{ recipeCountLabel(recipeResult(recipe).count) }}
+                    </span>
+                    <span class="block-query__recipe-result-name">
+                      {{ recipeItemName(recipeResult(recipe)) }}
+                    </span>
+                  </button>
+
+                  <p v-if="recipeNote(recipe)" class="block-query__recipe-note">
+                    {{ recipeNote(recipe) }}
+                  </p>
+                </div>
+              </div>
             </section>
 
             <section v-if="selectedBlock.properties && Object.keys(selectedBlock.properties).length > 0" class="block-query__modal-section">
@@ -533,7 +696,7 @@ function findRelated(ids: string[]): BlockEntry[] {
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
   border-radius: 18px;
-  max-width: 560px;
+  max-width: 640px;
   width: 100%;
   max-height: 85vh;
   overflow-y: auto;
@@ -647,6 +810,260 @@ function findRelated(ids: string[]): BlockEntry[] {
   color: var(--vp-c-text-1);
 }
 
+/* ─── Crafting recipes ─── */
+.block-query__recipes {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.block-query__recipe {
+  display: grid;
+  grid-template-columns: auto auto minmax(116px, 1fr);
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem;
+  border: 1px solid color-mix(in srgb, var(--vp-c-divider) 76%, var(--vp-c-brand-2));
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.34), transparent 26%),
+    radial-gradient(circle at 14% 16%, color-mix(in srgb, var(--vp-c-brand-soft) 48%, transparent), transparent 36%),
+    color-mix(in srgb, var(--vp-c-bg-soft) 70%, var(--vp-c-bg) 30%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 10px 26px rgba(0, 0, 0, 0.05);
+}
+
+.block-query__crafting-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 46px);
+  grid-template-rows: repeat(3, 46px);
+  gap: 5px;
+  padding: 9px;
+  border: 1px solid color-mix(in srgb, var(--vp-c-divider) 60%, var(--vp-c-brand-2));
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.28), transparent 40%),
+    repeating-linear-gradient(45deg, transparent 0 7px, rgba(120, 86, 54, 0.035) 7px 9px),
+    color-mix(in srgb, var(--vp-c-brand-soft) 34%, var(--vp-c-bg-soft));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -10px 20px rgba(0, 0, 0, 0.025);
+}
+
+.block-query__crafting-slot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid color-mix(in srgb, var(--vp-c-divider) 72%, #000 28%);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.24), transparent 44%),
+    color-mix(in srgb, var(--vp-c-bg) 90%, var(--vp-c-bg-soft) 10%);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.24),
+    inset -2px -2px 0 rgba(0, 0, 0, 0.055);
+  overflow: visible;
+}
+
+.block-query__crafting-slot.is-empty {
+  opacity: 0.54;
+}
+
+.block-query__crafting-slot.is-clickable::after,
+.block-query__recipe-result.is-clickable::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 1px solid transparent;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.block-query__crafting-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: default;
+}
+
+.block-query__crafting-item.is-clickable,
+.block-query__recipe-result.is-clickable {
+  cursor: pointer;
+}
+
+.block-query__crafting-item.is-clickable:hover,
+.block-query__crafting-item.is-clickable:focus-visible {
+  background: color-mix(in srgb, var(--vp-c-brand-soft) 30%, transparent);
+  outline: none;
+}
+
+.block-query__crafting-slot.is-clickable:hover::after,
+.block-query__crafting-slot:focus-within::after,
+.block-query__recipe-result.is-clickable:hover::after,
+.block-query__recipe-result.is-clickable:focus-visible::after {
+  border-color: var(--vp-c-brand-2);
+  box-shadow: 0 0 0 3px var(--vp-c-brand-soft);
+}
+
+.block-query__crafting-item::before,
+.block-query__recipe-result::before {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  z-index: 3;
+  width: max-content;
+  min-width: 132px;
+  max-width: 220px;
+  padding: 0.45rem 0.58rem;
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-2) 42%, var(--vp-c-divider));
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--vp-c-bg) 94%, var(--vp-c-brand-soft));
+  color: var(--vp-c-text-1);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.35;
+  white-space: pre-line;
+  text-align: left;
+  transform: translate(-50%, 4px) scale(0.96);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.block-query__crafting-item:hover::before,
+.block-query__crafting-item:focus-visible::before,
+.block-query__recipe-result:hover::before,
+.block-query__recipe-result:focus-visible::before {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.block-query__crafting-icon,
+.block-query__recipe-result-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  transition: transform 0.16s ease;
+}
+
+.block-query__crafting-item.is-clickable:hover .block-query__crafting-icon,
+.block-query__crafting-item.is-clickable:focus-visible .block-query__crafting-icon,
+.block-query__recipe-result.is-clickable:hover .block-query__recipe-result-icon,
+.block-query__recipe-result.is-clickable:focus-visible .block-query__recipe-result-icon {
+  transform: translateY(-2px) scale(1.08);
+}
+
+.block-query__crafting-name {
+  max-width: 36px;
+  padding: 0 0.15rem;
+  color: var(--vp-c-text-1);
+  font-size: 0.6rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.block-query__crafting-count {
+  position: absolute;
+  right: 3px;
+  bottom: 1px;
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1;
+  text-shadow:
+    1px 1px 0 #000,
+    -1px 1px 0 #000,
+    1px -1px 0 #000,
+    -1px -1px 0 #000;
+}
+
+.block-query__recipe-arrow {
+  color: var(--vp-c-brand-1);
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.block-query__recipe-result {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 0.35rem;
+  min-height: 94px;
+  padding: 0.8rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--vp-c-divider) 72%, var(--vp-c-brand-2));
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 40%),
+    var(--vp-c-bg);
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--vp-c-brand-soft) 26%, transparent),
+    0 8px 18px rgba(0, 0, 0, 0.045);
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.block-query__recipe-result.is-clickable:hover,
+.block-query__recipe-result.is-clickable:focus-visible {
+  border-color: var(--vp-c-brand-2);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.block-query__recipe-result-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.block-query__recipe-result-initial {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.block-query__recipe-result-name {
+  color: var(--vp-c-text-1);
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.block-query__recipe-note {
+  grid-column: 1 / -1;
+  padding-top: 0.1rem;
+  color: var(--vp-c-text-2) !important;
+  font-size: 0.78rem !important;
+}
+
 /* ─── Properties table ─── */
 .block-query__prop-table {
   width: 100%;
@@ -739,6 +1156,20 @@ function findRelated(ids: string[]): BlockEntry[] {
 
   .block-query__modal-body {
     padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .block-query__recipe {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .block-query__recipe-arrow {
+    transform: rotate(90deg);
+  }
+
+  .block-query__recipe-result {
+    width: min(100%, 180px);
+    box-sizing: border-box;
   }
 }
 
