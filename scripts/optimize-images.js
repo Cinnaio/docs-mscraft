@@ -17,6 +17,7 @@ const IMAGES_DIR = path.join(process.cwd(), 'docs', 'public', 'images')
 const ORIGINALS_DIR = path.join(IMAGES_DIR, '_originals')
 const MIN_BYTES = 10 * 1024
 const MIN_SAVINGS_RATIO = 0.95 // only replace if new <= 95% of old
+const SKIP_DIRS = ['minecraft', 'teastory']
 
 function isImageFile(file) {
   const ext = path.extname(file).toLowerCase()
@@ -43,6 +44,12 @@ function hasGitRepo() {
 
 function toPosix(p) {
   return p.replace(/\\/g, '/')
+}
+
+function shouldSkipFile(filePath) {
+  const rel = path.relative(IMAGES_DIR, filePath)
+  const [topLevelDir] = rel.split(path.sep)
+  return SKIP_DIRS.includes(topLevelDir)
 }
 
 async function ensureBackupFromGitIfPossible(filePath) {
@@ -74,8 +81,11 @@ async function optimizeOne(filePath) {
   const before = stat.size
   if (before < MIN_BYTES) return { changed: false, before, after: before }
 
-  // Don't optimize backups
-  if (path.normalize(filePath).startsWith(path.normalize(ORIGINALS_DIR + path.sep))) {
+  // Don't optimize backups or directories that should keep original textures.
+  if (
+    path.normalize(filePath).startsWith(path.normalize(ORIGINALS_DIR + path.sep)) ||
+    shouldSkipFile(filePath)
+  ) {
     return { changed: false, before, after: before }
   }
 
@@ -138,7 +148,7 @@ async function main() {
 
   const files = []
   for await (const p of walk(IMAGES_DIR)) {
-    if (isImageFile(p)) files.push(p)
+    if (isImageFile(p) && !shouldSkipFile(p)) files.push(p)
   }
 
   if (!files.length) return
