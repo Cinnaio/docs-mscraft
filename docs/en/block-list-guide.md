@@ -4,11 +4,30 @@ This document explains how to add, modify, or remove entries in the [Block/Furni
 
 ## Data File Location
 
-All block data is stored in a single file:
+Block query data is split by responsibility under:
 
 ```
-docs/.vitepress/theme/components/block-list-data.ts
+docs/.vitepress/theme/data/block-query/
 ```
+
+Common files:
+
+| File | Purpose |
+|------|---------|
+| `types.ts` | Type definitions such as `BlockEntry`, `RecipeItem`, and `CraftingRecipe` |
+| `categories.ts` | Chinese/English category constants and category type guards |
+| `ingredients.ts` | Reusable crafting ingredient constants |
+| `blocks.functional.ts` | Functional blocks |
+| `blocks.furniture.ts` | Furniture |
+| `blocks.tools.ts` | Tools |
+| `blocks.containers.ts` | Containers |
+| `blocks.plants.ts` | Plants & crops |
+| `blocks.decoration.ts` | Decoration blocks |
+| `blocks.lighting.ts` | Lighting |
+| `blocks.other.ts` | Other entries |
+| `index.ts` | Aggregates and exports `allBlocks`; usually no manual edits needed |
+
+The old `docs/.vitepress/theme/components/block-list-data.ts` file is kept only as a compatibility re-export layer. Add new content to the matching category file under `data/block-query/` instead.
 
 After editing, restart `npm run docs:dev` to preview changes.
 
@@ -49,8 +68,8 @@ Each entry is a `BlockEntry` object added to the `allBlocks` array:
 
 ### Adding a New Entry
 
-1. Open `docs/.vitepress/theme/components/block-list-data.ts`
-2. Locate the `allBlocks` array (around line 66)
+1. Open the matching category file under `docs/.vitepress/theme/data/block-query/blocks.*.ts`
+2. Locate the exported array in that file, such as `functionalBlocks` or `furnitureBlocks`
 3. Append a new object before the closing `]`
 4. **Note**: the previous entry must end with a comma
 
@@ -214,8 +233,8 @@ Existing icon directories:
 
 ## Notes
 
-- **Do not delete or modify** the code before/after the `allBlocks` array (type definitions, category lists)
-- The **last element** in the `allBlocks` array must NOT have a trailing comma, but all others must
+- **Do not delete or modify** type, category, or aggregation logic in `types.ts`, `categories.ts`, or `index.ts` unless you are intentionally changing the data structure
+- The **last element** in each category array must NOT have a trailing comma, but all others must
 - Group entries by **category** using `// ─── Category Name ───` comments
 - Keep English translations in sync; don't add Chinese-only entries
 - After editing, run `npm run docs:dev` to verify the page renders correctly

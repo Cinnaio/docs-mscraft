@@ -4,13 +4,32 @@
 
 ## 数据文件位置
 
-所有方块数据集中在一个文件中：
+方块查询数据已按职责拆分到：
 
 ```
-docs/.vitepress/theme/components/block-list-data.ts
+docs/.vitepress/theme/data/block-query/
 ```
 
-编辑此文件后，重启 `npm run docs:dev` 即可预览效果。
+常用文件：
+
+| 文件 | 用途 |
+|------|------|
+| `types.ts` | `BlockEntry`、`RecipeItem`、`CraftingRecipe` 等类型定义 |
+| `categories.ts` | 中英文分类常量与分类类型守卫 |
+| `ingredients.ts` | 可复用的合成原料常量 |
+| `blocks.functional.ts` | 功能性方块 |
+| `blocks.furniture.ts` | 家具 |
+| `blocks.tools.ts` | 工具 |
+| `blocks.containers.ts` | 容器 |
+| `blocks.plants.ts` | 植物与作物 |
+| `blocks.decoration.ts` | 装饰方块 |
+| `blocks.lighting.ts` | 灯具 |
+| `blocks.other.ts` | 其他 |
+| `index.ts` | 聚合导出 `allBlocks`，通常无需手动修改 |
+
+旧文件 `docs/.vitepress/theme/components/block-list-data.ts` 仅作为兼容导出层保留，新内容请优先添加到 `data/block-query/` 下对应分类文件中。
+
+编辑后，重启 `npm run docs:dev` 即可预览效果。
 
 ## 基础结构
 
@@ -49,8 +68,8 @@ docs/.vitepress/theme/components/block-list-data.ts
 
 ### 添加新条目
 
-1. 打开 `docs/.vitepress/theme/components/block-list-data.ts`
-2. 找到 `allBlocks` 数组（约第 66 行）
+1. 根据条目分类打开 `docs/.vitepress/theme/data/block-query/blocks.*.ts` 中对应文件
+2. 找到该文件导出的数组（如 `functionalBlocks`、`furnitureBlocks`）
 3. 在数组末尾（最后一个 `]` 之前）追加新对象
 4. **注意**：前一个条目末尾要有逗号
 
@@ -217,8 +236,8 @@ recipes: [
 
 ## 注意事项
 
-- **不要删除或修改** `allBlocks` 数组前后的代码（类型定义、分类列表等）
-- 添加条目时注意在 `allBlocks` 数组**最后一个元素后面不能有逗号**，但前面每个元素末尾都要有逗号
+- **不要删除或修改** `types.ts`、`categories.ts` 与 `index.ts` 中的类型、分类和聚合逻辑，除非确实在调整数据结构
+- 添加条目时注意在对应分类数组**最后一个元素后面不能有逗号**，但前面每个元素末尾都要有逗号
 - 保持条目按**分类分组**，用注释 `// ─── 分类名 ───` 分隔
 - 尽量保持英文翻译同步更新，不要只写中文
 - 编辑完成后运行 `npm run docs:dev` 确认页面正常渲染

@@ -6,7 +6,7 @@ import HomeShowcase from './components/HomeShowcase'
 import SiteFooter from './components/SiteFooter.vue'
 import SiteContributors from './components/SiteContributors.vue'
 import ServerStatus from './components/ServerStatus.vue'
-import BlockQuery from './components/BlockQuery.vue'
+import BlockQuery from './components/block-query/BlockQuery.vue'
 import { installItemChipTooltip } from './item-chip-tooltip'
 import './style.css'
 
