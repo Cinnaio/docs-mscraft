@@ -120,7 +120,7 @@ onUnmounted(() => {
             </section>
 
             <section v-if="block.relatedIds && block.relatedIds.length > 0" class="block-query__modal-section">
-              <h3>{{ isEn ? 'Related' : '关联方块' }}</h3>
+              <h3>{{ isEn ? 'Related Items' : '关联条目' }}</h3>
               <BlockRelatedList
                 :related="related"
                 :is-en="isEn"

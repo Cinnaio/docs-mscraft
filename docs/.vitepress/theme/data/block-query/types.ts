@@ -53,10 +53,13 @@ export interface BlockEntry {
   /** 获取方式说明 */
   obtainZh: string
   obtainEn: string
+  /** 搜索别名；用于覆盖分组条目中的实际物品名、俗称或流程名 */
+  aliasesZh?: string[]
+  aliasesEn?: string[]
   /** 可选合成配方，显示为 3×3 工作台合成表 */
   recipes?: CraftingRecipe[]
   /** 可选属性键值对，显示在详情弹窗的表格中 */
   properties?: Record<string, string>
-  /** 关联方块 id 列表，用于交叉链接 */
+  /** 关联条目 id 列表，用于交叉链接 */
   relatedIds?: string[]
 }

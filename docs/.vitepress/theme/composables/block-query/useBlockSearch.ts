@@ -1,6 +1,31 @@
 import { computed, ref, type ComputedRef, type Ref } from 'vue'
 import type { BlockEntry } from '../../data/block-query'
 
+function propertyTokens(properties?: Record<string, string>): string[] {
+  if (!properties) return []
+  return Object.entries(properties).flatMap(([key, value]) => [key, value])
+}
+
+function blockSearchTokens(block: BlockEntry, isEn: boolean): string[] {
+  const localizedName = isEn ? block.nameEn : block.nameZh
+  const localizedDescription = isEn ? block.descriptionEn : block.descriptionZh
+
+  return [
+    block.id,
+    localizedName,
+    localizedDescription,
+    block.nameZh,
+    block.nameEn,
+    block.descriptionZh,
+    block.descriptionEn,
+    block.obtainZh,
+    block.obtainEn,
+    ...(block.aliasesZh ?? []),
+    ...(block.aliasesEn ?? []),
+    ...propertyTokens(block.properties),
+  ].filter((token): token is string => Boolean(token))
+}
+
 export function useBlockSearch(
   blocks: readonly BlockEntry[],
   isEn: ComputedRef<boolean>,
@@ -30,19 +55,9 @@ export function useBlockSearch(
 
     const q = searchQuery.value.trim().toLowerCase()
     if (q) {
-      list = list.filter((block) => {
-        const name = isEn.value ? block.nameEn : block.nameZh
-        const desc = isEn.value ? block.descriptionEn : block.descriptionZh
-
-        return (
-          name.toLowerCase().includes(q) ||
-          desc.toLowerCase().includes(q) ||
-          block.nameZh.toLowerCase().includes(q) ||
-          block.nameEn.toLowerCase().includes(q) ||
-          block.descriptionZh.toLowerCase().includes(q) ||
-          block.descriptionEn.toLowerCase().includes(q)
-        )
-      })
+      list = list.filter((block) =>
+        blockSearchTokens(block, isEn.value).some((token) => token.toLowerCase().includes(q)),
+      )
     }
 
     return list

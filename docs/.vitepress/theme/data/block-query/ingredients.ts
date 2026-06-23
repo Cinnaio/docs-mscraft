@@ -18,15 +18,15 @@ export const clayBall: RecipeItem = {
   nameZh: '黏土球',
   nameEn: 'Clay Ball',
   icon: '/images/minecraft/item/clay_ball.png',
-  noteZh: '原版物品，用作陶壶胚原料。',
-  noteEn: 'Vanilla item used for the clay kettle body.',
+  noteZh: '原版物品，用作陶土胚体原料。',
+  noteEn: 'Vanilla item used for clay blanks.',
 }
 export const stick: RecipeItem = {
   nameZh: '木棍',
   nameEn: 'Stick',
   icon: '/images/minecraft/item/stick.png',
-  noteZh: '原版物品，用作茶筅柄部。',
-  noteEn: 'Vanilla item used as the tea whisk handle.',
+  noteZh: '原版物品，用作茶具柄部。',
+  noteEn: 'Vanilla item used as a tool handle.',
 }
 export const bamboo: RecipeItem = {
   nameZh: '竹子',
@@ -55,4 +55,41 @@ export const stringItem: RecipeItem = {
   icon: '/images/minecraft/item/string.png',
   noteZh: '原版物品，用作茶包束口。',
   noteEn: 'Vanilla item used to tie the tea bag.',
+}
+export const bowl: RecipeItem = {
+  nameZh: '碗',
+  nameEn: 'Bowl',
+  icon: '/images/minecraft/item/bowl.png',
+  noteZh: '原版物品，用作研钵容器。',
+  noteEn: 'Vanilla item used as the mortar bowl.',
+}
+export const ironIngot: RecipeItem = {
+  nameZh: '铁锭',
+  nameEn: 'Iron Ingot',
+  icon: '/images/minecraft/item/iron_ingot.png',
+  noteZh: '原版物品，用作镰刀刃部。',
+  noteEn: 'Vanilla item used for the sickle blade.',
+}
+export const wheat: RecipeItem = {
+  nameZh: '小麦',
+  nameEn: 'Wheat',
+  icon: '/images/minecraft/item/wheat.png',
+  noteZh: '原版物品，可合成发酵粉。',
+  noteEn: 'Vanilla item used to craft fermentation powder.',
+}
+export const freshTeaLeaf: RecipeItem = {
+  nameZh: '鲜叶',
+  nameEn: 'Fresh Leaf',
+  icon: '/images/teastory/fresh_tea_leaf.png',
+  entryId: 'fresh-tea-leaf',
+  noteZh: '茶树成熟后采集的鲜叶品质组。',
+  noteEn: 'Fresh leaf quality family harvested from mature tea crops.',
+}
+export const emptyTeaBag: RecipeItem = {
+  nameZh: '空茶包',
+  nameEn: 'Empty Tea Bag',
+  icon: '/images/teastory/empty_tea_bag.png',
+  entryId: 'empty-tea-bag',
+  noteZh: '用于装入茶叶制成茶包。',
+  noteEn: 'Used to pack tea leaves into tea bags.',
 }
