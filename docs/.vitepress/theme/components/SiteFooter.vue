@@ -62,7 +62,7 @@ const copy = computed(() => {
     colFollow: en ? 'Follow us' : '关注我们',
     links: {
       status: { text: en ? 'Status monitor' : '状态监控', href: `${base}/status` },
-      skin: { text: en ? 'Skin station' : '皮肤站', href: 'https://skin.cubem.cn' },
+      skin: { text: en ? 'Skin station' : '皮肤站', href: 'https://skin.mscraft.uk' },
       map: { text: en ? 'Live map' : '实时地图', href: EXTERNAL.liveMap },
     },
     social: {

@@ -1,6 +1,6 @@
 import { withBase } from 'vitepress'
 
-const SKIN_BASE = 'https://skin.cubem.cn'
+const SKIN_BASE = 'https://skin.mscraft.uk'
 
 export function skinAvatarUrl(playerName: string) {
   const base = SKIN_BASE.replace(/\/$/, '')

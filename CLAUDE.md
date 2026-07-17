@@ -64,7 +64,7 @@ scripts/
 ### Key patterns
 
 - **Theme overrides**: `config.mts` uses Vite aliases to replace VitePress default components (`VPDocFooterLastUpdated.vue`, `VPTeamMembersItem.vue`) with custom versions. The theme `index.ts` extends `DefaultTheme` and injects `HomeShowcase` and `SiteFooter` via layout slots.
-- **MC avatar fallback**: Team/contributor avatars try Minotar helm → mc-heads → skin.cubem.cn → local logo. Error handlers on `<img>` elements advance the chain.
+- **MC avatar fallback**: Team/contributor avatars try Minotar helm → mc-heads → skin.mscraft.uk → local logo. Error handlers on `<img>` elements advance the chain.
 - **Server status**: In dev mode, the Vite proxy rewrites `/mcsm/api/*` to the MCSManager panel, injecting apikey/daemonId/instanceId server-side (never in the browser). In production, `functions/api/status.ts` calls MCSManager and returns normalized data.
 - **Last-updated author**: `transformPageData` in `config.mts` runs `git log -1 --pretty=%an` per file at build time, storing the author name and avatar URL on the page data for the custom `VPDocFooterLastUpdated.vue`.
 - **Item chips**: Markdown uses `<span class="item-chip"><img src="...">Name</span>` for Minecraft item references. The tooltip system (`item-chip-tooltip.ts`) maps chip text to descriptions from `_item-chip-tooltip/` JSON metadata.

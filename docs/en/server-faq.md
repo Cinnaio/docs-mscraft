@@ -142,7 +142,7 @@ Data is protected to the best of our ability. The final interpretation right bel
 ::: details Q: How do I register for the server?
 A: There are two ways to register for the server:
 1. **Official Account**: Enter the server directly using an official Minecraft account, no registration required.
-2. **External Login**: Register at the server-designated [Skin Station](https://skin.cubem.cn/), then use external login to enter the server.
+2. **External Login**: Register at the server-designated [Skin Station](https://skin.mscraft.uk/), then use external login to enter the server.
 :::
 
 ::: details Q: How do I use external login?
@@ -158,5 +158,5 @@ Then use the account you registered at the Skin Station to log in to the server.
 ::: details Q: How do I change my skin?
 A: There are two ways to load a skin:
 1. **Official Account**: Change your skin on the official Minecraft website, and re-enter the server to apply the new skin.
-2. **External Login**: Change your skin at the server-designated [Skin Station](https://skin.cubem.cn/), and re-enter the server to apply the new skin.
+2. **External Login**: Change your skin at the server-designated [Skin Station](https://skin.mscraft.uk/), and re-enter the server to apply the new skin.
 :::
