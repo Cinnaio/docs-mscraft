@@ -1,7 +1,7 @@
 ---
 title: 茶风纪事
 description: 从种下一颗茶种子开始，学会采茶、制茶、冲泡，再把田园收获做成中式茶点。
-aside: false
+aside: true
 pageClass: teastory-page
 ---
 
@@ -18,15 +18,6 @@ import '../.vitepress/theme/teastory-guide.css'
 # 茶风纪事 <Badge type="tip" text="试运行" />
 
 <p class="tea-lead">种一小片茶园，做第一杯茶，再把当季的收获变成一桌茶点。</p>
-
-<nav class="tea-nav" aria-label="茶风纪事章节">
-  <a href="#first-cup">第一杯茶</a>
-  <a href="#tea-making">制茶路线</a>
-  <a href="#brewing">冲泡与茶具</a>
-  <a href="#tea-garden">种植与采收</a>
-  <a href="#food">茶点图鉴</a>
-  <a href="#appendix">常见问题</a>
-</nav>
 
 ## 先做一杯绿茶 {#first-cup}
 

@@ -1,7 +1,7 @@
 ---
 title: TeaStory
 description: Grow a tea garden, make your first cup, and turn the harvest into Chinese food and drinks.
-aside: false
+aside: true
 pageClass: teastory-page
 ---
 
@@ -18,15 +18,6 @@ import '../../.vitepress/theme/teastory-guide.css'
 # TeaStory <Badge type="tip" text="Testing" />
 
 <p class="tea-lead">Grow a small tea garden, brew your first cup, and bring the season's harvest to the table.</p>
-
-<nav class="tea-nav" aria-label="TeaStory sections">
-  <a href="#first-cup">First cup</a>
-  <a href="#tea-making">Tea processing</a>
-  <a href="#brewing">Brewing</a>
-  <a href="#tea-garden">Growing & harvesting</a>
-  <a href="#food">Food & drinks</a>
-  <a href="#appendix">Troubleshooting</a>
-</nav>
 
 ## Make your first green tea {#first-cup}
 
