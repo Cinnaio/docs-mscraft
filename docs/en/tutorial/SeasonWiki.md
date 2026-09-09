@@ -1,105 +1,83 @@
-# Season System <Badge type="tip" text="Testing" />
+# Season System <Badge type="tip" text="Compatibility page" />
 
-> This content is now part of the [Teastory guide](/en/tutorial/Teastory) under “Seasons, Weather, and the Tea Garden”. This file remains for old links; use the merged guide as the current reference.
-
-> The server uses **NatureEngine** plugin for seasonal changes and weather cycles. Spring, Summer, Autumn, and Winter each offer different gameplay experiences.
+> Seasons, weather, environment, and TeaStory crop rules now live in the [TeaStory tea-garden section](/en/tutorial/Teastory#tea-garden). This page keeps the old URL and headings for bookmarks and external links; use the merged guide for current values.
 
 ## Season Overview
 
-| Season | Temperature | Growth Speed | Yield | Notes |
-|---|---|---|---|---|
-| 🌸 Spring | Moderate | ×1.2 | ×1.0 | More rain, great for planting |
-| ☀️ Summer | Hot | ×1.1 | ×1.1 | Sunny, highest yield |
-| 🍂 Autumn | Moderate | ×1.0 | ×1.2 | Harvest season |
-| ❄️ Winter | Cold | ×0.5 | ×0.8 | Crops freeze easily, build greenhouses |
+| Season | Duration | Base temperature | Base humidity | Growth | Yield |
+|---|---:|---:|---:|---:|---:|
+| Spring | 10 in-game days | 15.0 | 0.70 | ×1.2 | ×1.0 |
+| Summer | 10 in-game days | 25.0 | 0.50 | ×1.1 | ×1.1 |
+| Autumn | 10 in-game days | 10.0 | 0.60 | ×1.0 | ×1.2 |
+| Winter | 10 in-game days | 0.0 | 0.40 | ×0.5 | ×0.8 |
 
-> Each season lasts 10 days, total 40 days per year.
+Temperature is the NatureEngine configuration baseline; actual environment also adds vanilla world temperature and weather offsets. The yield multiplier is a season configuration hint and does not automatically multiply every CraftEngine loot table. See the [tea-garden section](/en/tutorial/Teastory#tea-garden) for crop targets and environment thresholds.
 
 ## Farming Guide
 
 ### Growth Factors
 
-```
-Growth Speed = Season × Weather × Environment
-```
-
-| Factor | Effect |
-|---|---|
-| Season | Fast in Spring/Summer/Autumn, slow in Winter |
-| Weather | Rain +10%, Thunder -7%, Snow -15% |
-| Environment | Greenhouse +5% > Indoor > Outdoor |
+Growth combines season, weather, crop temperature/humidity targets, light, structure environment, and random-tick progress. A preferred season is a target range rather than a simple allowed/blocked switch. Most TeaStory crops require light level 9; a greenhouse improves stability but does not promise a fixed growth time for every crop.
 
 ### Crop Recommendations
 
-| Crop | Preferred Season | Best Time to Plant |
-|---|---|---|
-| Wheat, Carrot, Potato | Spring, Summer | Spring is best |
-| Melon, Cocoa | Summer | Summer |
-| Pumpkin | Summer, Autumn | Late Summer |
-| Nether Wart | Winter, Autumn | Greenhouse in Winter |
-| Tea Tree | Spring, Summer, Autumn | Spring, greenhouse in Winter |
+Tea trees prefer Spring, Summer, and Autumn. Jasmine prefers Spring and Summer; osmanthus, roselle, and goji suit Summer and Autumn; chrysanthemum prefers Autumn; lotus and rice prefer Summer. The merged guide has the complete 14-crop table, tolerances, and registered trees.
 
 ### Environment Effects
 
-| Environment | Stability | Advance Boost | Description |
-|---|---|---|---|
-| Greenhouse | 1.00 | ×1.05 | Enclosed on all sides + roof |
-| Indoor | 0.70 | ×0.95 | Has roof but open on all sides |
-| Outdoor | 0.00 | ×1.00 | Pure natural environment |
+| Environment | Stability | Progress adjustment | Classification |
+|---|---:|---:|---|
+| Greenhouse | 1.00 | ×1.02 | Closedness ≥ 0.60 |
+| Indoor | 0.80 | ×0.98 | Openness < 0.25 |
+| Semi-outdoor | 0.60 | ×1.00 | Intermediate state |
+| Outdoor | 0.35 | ×1.00 | Openness ≥ 0.80 |
 
-::: tip Tip
-Build greenhouses in Winter to keep crops growing steadily and avoid freezing.
-:::
+Scanning covers a radius of 4 blocks and checks up to 6 blocks upward for a roof. The nearby-water bonus is currently disabled. Thresholds and weather offsets are maintained in the merged guide.
 
 ## 24 Solar Terms
 
-Solar terms mainly affect weather probability, not crop growth itself.
-
-| Solar Term | Season | Weather Effect |
-|---|---|---|
-| Qingming | Spring | Rain probability +30% |
-| Guyu | Spring | Rain +50%, Thunder +10% |
-| Dashu | Summer | Thunder +35%, Sunny -10% |
-| Daxue~Dahan | Winter | Snow probability keeps rising, max +45% |
-
-> No need to memorize, just play normally.
+Solar terms change the selection weights for the **next weather event** only. They do not rewrite a weather profile's temperature, humidity, or growth multiplier. Current configuration trends toward more rain from Qingming to Guyu, slightly more storms in summer terms, more sun in autumn, and more snow with less rain from Lidong through Dahan. Percentages from the old page should not be treated as current fixed bonuses.
 
 ## Weather System
 
-| Weather | Temperature | Soil Moisture | Crop Effect |
-|---|---|---|---|
-| ☀️ Sunny | +0.05 | -0.02 | Normal |
-| 🌧️ Rain | -0.03 | +0.20 | **+10%** |
-| ⛈️ Storm | -0.05 | +0.25 | -7% |
-| 🌨️ Snow | -0.12 | +0.10 | -15% |
+Weather is reselected every 90 seconds. Target durations are Sunny 300 seconds, Rain 240, Storm 180, and Snow 240.
 
-Weather changes every 90 seconds.
+| Weather | Temperature | Humidity | Soil | Growth |
+|---|---:|---:|---:|---:|
+| Sunny | +0.05 | -0.02 | -0.02 | ×1.00 |
+| Rain | -0.03 | +0.05 | +0.20 | ×1.10 |
+| Storm | -0.05 | +0.06 | +0.25 | ×0.93 |
+| Snow | -0.12 | +0.02 | +0.10 | ×0.85 |
+
+At the Bukkit weather layer, Snow currently maps to ordinary rain. Visible weather should not be read as a separately verified snow-cover system.
 
 ## Useful Commands
 
+The NatureEngine root command requires OP.
+
 | Command | What it does |
 |---|---|
-| `/ne season info` | Check current season, solar term, days remaining |
-| `/ne debug` | View detailed season, weather, environment info |
-| `/ne debug crop` | View detailed growth data for crops at your feet |
-| `/ne season set <season>` | Manually switch season (admin) |
+| `/ne season info` | Show the world's season, progress, and override state |
+| `/ne debug` | Show a season, weather, and environment summary |
+| `/ne debug crop [detail]` | Show crop growth summary or full data |
+| `/ne sim crop` | Simulate crop calculations without changing blocks |
+| `/ne season set <spring\|summer\|autumn\|winter>` | Set a manual season override |
+| `/ne season clear` | Clear the manual override |
+| `/ne season next` | Move to the next season |
+| `/ne season apply` | Reapply season visuals |
+
+See [TeaStory → NatureEngine commands](/en/tutorial/Teastory#tea-garden) for the complete command list and configuration boundaries.
 
 ## FAQ
 
 ::: details Q: Why is my crop not growing?
-- Winter outdoor temperature is too low, crops freeze
-- Check if indoors/greenhouse, more stable environment
-- Use `/ne debug crop` to see specific reasons
+Run `/ne debug crop detail` and inspect light, temperature, humidity, season, weather, and environment. Then verify the base block and crop registration instead of inferring a fixed growth time from the season multiplier.
 :::
 
-::: details Q: How to prevent crops from freezing?
-- Build a greenhouse (enclosed on all sides + roof)
-- Plant indoors in Winter
-- Watch weather, rain is better than snow for planting
+::: details Q: Do I always need a greenhouse in Winter?
+A greenhouse provides 1.00 stability and a ×1.02 progress adjustment, but the result still depends on crop targets, weather, and world temperature. Tea trees are marked as not easy to wither; other crops need their own checks.
 :::
 
-::: details Q: How to grow tea trees?
-- Prefers warm & humid, grows in Spring, Summer, Autumn
-- Must use greenhouse in Winter or it withers easily
-- See [Teastory →](/en/tutorial/Teastory) for details
+::: details Q: Where are the complete tea-tree and orchard rules?
+See [TeaStory → tea garden](/en/tutorial/Teastory#tea-garden) and [garden, paddy, and orchard](/en/tutorial/Teastory#garden-orchard).
 :::

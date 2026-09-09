@@ -1,393 +1,378 @@
-# 茶风纪事 游玩指南 <Badge type="tip" text="试运行" />
+# 茶风纪事：从一片鲜叶到一席茶点 <Badge type="tip" text="试运行" />
 
-> 本项目仍处于试运行阶段，可能会存在部分参数影响体验，后期会持续改进。
-> 如果你对本项目有任何想法，欢迎联系我进行修正，谢谢。
+> TeaStory 是一条以种植、制茶、冲泡和中式茶点为核心的生活玩法。本文按当前 CraftEngine、NatureEngine、MateriaEngine 与 BeaconEngine 配置整理；配置更新后，数值和配方可能随之变化。
 
-> 致谢与许可：本玩法在充分尊重原创的基础上进行二次创作，遵循原项目许可。  
-> 原项目与许可证请见：[Tea-the-Story](https://github.com/RoShioLeo/Tea-the-Story?tab=readme-ov-file#license-%E8%AE%B8%E5%8F%AF%E8%AF%81)
+> 致谢与许可：本玩法在尊重原创的基础上进行二次创作，遵循原项目许可。原项目与许可证见 [Tea-the-Story](https://github.com/RoShioLeo/Tea-the-Story?tab=readme-ov-file#license-%E8%AE%B8%E5%8F%AF%E8%AF%81)。
 
-> **核心摘要**：TeaStory 的主线是「采茶 → 萎凋 → 制茶 → 发酵/定型 → 冲泡/倒杯 → 茶渣回收」。全部初制与冲泡均在 **五台自定义机器** 上完成，右击机器打开专属 GUI 投料，机器按进度条自动加工。
+TeaStory 的主线可以概括为：**种植 → 采收 → 萎凋 → 定型或发酵 → 冲泡 → 倒杯 → 茶渣回收**。茶盘、炒茶锅、发酵桶、茶炉、茶桌负责加工；季节、天气和环境由 NatureEngine 参与生长计算；采收、果实恢复和收成统计由 MateriaEngine 负责。
 
-> 季节、天气和 TeaStory 作物的生长由 **NatureEngine** 统一计算，本页已经把原「季节玩法」内容合并到茶园章节。页面中的季节、天气、环境和作物清单均以当前服务器配置为准。
+## 快速导航
 
-## 五台机器一览
+- [从零开始：第一杯绿茶](#first-cup)
+- [茶园：种植、季节和环境](#tea-garden)
+- [采收、续种和工具](#harvest-tools)
+- [制茶路线](#tea-making)
+- [冲泡、茶具和倒杯](#brewing)
+- [田园、稻田与果园](#garden-orchard)
+- [茶点、料理与复配饮品](#food)
+- [茶室、机器和显示](#tea-room)
+- [收成记录与成就](#records)
+- [配置边界与排错](#appendix)
 
-制茶不再依赖原版营火/熔炉，改由工作台合成出以下五台机器方块，右击打开 GUI 操作：
+<a id="first-cup"></a>
+## 从零开始：第一杯绿茶
 
-| 机器 | 职责 | 燃料 | 看天 |
-|---|---|---|---|
-| **茶盘** | 萎凋 / 淋湿 / 挽救 / 闷黄 | 无（露天） | ✅ 晴/雨/雷影响产物 |
-| **炒茶锅** | 杀青 / 炒青 / 误炒 | 原版燃料（煤、木炭等） | ❌ |
-| **发酵桶** | 碎茶三级发酵 | **发酵粉专属燃料** | ❌ |
-| **茶炉** | 烘焙 / 烘青 / 蒸青 | 原版燃料 | ❌ |
-| **茶桌** | 冲泡杯装/壶装 + 倒茶 | 无 | ❌ |
+这条路线只使用已经配置的机器和配方，适合第一次接触玩法时照着做。
 
-::: tip 通用操作
-- **茶盘**：投料口 12，产出口 14。
-- **炒茶锅 / 茶炉**：投料口 2，燃料口 20，产出口 15。
-- **发酵桶**：投料口 12，发酵粉口 13，产出口 14。
-- **茶桌**：六个投料槽（工具 / 糖 / 杯 / 水 / 茶叶）→ 产出口 15，详见「茶桌冲泡」。
-- 潜行右击机器可打开内部储物格取回误放物品。
-:::
+1. **准备工具和机器。** 工作台可合成茶盘、炒茶锅、发酵桶、茶炉、茶桌、镰刀、木制研钵研杵和茶筅。茶盘与发酵桶使用木板，茶炉使用砖块和圆石，炒茶锅使用铁锭、炼药锅和原木，茶桌使用磨制石台阶与木板；具体形状可在 CraftEngine 配方界面查看。茶桌冲泡还需要杯子、空壶和水壶。
+2. **获得茶树种子并种植。** 世界战利品中可找到 `cgap:tea_seeds`；茶树成熟年龄为 6，种在符合底部方块和光照要求的位置。用镰刀采收时，背包或种子袋中有对应种子会自动重植并消耗 1 个种子。
+3. **晴天萎凋。** 把分级鲜叶放入茶盘。晴天会保留等级并得到对应萎凋叶；雨天或雷暴会得到无等级湿茶。湿茶在晴天再次放入茶盘可挽救成无等级萎凋叶。
+4. **杀青和炒青。** 炒茶锅加入原版燃料，把萎凋叶加工为 `cgap:tea_leaf`（青叶）；再把青叶放回炒茶锅炒青，得到 `cgap:green_tea_leaf`。
+5. **准备开水。** 水壶配方支持石、瓷、铁、紫砂四种材质。9 个空水壶加 1 个水桶会批量得到 9 个有水水壶，再用熔炉或高炉烧成开水壶。
+6. **冲泡。** 茶桌放入绿茶叶 ×2、任意开水壶和一个空杯，得到对应材质的绿茶杯。饮用后按杯子配置返还空杯；绿茶饮品配置为急迫效果 260 tick（约 13 秒）。
+7. **遇到失败先检查天气和槽位。** 茶盘是否在雨中、炒茶锅是否放入燃料、茶桌是否把水壶放在水槽、茶叶是否放在茶叶槽，是最常见的三类问题。
 
-## 参数速查
+### 五台机器和槽位
 
-| 环节 | 机器 | 参数 |
-|---|---|---|
-| 萎凋（晴天） | **茶盘** | 分级鲜叶 → 同级萎凋叶，约 5 秒 |
-| 淋湿（雨/雷） | **茶盘** | 鲜叶 → 湿茶（失去分级）；雨 3 秒 / 雷 2 秒 |
-| 挽救（晴天） | **茶盘** | 湿茶 → 无分级萎凋叶，约 7 秒 |
-| 闷黄 | **茶盘** | 绿茶叶 → 黄茶叶，约 8 秒 |
-| 杀青 | **炒茶锅** | 萎凋叶 → 青叶（单芽/一芽一叶产 2，其余产 1），约 5 秒 |
-| 炒青 | **炒茶锅** | 青叶 → 绿茶叶，约 6 秒 |
-| 误炒 | **炒茶锅** | 湿茶 → 焦叶（陷阱），约 4 秒 |
-| 研磨 | 工作台（研钵） | 1 青叶 → 3 碎茶；研钵每次掉 1 耐久 |
-| 三级发酵 | **发酵桶** | 碎 → 半 → 全 → 深，各消耗 1 发酵粉 |
-| 烘焙 | **茶炉** | 半→乌龙 / 全→红茶 / 深→普洱 |
-| 烘青 | **茶炉** | 青叶 → 白茶 |
-| 蒸青 | **茶炉** | 绿茶叶 → 抹茶叶 |
-| 空茶包 | 工作台 | 1 线 + 5 纸 → 3 空茶包 |
-| 成品茶包 | 工作台 | 1 空茶包 + 6 对应茶叶 → 1 茶包 |
-| 壶加水（批量） | 工作台 | 9 空壶 + 1 水桶 → 9 有水壶 |
-| 烧水 | 熔炉/高炉 | 熔炉 8 秒，高炉 4 秒 |
-| 茶渣回收 | 工作台 | 任意 2 份茶渣/焦叶 → 1 发酵粉 |
-| 茶筅 | 茶桌抹茶配方 | 每次冲泡掉 1 耐久（总 120） |
-| 水稻成熟掉落 | — | 仅掉落 <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="稻谷" />稻谷</span>（当前为 1~3） |
-| 大米加工 | 工作台（研钵） | <span class="item-chip"><img src="/images/teastory/wooden_mortar_and_pestle.png" alt="木制研钵研杵" />木制研钵研杵</span> + <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="稻谷" />稻谷</span> → <span class="item-chip"><img src="/images/teastory/xian_rice.png" alt="大米" />大米</span> |
+| 机器 | 主要职责 | 槽位与燃料 | 默认加工时间 |
+|---|---|---|---:|
+| **茶盘** `cgap:teapan` | 晴天萎凋、雨天淋湿、晴天挽救、闷黄 | 输入 12，输出 14；无燃料 | 40–160 tick |
+| **炒茶锅** `cgap:tea_drying_pan` | 杀青、炒青、湿茶误炒 | 输入 2，燃料 20，输出 15；原版燃料 | 80–120 tick |
+| **发酵桶** `cgap:barrel` | 碎茶的半发酵、全发酵、重发酵 | 输入 12，发酵粉 13，输出 14；只接受发酵粉 | 160–200 tick |
+| **茶炉** `cgap:tea_stove` | 乌龙、红茶、普洱烘焙，白茶烘青，抹茶蒸青 | 输入 2，燃料 20，输出 15；原版燃料 | 160–200 tick |
+| **茶桌** `cgap:tea_table` | 杯装冲泡、壶装冲泡、倒杯 | 工具 1、糖 2、杯/壶 6、水 10、茶叶 11、输出 15；无燃料 | 40–160 tick |
 
-## 快速流程
+茶桌的“杯/壶”是同一个槽位：放空杯会做一杯，放空茶壶会做一壶。工具和糖只在抹茶、奶茶、柠檬茶等配方中使用，纯茶可以留空。
 
-::: tip 温馨小提示
-所有的作物种植均会受到季节、节气以及环境因素的影响。
-:::
+<a id="tea-garden"></a>
+## 茶园：种植、季节和环境
 
-1. 在世界战利品箱获得 <span class="item-chip"><img src="/images/teastory/tea_seeds.png" alt="茶树种子" />茶树种子</span>（或破坏丛林树叶概率掉落），并在耕地上种植；野外也可能自然生成野生茶树。
-2. 等待茶树成熟，采集 <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="鲜叶" />鲜叶</span>（品质与数量随机）。
-3. **萎凋（茶盘）**：晴天把 <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="鲜叶" />鲜叶</span> 放入茶盘，得到同级 <span class="item-chip"><img src="/images/teastory/withered_tea_leaf_bud.png" alt="萎凋叶" />萎凋叶</span>。
-   - 雨天/雷暴会淋成 <span class="item-chip"><img src="/images/teastory/wet_tea_leaf.png" alt="湿茶叶" />湿茶叶</span>（失去分级）；晴天再放回茶盘可挽救成无分级萎凋叶。
-4. **杀青（炒茶锅）**：萎凋叶经炒茶锅（需燃料）炒成 <span class="item-chip"><img src="/images/teastory/tea_leaf.png" alt="青叶" />青叶</span>；湿茶下锅只会炒焦。
-5. **制茶**：按目标口味走 炒青（绿茶）/ 研磨发酵（乌龙/红茶/普洱）/ 烘青（白茶）/ 蒸青（抹茶）/ 闷黄（黄茶）。详见「制茶路线」。
-6. **做茶包**（可选）：空茶包 + 对应茶叶 ×6 → 对应茶包（用于壶装冲泡）。
-7. **准备壶与水**：合成茶壶胚烧成空壶；水壶装水后熔炉/高炉烧开成开水壶。
-8. **冲泡（茶桌）**：茶叶/茶包 + 开水壶 + 杯或空壶 → 杯装或壶装茶饮。详见「茶桌冲泡」。
-9. **倒杯（茶桌）**：满壶 + 空杯 → 杯装茶饮（瓷壶 4 杯 / 紫砂壶 8 杯，倒空返还空壶）。
-10. **回收**：任意茶渣/焦叶 ×2 → 发酵粉 ×1（可回到发酵流程）。
+### 种植时先记住四条规则
 
-## 季节、天气与茶园
-
-TeaStory 的种植不是固定速度。NatureEngine 会把季节、天气、作物自身的温湿度偏好、最低光照和种植环境一起用于生长判定；季节切换还会发送标题提示并刷新季节视觉。
+- 大多数 TeaStory 作物要求最低光照 9；茶树的底部可为耕地、草方块、泥土、灰化土或砂土等配置方块。
+- 季节偏好是生长计算中的目标范围，不是硬性禁种名单。偏离目标时推进率下降，冬季茶树登记为不易枯萎，但冬季环境仍可能让其他作物进入枯萎判定。
+- 环境计算会结合作物目标温度、湿度、当前世界温度、天气偏移和结构扫描结果。`base-temperature` 是 NatureEngine 的配置基准，实际环境温度还会叠加原版世界温度与天气/季节偏移。
+- 莲花需要同位置附近水体，并且底部允许泥土、草方块、泥巴或黏土；稻谷则需要先育苗，再移栽到稻田。
 
 ### 四季参数
 
-每季持续 **10 个游戏日**，四季共 **40 个游戏日**。基准温度使用 Minecraft 的环境温度标尺，湿度为 0 到 1；生长倍率和产量倍率来自 NatureEngine 的季节设置。
+四季各持续 **10 个游戏日**，完整周期为 40 个游戏日。季节切换会按配置发送标题提示（淡入 10、停留 50、淡出 20 tick）。下表的温度是 NatureEngine 的基准值，湿度范围为 0–1；“产量倍率”是季节配置提示，不会自动乘到所有 CraftEngine 战利品。
 
-| 季节 | 基准温度 | 基准湿度 | 生长倍率 | 产量倍率提示 | 易枯萎 |
+| 季节 | 基准温度 | 基准湿度 | 生长倍率 | 产量倍率 | 易枯萎 |
 |---|---:|---:|---:|---:|---|
 | 春 | 15.0 | 0.70 | ×1.2 | ×1.0 | 否 |
 | 夏 | 25.0 | 0.50 | ×1.1 | ×1.1 | 否 |
 | 秋 | 10.0 | 0.60 | ×1.0 | ×1.2 | 否 |
 | 冬 | 0.0 | 0.40 | ×0.5 | ×0.8 | 是 |
 
-“产量倍率提示”是季节切换信息中的配置值；TeaStory 实际掉落数量仍由 CraftEngine 战利品表和 MateriaEngine 采收配置决定，不会把这张表理解成所有掉落都自动乘算。
+### 天气、节气和生长偏移
 
-### 天气与节气
+天气管理器每 **90 秒** 为每个世界重新抽选天气，并把配置时长设置为晴 300 秒、雨 240 秒、雷雨 180 秒、雪 240 秒。这里的时长是下一次抽选使用的目标时长，实际画面还会受到 Bukkit 天气状态和世界加载情况影响。
 
-天气每 **90 秒** 按当前季节重新抽选，选中后保持对应时长。季节权重依次为春 / 夏 / 秋 / 冬：
+| 天气 | 季节抽选权重（春 / 夏 / 秋 / 冬） | 温度偏移 | 湿度偏移 | 土壤偏移 | 生长倍率 |
+|---|---|---:|---:|---:|---:|
+| 晴 | 8 / 16 / 9 / 5 | +0.05 | -0.02 | -0.02 | ×1.00 |
+| 雨 | 7 / 3 / 6 / 1 | -0.03 | +0.05 | +0.20 | ×1.10 |
+| 雷雨 | 1 / 1 / 2 / 2 | -0.05 | +0.06 | +0.25 | ×0.93 |
+| 雪 | 0 / 0 / 0 / 10 | -0.12 | +0.02 | +0.10 | ×0.85 |
 
-| 天气 | 持续时间 | 权重（春 / 夏 / 秋 / 冬） | 生长倍率 | 温度 / 湿度 / 土壤偏移 |
-|---|---:|---|---:|---|
-| 晴 | 300 秒 | 8 / 16 / 9 / 5 | ×1.00 | +0.05 / -0.02 / -0.02 |
-| 雨 | 240 秒 | 7 / 3 / 6 / 1 | ×1.10 | -0.03 / +0.05 / +0.20 |
-| 雷雨 | 180 秒 | 1 / 1 / 2 / 2 | ×0.93 | -0.05 / +0.06 / +0.25 |
-| 雪 | 240 秒 | 0 / 0 / 0 / 10 | ×0.85 | -0.12 / +0.02 / +0.10 |
+二十四节气只改动**下一场天气的抽选权重**，不会直接改写天气档案的温湿度或生长倍率。当前方向是清明至谷雨提高降雨，夏季节气略提高雷雨，秋季提高晴天，立冬至大寒提高降雪并降低降雨。Bukkit 层的雪目前映射为普通降雨状态，因此不要把它当作已经验证的独立积雪机制。
 
-二十四节气只修改下一场天气的抽选权重，不直接改写天气档案中的温湿度或生长倍率。当前配置的方向是：清明至谷雨提高降雨，夏季节气略提高雷雨，秋季提高晴天，立冬至大寒逐步提高降雪并降低降雨。
+### 环境扫描
 
-### 环境与生长判定
+环境模块已启用：扫描半径 4 格，向上检查屋顶最多 6 格；封闭度达到 0.60 判为温室，开放度小于 0.25 判为室内，开放度达到 0.80 判为室外，其余为半室外。附近水体加成当前关闭。
 
-环境模块已启用。结构扫描半径为 4 格，向上检查屋顶最多 6 格；封闭度达到 0.6 才判定为温室，开放度小于 0.25 判定为室内，达到 0.80 判定为室外，其余为半室外。
-
-| 环境 | 稳定性 | 推进倍率 | 适合用途 |
+| 环境 | 稳定性 | 推进修正 | 适用场景 |
 |---|---:|---:|---|
-| 温室 | 1.00 | ×1.02 | 冬季保护和稳定育苗 |
+| 温室 | 1.00 | ×1.02 | 冬季保护、稳定育苗 |
 | 室内 | 0.80 | ×0.98 | 有屋顶的普通种植房 |
 | 半室外 | 0.60 | ×1.00 | 有遮挡但仍受天气影响 |
-| 室外 | 0.35 | ×1.00 | 露天茶园与自然果树 |
+| 室外 | 0.35 | ×1.00 | 露天茶园和果树 |
 
-环境推进倍率只是最终计算中的小幅修正；温度、湿度偏离作物目标时，稳定性和缓解强度会降低不适影响。全局推进阈值为 **0.22**，枯萎阈值为 **0.02**，插件内部 random tick speed 为 **3**；大多数 TeaStory 作物最低光照为 9，NatureEngine 原版下界疣配置为 0。
+全局推进阈值为 **0.22**，枯萎阈值为 **0.02**，插件随机刻速度为 **3**，环境缓解强度为 **0.75**。这些值参与最终计算，不能单独换算成“每分钟长几格”。
 
-### TeaStory 作物配置
+### 已登记的 14 种作物
 
-下表是当前 NatureEngine `crops.yml` 中登记的 TeaStory 作物；阶段数对应 CraftEngine 配置中的年龄上限（年龄从 0 开始）。
+阶段数表示年龄上限，年龄从 0 开始；温度和湿度是 NatureEngine 的目标值及容差。
 
-| 作物 | 阶段数 | 偏好季节 |
-|---|---:|---|
-| 茶树 | 6 | 春、夏、秋 |
-| 茉莉花 | 3 | 春、夏 |
-| 籼稻育苗 | 3 | 夏 |
-| 水稻 | 7 | 夏 |
-| 桂花 | 3 | 夏、秋 |
-| 木薯 | 4 | 夏 |
-| 薄荷 | 3 | 春、夏 |
-| 菊花 | 3 | 秋 |
-| 生姜 | 4 | 夏 |
-| 香茅 | 3 | 夏 |
-| 洛神花 | 3 | 夏、秋 |
-| 枸杞 | 3 | 夏、秋 |
-| 绿豆 | 3 | 夏 |
-| 莲花 | 4 | 夏 |
+| 作物 | 阶段 | 温度目标 ±容差 | 湿度目标 ±容差 | 偏好季节 |
+|---|---:|---:|---:|---|
+| 茶树 | 6 | 1.20 ±0.80 | 0.80 ±0.60 | 春、夏、秋 |
+| 茉莉花 | 3 | 1.10 ±0.75 | 0.85 ±0.55 | 春、夏 |
+| 籼稻育苗 | 3 | 1.20 ±0.80 | 0.95 ±0.55 | 夏 |
+| 水稻 | 7 | 1.20 ±0.80 | 0.95 ±0.55 | 夏 |
+| 桂花 | 3 | 1.10 ±0.75 | 0.75 ±0.55 | 夏、秋 |
+| 木薯 | 4 | 1.30 ±0.75 | 0.75 ±0.55 | 夏 |
+| 薄荷 | 3 | 0.75 ±0.65 | 0.75 ±0.50 | 春、夏 |
+| 菊花 | 3 | 0.80 ±0.70 | 0.65 ±0.50 | 秋 |
+| 生姜 | 4 | 1.15 ±0.75 | 0.85 ±0.50 | 夏 |
+| 香茅 | 3 | 1.20 ±0.75 | 0.80 ±0.55 | 夏 |
+| 洛神花 | 3 | 1.20 ±0.75 | 0.70 ±0.55 | 夏、秋 |
+| 枸杞 | 3 | 0.90 ±0.80 | 0.50 ±0.55 | 夏、秋 |
+| 绿豆 | 3 | 1.10 ±0.75 | 0.70 ±0.55 | 夏 |
+| 莲花 | 4 | 1.10 ±0.75 | 0.95 ±0.45 | 夏 |
 
-此外，NatureEngine 直接接管 **枣、柚子、橘子、柿子、桃** 五种 TeaStory 树苗；它们当前都偏好春、夏，阶段数为 1，成熟后调用对应的 `cgap:*_tree` 特性生成果树。TeaStory 还配置了 **柠檬树** 的树干、树叶、结果状态和采果掉落，但它目前没有出现在 NatureEngine 的 `craftengine-trees` 注册表中，因此柠檬树暂不享有这五种树苗的独立季节偏好；这是当前配置边界。
+### NatureEngine 指令（管理员）
 
-果树叶使用 `fruiting=false/true` 状态区分未结果和结果叶。采果工具或普通采收逻辑取走果实后由 MateriaEngine 记录恢复时间；装饰树叶不会被自动结果。
+NatureEngine 根命令要求 OP；普通玩家不能用这些命令修改季节或读取调试数据。
 
-### 常用指令
-
-| 指令 | 作用 |
+| 指令 | 用途 |
 |---|---|
 | `/ne season info` | 查看当前世界季节、进度和覆盖状态 |
-| `/ne season next` | 切换到下一季节（需要控制权限） |
-| `/ne season set <spring|summer|autumn|winter>` | 设置手动季节覆盖 |
+| `/ne season next` | 切换到下一季节 |
+| `/ne season set <spring\|summer\|autumn\|winter>` | 设置手动季节覆盖 |
 | `/ne season clear` | 清除手动覆盖，恢复自然推进 |
 | `/ne season apply` | 重新应用当前季节视觉 |
-| `/ne debug` | 查看季节、天气、环境和目标作物摘要 |
-| `/ne debug crop [detail]` | 查看脚下作物的生长摘要或完整调试信息 |
-| `/ne sim crop` | 模拟目标作物在四季与天气下的计算结果，不修改方块 |
+| `/ne debug` | 查看季节、天气、环境摘要 |
+| `/ne debug crop [detail]` | 查看脚下作物摘要或完整调试信息 |
+| `/ne debug visual` | 查看季节视觉应用状态 |
+| `/ne sim crop` | 模拟作物在不同条件下的计算结果，不修改方块 |
+| `/ne crop randomTickSpeed [value]` | 查看或调整插件随机刻速度 |
+| `/ne reload [config\|seasons\|weather\|growth\|environment\|crops\|all]` | 重载指定配置 |
+| `/ne metrics` | 查看运行指标 |
 
-::: warning 配置边界
-NatureEngine 负责季节、天气、环境和已登记作物的生长；TeaStory 的机器加工、CraftEngine 战利品、MateriaEngine 采收工具、果实恢复和统计分别由各自配置与插件负责。遇到“作物不长”时，先用 `/ne debug crop detail` 区分生长环境问题和采收/配置问题。
-:::
+<a id="harvest-tools"></a>
+## 采收、续种和工具
 
-## 制茶路线总图
+所有收获工具都通过右击触发，并有 4 tick 冷却；工具耐久按实际采收的植株扣除。
 
-```
-茶树 ──收获──> 分级鲜叶（单芽/一芽一叶/二叶/三叶/老叶）
-                   │
-        【茶盘·萎凋(晴)】→ 同级萎凋叶      【茶盘·淋湿(雨/雷)】→ 湿茶
-                   │                              │
-        【炒茶锅·杀青】→ 青叶            【茶盘·挽救(晴)】→ 无分级萎凋叶 →（杀青）→ 青叶
-                   │                    【炒茶锅·误炒(湿茶)】→ 焦叶
-   ┌───────────────┼────────────────┬──────────────┐
-【炒茶锅·炒青】  研钵(工作台)      【茶炉·烘青】   （青叶）
-  → 绿茶叶        → 碎茶×3          → 白茶叶
-   │                 │
-【茶盘·闷黄】    【发酵桶】三级发酵（发酵粉驱动）
-  绿茶→黄茶叶     碎 → 半 → 全 → 深
-【茶炉·蒸青】         │
-  绿茶→抹茶叶    【茶炉·烘焙】半→乌龙 / 全→红茶 / 深→普洱
-                   │
-              【茶桌】冲泡（杯/壶）+ 倒杯；壶装茶包 → 返茶渣；焦叶/茶渣×2 → 发酵粉（闭环）
-```
+| 工具 | 耐久 | 目标与行为 |
+|---|---:|---|
+| 镰刀 `cgap:sickle` | 500 | 半径 1 的同一高度区域，最多处理 3×3；支持 14 种 TeaStory 作物和小麦、胡萝卜、马铃薯、甜菜根、下界疣 |
+| 茶剪 `cgap:tea_shears` | 320 | 茶树品质模式；匹配一芽二叶、一芽三叶或老叶时有 35% 概率升级为单芽或一芽一叶，升级数量按配置目标发放 |
+| 草药剪 `cgap:herb_shears` | 280 | 茉莉、桂花、薄荷、菊花、香茅、洛神花等目标有 20% 概率额外获得 1 个对应鲜料 |
+| 根茎铲 `cgap:root_spade` | 400 | 生姜、木薯有 25% 概率额外获得 1 个根茎产物 |
+| 摘果器 `cgap:fruit_picker` | 360 | 5 格射线距离，只采第一个可见的结果树叶，不穿透方块或树叶 |
+| 收获篮 `cgap:harvest_basket` | — | 放在副手时将收获物优先送入背包，溢出物仍掉落在地上 |
+| 种子袋 `cgap:seed_pouch` | — | 右击打开；默认 9 格，可配置扩展到 18 或 27 格 |
 
-## 采茶与初制
+茶剪、草药剪和根茎铲的概率是额外或升级机会，不是每株固定产量。基础产物仍以 CraftEngine 方块战利品为准。
 
-### 1) 萎凋（茶盘·看天）
+### 镰刀和自动重植
 
-把分级鲜叶放入 **茶盘** 投料口（无需燃料），机器按天气决定产物：
+- 镰刀只处理当前高度的 3×3 邻域，并跳过未加载或不可用的方块；不等于整片农田一次性收完。
+- 自定义作物成熟后，系统先查玩家背包，再查种子袋。找到对应种子就将作物重置到年龄 0 并消耗 1 个；找不到时会移除自定义作物，原版作物则变为空气。
+- 动作栏会提示收获、重植、缺少种子和溢出情况；不认识的方块或未成熟作物不会被强行破坏。
 
-- **晴天 → 同级萎凋叶**：
-  - <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="鲜叶（单芽）" />鲜叶（单芽）</span> → <span class="item-chip"><img src="/images/teastory/withered_tea_leaf_bud.png" alt="萎凋叶（单芽）" />萎凋叶（单芽）</span>
-  - <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud_leaf1.png" alt="鲜叶（一芽一叶）" />鲜叶（一芽一叶）</span> → <span class="item-chip"><img src="/images/teastory/withered_tea_leaf_bud_leaf1.png" alt="萎凋叶（一芽一叶）" />萎凋叶（一芽一叶）</span>
-  - <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud_leaf2.png" alt="鲜叶（一芽二叶）" />鲜叶（一芽二叶）</span> → <span class="item-chip"><img src="/images/teastory/withered_tea_leaf_bud_leaf2.png" alt="萎凋叶（一芽二叶）" />萎凋叶（一芽二叶）</span>
-  - <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud_leaf3.png" alt="鲜叶（一芽三叶）" />鲜叶（一芽三叶）</span> → <span class="item-chip"><img src="/images/teastory/withered_tea_leaf_bud_leaf3.png" alt="萎凋叶（一芽三叶）" />萎凋叶（一芽三叶）</span>
-  - <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_old_leaf.png" alt="鲜叶（老叶）" />鲜叶（老叶）</span> → <span class="item-chip"><img src="/images/teastory/withered_tea_leaf_old_leaf.png" alt="萎凋叶（老叶）" />萎凋叶（老叶）</span>
-- **雨天 / 雷暴 → 淋湿**：任意分级鲜叶 → <span class="item-chip"><img src="/images/teastory/wet_tea_leaf.png" alt="湿茶叶" />湿茶叶</span>（失去分级，雷暴更快）。
-- **挽救（晴天）**：<span class="item-chip"><img src="/images/teastory/wet_tea_leaf.png" alt="湿茶叶" />湿茶叶</span> → <span class="item-chip"><img src="/images/teastory/withered_tea_leaf.png" alt="萎凋叶" />无分级萎凋叶</span>。
+### 种子袋
 
-::: warning 看天下料
-茶盘是露天机器，投料后请留意天气：想要分级萎凋叶就趁晴天；下雨会得到湿茶，需要再花一步挽救。
-:::
+种子袋配方为线、皮革和蓝色染料组成的 shaped 配方。它只接受已登记的自定义作物种子，保留完整物品数据：右键存入或取出 1 个，左键存入或取出整组。配置缩小容量时不会截断已有内容；容量上限为 27 格。种子袋本身不能代替普通背包中的种子检查，收获时两处都会查找。
 
-### 2) 杀青与炒青（炒茶锅·需燃料）
+### 果实恢复
 
-**炒茶锅** 需要原版燃料（煤炭/木炭/木板等）。
+果树叶通过 `fruiting=false/true` 区分未结果和结果状态。摘果器只处理结果叶，默认恢复时间为 **1200 秒（20 分钟）**；恢复记录写入区块持久化数据，离线时间也会计入，但不会为了恢复而强制加载未加载区块。若恢复期间树叶被移除，待处理记录会清理，不会凭空重建方块；非持久树叶不会自动结果。
 
-- **杀青**：萎凋叶 → <span class="item-chip"><img src="/images/teastory/tea_leaf.png" alt="青叶" />青叶</span>
+<a id="tea-making"></a>
+## 制茶路线
 
-  | 萎凋叶类型 | 青叶产量 |
-  |---|---:|
-  | 单芽 | 2 |
-  | 一芽一叶 | 2 |
-  | 一芽二叶 | 1 |
-  | 一芽三叶 | 1 |
-  | 老叶 | 1 |
-  | 无分级（挽救来） | 1 |
+### 总路线
 
-- **炒青**：<span class="item-chip"><img src="/images/teastory/tea_leaf.png" alt="青叶" />青叶</span> → <span class="item-chip"><img src="/images/teastory/green_tea_leaf.png" alt="绿茶茶叶" />绿茶茶叶</span>
-- **误炒（陷阱）**：<span class="item-chip"><img src="/images/teastory/wet_tea_leaf.png" alt="湿茶叶" />湿茶叶</span> 下锅 → <span class="item-chip"><img src="/images/teastory/failed_fixation_tea_leaf.png" alt="焦叶" />焦叶</span>（可回收成发酵粉）。
+| 目标茶 | 需要的路线 |
+|---|---|
+| 绿茶 | 同级萎凋叶 → 炒茶锅杀青得青叶 → 炒茶锅炒青 |
+| 黄茶 | 绿茶叶 → 茶盘闷黄 |
+| 白茶 | 萎凋叶 → 炒茶锅杀青得青叶 → 茶炉烘青 |
+| 乌龙茶 | 青叶 → 研钵研磨得碎茶 → 发酵桶半发酵 → 茶炉烘焙 |
+| 红茶 | 碎茶 → 半发酵 → 全发酵 → 茶炉烘焙 |
+| 普洱茶 | 碎茶 → 半发酵 → 全发酵 → 重发酵 → 茶炉烘焙 |
+| 抹茶 | 绿茶叶 → 茶炉蒸青得抹茶叶 |
+| 茉莉花茶 | 红茶叶 ×6 + 干茉莉 ×2 → 工作台配方 |
 
-### 3) 研磨与发酵
+### 茶盘：天气决定萎凋结果
 
-- 研磨（工作台，研钵消耗耐久）：<span class="item-chip"><img src="/images/teastory/wooden_mortar_and_pestle.png" alt="木制研钵研杵" />木制研钵研杵 ×1</span> + <span class="item-chip"><img src="/images/teastory/tea_leaf.png" alt="青叶" />青叶 ×1</span> → <span class="item-chip"><img src="/images/teastory/broken_tea_leaf.png" alt="碎茶" />碎茶 ×3</span>
-- **发酵桶三级发酵**：投料口放茶叶，发酵粉口放 <span class="item-chip"><img src="/images/teastory/baking_powder.png" alt="发酵粉" />发酵粉</span> 作燃料（**独占燃料，1 份发酵粉可支撑多次加工**），依次升级：
-  - <span class="item-chip"><img src="/images/teastory/broken_tea_leaf.png" alt="碎茶" />碎茶</span> → <span class="item-chip"><img src="/images/teastory/semi_fermented_tea_leaf.png" alt="半发酵茶" />半发酵茶</span>
-  - <span class="item-chip"><img src="/images/teastory/semi_fermented_tea_leaf.png" alt="半发酵茶" />半发酵茶</span> → <span class="item-chip"><img src="/images/teastory/fully_fermented_tea_leaf.png" alt="全发酵茶" />全发酵茶</span>
-  - <span class="item-chip"><img src="/images/teastory/fully_fermented_tea_leaf.png" alt="全发酵茶" />全发酵茶</span> → <span class="item-chip"><img src="/images/teastory/deep_fermented_tea_leaf.png" alt="重发酵茶" />重发酵茶</span>
+| 输入 | 条件 | 输出 | 时间 |
+|---|---|---|---:|
+| 分级鲜叶 | 晴天 | 对应等级萎凋叶 | 100 tick |
+| 任意分级鲜叶 | 雨天 | 无等级湿茶 | 60 tick |
+| 任意分级鲜叶 | 雷暴 | 无等级湿茶 | 40 tick |
+| 湿茶 | 晴天 | 无等级萎凋叶 | 140 tick |
+| 绿茶叶 | 任意天气 | 黄茶叶 | 160 tick |
 
-补充：
-- 发酵粉基础来源：`2 小麦 → 1 发酵粉`（工作台）；茶渣/焦叶回收也可产出。
-- 发酵桶没放发酵粉不会启动；只吃发酵粉，普通燃料无效。
+分级鲜叶包括单芽、一芽一叶、一芽二叶、一芽三叶和老叶。雨天或雷暴会丢失等级；湿茶直接进炒茶锅会得到焦叶。
 
-### 4) 烘焙 / 烘青 / 蒸青（茶炉·需燃料）
+### 炒茶锅：杀青、炒青和误炒
 
-**茶炉** 需要原版燃料，负责三条定型路线：
+炒茶锅使用原版燃料。杀青产量按萎凋等级配置：单芽和一芽一叶各产青叶 2 个，一芽二叶、一芽三叶、老叶和无等级萎凋叶各产 1 个。之后青叶再炒 120 tick 得绿茶叶；湿茶误炒 80 tick 得焦叶。
 
-- **烘焙（发酵叶 → 成品茶）**：
-  - <span class="item-chip"><img src="/images/teastory/semi_fermented_tea_leaf.png" alt="半发酵茶" />半发酵茶</span> → <span class="item-chip"><img src="/images/teastory/oolong_tea_leaf.png" alt="乌龙茶茶叶" />乌龙茶茶叶</span>
-  - <span class="item-chip"><img src="/images/teastory/fully_fermented_tea_leaf.png" alt="全发酵茶" />全发酵茶</span> → <span class="item-chip"><img src="/images/teastory/black_tea_leaf.png" alt="红茶茶叶" />红茶茶叶</span>
-  - <span class="item-chip"><img src="/images/teastory/deep_fermented_tea_leaf.png" alt="重发酵茶" />重发酵茶</span> → <span class="item-chip"><img src="/images/teastory/puer_tea_leaf.png" alt="普洱茶茶叶" />普洱茶茶叶</span>
-- **烘青（青叶低温烘干 → 白茶）**：<span class="item-chip"><img src="/images/teastory/tea_leaf.png" alt="青叶" />青叶</span> → <span class="item-chip"><img src="/images/teastory/white_tea_leaf.png" alt="白茶茶叶" />白茶茶叶</span>
-- **蒸青（绿茶蒸碾 → 抹茶）**：<span class="item-chip"><img src="/images/teastory/green_tea_leaf.png" alt="绿茶茶叶" />绿茶茶叶</span> → <span class="item-chip"><img src="/images/teastory/matcha_tea_leaf.png" alt="抹茶叶" />抹茶叶</span>
+### 研钵与发酵桶
 
-### 5) 闷黄（茶盘）
+- 木制研钵研杵 + 青叶 → 碎茶 ×3；研钵每次配方消耗 1 点耐久。
+- 发酵桶只接受 `cgap:baking_powder` 作为燃料，配置燃料值为 **800**；普通煤、木炭等不会启动。一次加工是一个离散步骤：碎茶 → 半发酵（160 tick）→ 全发酵（180 tick）→ 重发酵（200 tick）。取出中间产物后，再次投入下一步配方。
+- 发酵粉可由 2 个小麦合成 1 个，也可由任意两份茶渣或焦叶回收 1 个。燃料值与机器如何扣除之间的实际吞吐量取决于机器燃料核算，不把“1 粉固定支持几批”写死。
 
-- <span class="item-chip"><img src="/images/teastory/green_tea_leaf.png" alt="绿茶茶叶" />绿茶茶叶</span> 放入 **茶盘**（不看天）→ <span class="item-chip"><img src="/images/teastory/yellow_tea_leaf.png" alt="黄茶茶叶" />黄茶茶叶</span>。
+### 茶炉定型
 
-> 至此六大茶类 + 抹茶的茶叶均已就绪：绿茶（炒青）、黄茶（闷黄）、白茶（烘青）、乌龙（半发酵烘焙）、红茶（全发酵烘焙）、普洱（重发酵烘焙）、抹茶（蒸青）。
+| 输入 | 输出 | 时间 |
+|---|---|---:|
+| 半发酵茶 | 乌龙茶叶 | 200 tick |
+| 全发酵茶 | 红茶叶 | 200 tick |
+| 重发酵茶 | 普洱茶叶 | 200 tick |
+| 青叶 | 白茶叶 | 160 tick |
+| 绿茶叶 | 抹茶叶 | 160 tick |
 
-## 茶包、茶壶与杯具
+茶炉使用原版燃料。白茶路线不经过发酵桶，黄茶和抹茶也分别使用茶盘与茶炉的独立配方。
 
-### 1) 空茶包与成品茶包（工作台）
+<a id="brewing"></a>
+## 冲泡、茶具和倒杯
 
-- 纸 ×5 + 线 ×1 → <span class="item-chip"><img src="/images/teastory/empty_tea_bag.png" alt="空茶包" />空茶包 ×3</span>
-- <span class="item-chip"><img src="/images/teastory/empty_tea_bag.png" alt="空茶包" />空茶包 ×1</span> + <span class="item-chip item-chip--cycle"><span class="item-chip__icon-stack"><img src="/images/teastory/green_tea_leaf.png" alt="绿茶茶叶" /><img src="/images/teastory/black_tea_leaf.png" alt="红茶茶叶" /><img src="/images/teastory/oolong_tea_leaf.png" alt="乌龙茶茶叶" /><img src="/images/teastory/puer_tea_leaf.png" alt="普洱茶茶叶" /><img src="/images/teastory/white_tea_leaf.png" alt="白茶茶叶" /><img src="/images/teastory/yellow_tea_leaf.png" alt="黄茶茶叶" /></span>对应茶叶 ×6</span> → <span class="item-chip item-chip--cycle"><span class="item-chip__icon-stack"><img src="/images/teastory/green_tea_bag.png" alt="绿茶茶包" /><img src="/images/teastory/black_tea_bag.png" alt="红茶茶包" /><img src="/images/teastory/oolong_tea_bag.png" alt="乌龙茶茶包" /><img src="/images/teastory/puer_tea_bag.png" alt="普洱茶茶包" /><img src="/images/teastory/white_tea_bag.png" alt="白茶茶包" /><img src="/images/teastory/yellow_tea_bag.png" alt="黄茶茶包" /></span>对应茶包 ×1</span>
-- 支持：绿茶、红茶、乌龙、普洱、白茶、黄茶六味。
+### 茶包、空壶和开水壶
 
-### 2) 壶与杯（工作台 + 烧制）
+- 纸 ×5 + 线 ×1 → 空茶包 ×3；空茶包 + 对应成品茶叶 ×6 → 对应茶包。当前支持绿、茉莉、红、乌龙、普洱、白、黄七类茶包。
+- 黏土球、紫砂黏土可分别制作壶坯，熔炉或高炉烧成空瓷壶、空紫砂壶。水壶支持石、瓷、铁、紫砂四种材质。
+- 9 个空水壶 + 1 个水桶 → 9 个有水水壶；有水水壶经熔炉 160 tick 或高炉 80 tick 得开水壶。任何材质的开水壶都能用于茶桌配方，消耗后按配方返还对应空水壶。
 
-- 杯子：<span class="item-chip"><img src="/images/teastory/cup_glass.png" alt="玻璃杯" />玻璃杯</span>、<span class="item-chip"><img src="/images/teastory/cup_stone.png" alt="石杯" />石杯</span>、<span class="item-chip"><img src="/images/teastory/cup_wood.png" alt="木杯" />木杯</span>、<span class="item-chip"><img src="/images/teastory/cup_porcelain.png" alt="瓷杯" />瓷杯</span>、<span class="item-chip"><img src="/images/teastory/cup_zisha.png" alt="紫砂杯" />紫砂杯</span>。
-- 茶壶：<span class="item-chip"><img src="/images/teastory/empty_porcelain_kettle.png" alt="瓷壶" />空瓷壶</span>、<span class="item-chip"><img src="/images/teastory/empty_zisha_kettle.png" alt="紫砂壶" />空紫砂壶</span>。
-- 水壶：<span class="item-chip"><img src="/images/teastory/water_pot_stone.png" alt="水壶" />石/瓷/铁/紫砂水壶</span> 装水后可在熔炉/高炉烧成 **开水壶**。
+### 杯装冲泡
 
-空壶来源（茶壶胚 → 烧制）：
-- 茶壶胚（工作台，严格摆位；材料：黏土球 ×6）：
-  - 第一行：` 空 黏土球 空 `
-  - 第二行：` 黏土球 空 黏土球 `
-  - 第三行：` 黏土球 黏土球 黏土球 `
-- 将茶壶胚在熔炉/高炉烧制成 <span class="item-chip"><img src="/images/teastory/empty_porcelain_kettle.png" alt="空瓷茶壶" />空瓷茶壶</span>（高炉更快）。紫砂壶同理用紫砂泥。
+茶桌的纯茶配方为：**对应茶叶 ×2 + 任意开水壶 + 一个空杯**。杯子支持玻璃、石、木、瓷、紫砂五种材质，成品分别保留杯子材质。饮用后返还同材质空杯；茶饮的基础营养和饱和度配置为 5 与 3.5。
 
-玩家常用技巧：
-- 建议按批次做水壶：9 个空壶 + 1 水桶一次加满，效率更高。
-- 开水壶不限材质：石/瓷/铁/紫砂开水壶都能用来冲泡。
+| 茶饮 | 茶桌原料 | 配置效果 |
+|---|---|---|
+| 红茶 | 红茶叶 ×2 | 力量，220 tick（约 11 秒） |
+| 绿茶 | 绿茶叶 ×2 | 急迫，260 tick（约 13 秒） |
+| 茉莉花茶 | 茉莉花茶叶 ×2 | 幸运，240 tick（约 12 秒） |
+| 柠檬茶 | 红茶叶 ×2 + 柠檬 + 糖 ×3 | 速度，240 tick（约 12 秒） |
+| 抹茶 | 抹茶叶 ×2 + 茶筅 + 糖 ×3 | 跳跃提升 II，200 tick（约 10 秒） |
+| 奶茶 | 红茶叶 ×2 + 牛奶桶 + 糖 ×3 | 抗性提升，220 tick（约 11 秒） |
+| 乌龙茶 | 乌龙茶叶 ×2 | 水下呼吸，260 tick（约 13 秒） |
+| 普洱茶 | 普洱茶叶 ×2 | 生命提升，240 tick（约 12 秒） |
+| 白茶 | 白茶叶 ×2 | 生命恢复，140 tick（约 7 秒） |
+| 黄茶 | 黄茶叶 ×2 | 吸收，200 tick（约 10 秒） |
 
-## 茶桌冲泡
+上表的秒数按 20 tick/s 换算，效果持续时间以物品配置为准；它们不是永久状态。
 
-**茶桌** 是最终冲泡台，右击打开六槽 GUI：
+### 壶装冲泡与倒杯
 
-- **工具槽**：茶筅（抹茶）/ 牛奶桶（奶茶）/ 柠檬（柠檬茶）
-- **糖槽**：**糖**（奶/柠/抹茶需要）
-- **杯槽**：空杯或空壶（决定杯装/壶装）
-- **水槽**：任意 **开水壶** 或 **满壶**（倒茶时放满壶）
-- **茶叶槽**：茶叶或茶包
-- **产出槽**：成品
+- 纯茶壶装使用对应茶包、开水壶和空茶壶：空瓷壶需要茶包 ×1，空紫砂壶需要茶包 ×2；成壶后茶包会按配置返还对应茶渣。
+- 奶茶壶装使用红茶包 ×1/×2、牛奶桶、糖 ×12/×24、开水壶和空瓷壶/空紫砂壶；牛奶桶返还空桶。
+- 柠檬茶壶装优先使用柠檬茶包 ×1/×2 和糖 ×12/×24；当前配方另有红茶包加柠檬的兼容路径，返还物以配置的茶渣替代物为准。
+- 抹茶壶装使用抹茶叶 ×6/×12、茶筅、糖 ×12/×24、开水壶和空壶；茶筅每次配方消耗 1 点耐久，总耐久 120。
+- 满壶 + 空杯可在茶桌倒出一杯，单次 40 tick 并消耗壶的 1 点耐久。瓷壶最多倒 4 杯，紫砂壶最多倒 8 杯，耗尽后返还对应空壶。
 
-### 1) 杯装纯茶
+### 茶渣回收
 
-- 对应干茶 ×2 + 任意开水壶 + 空杯 → 对应杯装茶饮（喝完返还空杯）。
-- 六味 × 五种杯（玻璃/石/木/瓷/紫砂）任意组合。
+红、绿、乌龙、普洱、白、黄、茉莉茶包冲泡会产生对应茶渣；任意两份茶渣或焦叶可在工作台回收为 1 个发酵粉，形成“制茶 → 冲泡 → 发酵燃料”的循环。
 
-### 2) 壶装纯茶（茶包冲泡，返茶渣）
+<a id="garden-orchard"></a>
+## 田园、稻田与果园
 
-- 瓷壶：茶包 ×1 + 开水壶 + 空瓷壶 → 对应瓷壶茶饮；紫砂壶：茶包 ×2 + 空紫砂壶。
-- 茶包消耗后返还对应 **茶渣**（可回收成发酵粉）。
+### 稻田两阶段
 
-### 3) 特色茶：奶茶 / 柠檬茶 / 抹茶
+1. 把 `cgap:xian_rice_seeds` 种在普通耕地，先长成籼稻育苗；成熟育苗会掉落稻秧和种子。
+2. 把稻秧移栽到 `cgap:paddy_field`，继续生长到水稻年龄 7。成熟水稻当前主要掉落稻谷（1–3 个），不是直接掉大米。
+3. 木制研钵研杵 + 稻谷 → 大米；大米可继续用于米饭、粥、米糕和料理配方。
 
-| 口味 | 茶叶 | 工具 | 糖 | 说明 |
-|---|---|---|---|---|
-| **奶茶** | 红茶叶 ×2 | 牛奶桶（返空桶） | 3 | 杯装；壶装用红茶包 |
-| **柠檬茶** | 红茶叶 ×2 | <span class="item-chip"><img src="/images/teastory/lemon.png" alt="柠檬" />柠檬</span> | 3 | 杯装；壶装用红茶包 |
-| **抹茶** | 抹茶叶 ×2 | <span class="item-chip"><img src="/images/teastory/tea_whisk.png" alt="茶筅" />茶筅</span>（掉 1 耐久） | 3 | 杯装；壶装用散抹茶粉 |
+稻田由 8 个泥土围绕 1 个水桶合成，水桶会返还；空桶不能把稻田捞回，水桶也不能重复灌满。它是独立方块，破坏后可作为物品回收。
 
-> 柠檬来源：破坏 **丛林树叶** 有概率掉落 <span class="item-chip"><img src="/images/teastory/lemon.png" alt="柠檬" />柠檬</span>，也可直接食用。
+### 田园作物与野生种子
 
-### 4) 倒茶（满壶 → 杯）
+| 作物 | 成熟产物 | 种植/野生来源 |
+|---|---|---|
+| 桂花 | 鲜桂花 | 耕地、草方块、泥土等；种子按方块掉落 |
+| 木薯 | 木薯根 | 需要耕地；木薯根可加工木薯淀粉 |
+| 薄荷 | 鲜薄荷 | 普通土壤底部 |
+| 菊花 | 鲜菊花 | 普通土壤底部 |
+| 生姜 | 生姜 | 需要耕地 |
+| 绿豆 | 鲜绿豆 | 普通土壤底部；可加工绿豆种子 |
+| 香茅 | 鲜香茅 | 普通土壤底部 |
+| 洛神花 | 鲜洛神花 | 普通土壤底部 |
+| 枸杞 | 鲜枸杞 | 普通土壤底部 |
+| 莲花 | 莲花、莲蓬、莲藕 | 同位置附近水体；底部支持泥土、草方块、泥巴、黏土 |
 
-- 把 **满壶** 放入水槽 + 空杯 → 杯装茶饮。
-- 每倒一杯扣 1 耐久：**瓷壶 4 杯 / 紫砂壶 8 杯**，倒空后返还对应空壶。
-- 九味（六茶 + 抹茶 + 奶茶 + 柠檬茶）× 两种壶 × 五种杯均可倒。
+香茅、洛神花和枸杞的野生种子可从草和蕨以 **0.5%** 概率掉落；莲花种子可从睡莲以 **5%** 概率掉落。桂花、薄荷、菊花等成熟时会掉鲜料并保留种植材料，实际数量以方块战利品表为准。
 
-::: tip 冲泡 vs 倒茶
-- **冲泡**：茶叶/茶包 + 开水壶，一次出一杯或一整壶。
-- **倒茶**：已有的满壶 + 空杯，把整壶分成多杯，更省茶叶。
-:::
+### 茶树采收
 
-## 稻谷与水田线
+茶树成熟年龄为 6，成熟战利品按权重抽取鲜叶等级：芽 5、一芽一叶 15、一芽二叶 25、一芽三叶 30、老叶 25；同时会掉茶树种子，财富附魔会影响配置的种子额外掉落。茶剪只改变部分等级的升级机会，不会把每株产量固定成一个数字。
 
-### 1) 两段式种植
+### 果园和结果树叶
 
-- 第一段（普通耕地）：使用 <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="稻谷" />稻谷</span> 在普通耕地育秧，成熟后收获 <span class="item-chip"><img src="/images/teastory/item_xian_rice_seedling.png" alt="水稻秧苗" />水稻秧苗</span>。
-- 第二段（水田移栽）：将 <span class="item-chip"><img src="/images/teastory/item_xian_rice_seedling.png" alt="水稻秧苗" />水稻秧苗</span> 移栽到 <span class="item-chip"><img src="/images/teastory/paddy_field.png" alt="水田" />水田</span> 继续生长。
+CraftEngine 当前定义了桃、柠檬、枣、柚子、橘子、柿子六种果树的树干、树叶、结果状态和掉落；普通树叶有约 **0.8%** 的果实随机掉落配置（剪刀或精准采集时不走该掉落）。自然果树的叶提供器按普通 7、结果 3 的权重生成结果状态。
 
-### 2) 水田机制
+NatureEngine 的 `craftengine-trees` 当前直接登记枣、柚子、橘子、柿子、桃五种树苗，阶段数为 1，偏好春夏。柠檬树的 CraftEngine 定义存在，但尚未进入这五种树苗登记，因此本文不把柠檬列为已登记的独立季节偏好。摘果器只采 `fruiting=true` 的持久树叶，默认 20 分钟后恢复。
 
-- <span class="item-chip"><img src="/images/teastory/paddy_field.png" alt="水田" />水田</span> 支持放置、破坏和掉落回收（破坏掉回自身）。
-- 水田已限制桶交互：不能被空桶直接取走，也不会被水桶重复灌入。
-- 水田为浅水视觉（泥底 + 水面），并配置了水感相关交互音效。
-- 合成：泥土 ×8 围 1 水桶 → 水田 ×8（水桶自动返空桶）。
+<a id="food"></a>
+## 茶点、料理与复配饮品
 
-### 3) 成熟产物与加工
+CraftEngine 的 `teastory_foods` 类别当前登记 **94 个食品与饮品条目**。它们主要是工作台无序配方，水桶、牛奶桶、蜂蜜脆片等容器或原料是否返还，以对应物品的 `consume-replacement` 配置为准；碗装米饭和汤类通常会返还碗。
 
-- 成熟稻株仅掉落 <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="稻谷" />稻谷</span>（不直接掉 <span class="item-chip"><img src="/images/teastory/xian_rice.png" alt="大米" />大米</span>）。
-- 加工配方：<span class="item-chip"><img src="/images/teastory/wooden_mortar_and_pestle.png" alt="木制研钵研杵" />木制研钵研杵</span> + <span class="item-chip"><img src="/images/teastory/xian_rice_seeds.png" alt="稻谷" />稻谷</span> → <span class="item-chip"><img src="/images/teastory/xian_rice.png" alt="大米" />大米</span>。
+### 基础加工
 
-## 茶渣系统
+| 原料链 | 配方 |
+|---|---|
+| 小麦 | 小麦 ×2 → 发酵粉 ×1 |
+| 甘蔗 | 甘蔗 → 黑糖 |
+| 鲜桂花 / 鲜薄荷 / 鲜菊花 / 生姜 | 各自熔炉 160 tick、高炉 80 tick → 对应干料 |
+| 鲜绿豆 | 鲜绿豆 → 绿豆种子 ×2 |
+| 木薯根 | 木薯根 ×2 + 木制研钵研杵 → 木薯淀粉 ×2 |
+| 木薯淀粉 | 木薯淀粉 ×2 + 糖 → 木薯珍珠 |
+| 鲜茉莉、柠檬、果实 | 分别烘干或加工为干茉莉、干柠檬、陈皮等茶点原料 |
 
-### 1) 茶渣产出
+### 代表性配方
 
-在茶桌用 **茶包** 泡壶时会返还对应茶渣：
+| 成品 | 原料（无序） | 数量 |
+|---|---|---:|
+| 白米饭 | 大米 + 水桶 + 碗 | 1 |
+| 红枣枸杞粥 | 大米 + 干红枣 + 干枸杞 + 水桶 + 碗 | 1 |
+| 桂花米糕 | 米粉 + 干桂花 + 糖 | 1 |
+| 抹茶曲奇 | 抹茶叶 + 小麦 ×2 + 糖 | 4 |
+| 茶叶蛋 | 红茶叶 + 鸡蛋 | 1 |
+| 黑糖姜糖 | 干姜 + 糖 + 黑糖 | 4 |
+| 珍珠奶茶 | 红茶玻璃杯 + 牛奶桶 + 糖 + 木薯珍珠 | 1 |
+| 抹茶拿铁 | 抹茶饮玻璃杯 + 牛奶桶 + 糖 | 1 |
+| 陈皮普洱茶 | 普洱茶玻璃杯 + 陈皮 + 糖 | 1 |
+| 龙井虾仁 | 绿茶叶 + 虾仁 ×2 + 碗 | 1 |
+| 猪肉水饺 | 小麦 ×2 + 熟猪肉 + 生姜 + 水桶 + 碗 | 1 |
+| 小笼包 | 小麦 ×2 + 熟猪肉 + 生姜 + 水桶 | 2 |
+| 油条 | 小麦 ×2 + 发酵粉 + 水桶 | 2 |
+| 八宝饭 | 大米、干红枣、莲子、干枸杞、鲜绿豆、柿饼、甜浆果、黑糖、碗 | 1 |
 
-- <span class="item-chip"><img src="/images/teastory/black_tea_bag.png" alt="红茶茶包" />红茶茶包</span> → <span class="item-chip"><img src="/images/teastory/black_tea_residue.png" alt="红茶茶渣" />红茶茶渣</span>
-- <span class="item-chip"><img src="/images/teastory/green_tea_bag.png" alt="绿茶茶包" />绿茶茶包</span> → <span class="item-chip"><img src="/images/teastory/green_tea_residue.png" alt="绿茶茶渣" />绿茶茶渣</span>
-- <span class="item-chip"><img src="/images/teastory/oolong_tea_bag.png" alt="乌龙茶茶包" />乌龙茶茶包</span> → <span class="item-chip"><img src="/images/teastory/oolong_tea_residue.png" alt="乌龙茶茶渣" />乌龙茶茶渣</span>
-- <span class="item-chip"><img src="/images/teastory/puer_tea_bag.png" alt="普洱茶茶包" />普洱茶茶包</span> → <span class="item-chip"><img src="/images/teastory/puer_tea_residue.png" alt="普洱茶茶渣" />普洱茶茶渣</span>
-- <span class="item-chip"><img src="/images/teastory/white_tea_bag.png" alt="白茶茶包" />白茶茶包</span> → <span class="item-chip"><img src="/images/teastory/white_tea_residue.png" alt="白茶茶渣" />白茶茶渣</span>
-- <span class="item-chip"><img src="/images/teastory/yellow_tea_bag.png" alt="黄茶茶包" />黄茶茶包</span> → <span class="item-chip"><img src="/images/teastory/yellow_tea_residue.png" alt="黄茶茶渣" />黄茶茶渣</span>
+### 复配饮品覆盖
 
-### 2) 茶渣回收
+除茶桌的基础茶饮外，食品配方还覆盖蜜桃茉莉茶、桂香乌龙茶、黑糖奶茶、蜂蜜柠檬茶、菊花枸杞茶、薄荷绿茶、姜奶茶、橙香茉莉茶、洛神柠檬茶、桂花奶茶、陈皮姜茶、烘米茶、莲子奶、薄荷西瓜汁、南瓜奶、姜枣奶、黑糖米乳、蜜桃柚子奶、蜂蜜苹果茶、甘蔗柠檬汁、枣莲茶和菊花普洱等。它们是茶饮成品上的复配路线，具体输入以配方界面显示为准。
 
-- 任意 <span class="item-chip item-chip--cycle"><span class="item-chip__icon-stack"><img src="/images/teastory/green_tea_residue.png" alt="绿茶茶渣" /><img src="/images/teastory/black_tea_residue.png" alt="红茶茶渣" /><img src="/images/teastory/oolong_tea_residue.png" alt="乌龙茶茶渣" /><img src="/images/teastory/puer_tea_residue.png" alt="普洱茶茶渣" /><img src="/images/teastory/white_tea_residue.png" alt="白茶茶渣" /><img src="/images/teastory/yellow_tea_residue.png" alt="黄茶茶渣" /></span>茶渣</span> 或 <span class="item-chip"><img src="/images/teastory/failed_fixation_tea_leaf.png" alt="焦叶" />焦叶</span> ×2 → <span class="item-chip"><img src="/images/teastory/baking_powder.png" alt="发酵粉" />发酵粉 ×1</span>
+中式餐点还包括肉夹馍、桂花糯米藕、虾仁蛋炒饭、红烧肉、莲藕肉汤、柠檬蒸鱼、春卷、糖葫芦、沙琪玛、蛋挞、薄荷青团、红枣发糕、绿豆汤、牛肉面、虾仁肠粉、煎饺、糯米鸡、糖醋里脊、蘑菇蒸鸡、羊肉串、莲藕肉丸、煎饼、长寿桃包、桂花糕、黑糖糍粑、麻花、龙须糖、南瓜饼、蜜汁叉烧、虾仁蒸蛋、鸡肉煲仔饭、馄饨汤、炸藕盒、桂花水晶糕、奶香花卷、黄金虾球、土豆炖牛肉、珍珠丸子、鸡蛋炒面、虾仁土豆饼、虎皮蛋、脆皮炸鲜奶、糖烧饼和鸡蛋仔。
 
-## 常见问题（FAQ）
+这些食品的营养、饱和度和食用替代物是逐物品配置的；不要根据名称推断它们一定带有茶饮效果。
 
-:::::: details Q1：制茶要用哪台机器？
-A：**茶盘**萎凋/闷黄、**炒茶锅**杀青炒青、**发酵桶**发酵、**茶炉**烘焙烘青蒸青、**茶桌**冲泡倒茶。全部右击打开 GUI 投料，炒茶锅和茶炉需要原版燃料，发酵桶只吃发酵粉，茶盘和茶桌不用燃料。
-::::::
+<a id="tea-room"></a>
+## 茶室、机器和显示
 
-:::::: details Q2：为什么茶盘产出的是湿茶而不是萎凋叶？
-A：茶盘看天。雨天/雷暴会把鲜叶淋成 <span class="item-chip"><img src="/images/teastory/wet_tea_leaf.png" alt="湿茶叶" />湿茶叶</span>。晴天再放回茶盘可挽救成无分级萎凋叶；湿茶直接下炒茶锅只会炒成焦叶。
-::::::
+茶盘、炒茶锅、发酵桶、茶炉、茶桌都是可交互机器，右击打开专属 GUI，进度完成后从输出槽取回成品。炒茶锅和茶炉需要原版燃料，发酵桶只吃发酵粉，茶盘与茶桌不需要燃料。
 
-:::::: details Q3：茶筅会不会消耗？
-A：会。<span class="item-chip"><img src="/images/teastory/tea_whisk.png" alt="茶筅" />茶筅</span> 在茶桌抹茶配方中每次冲泡掉 1 耐久（总 120），耐久归零会损坏。
-::::::
+茶桌的工具槽、糖槽、杯/壶槽、水槽、茶叶槽和输出槽是固定位置；机器加工完成后请及时取出中间产物，再投入下一段配方。潜行右击机器可取回放错的内部物品。
 
-:::::: details Q4：茶渣有什么用？
-A：任意两份茶渣或焦叶可回收成一份 <span class="item-chip"><img src="/images/teastory/baking_powder.png" alt="发酵粉" />发酵粉</span>，供发酵桶继续发酵。
-::::::
+家具与装饰方块的外观属于资源包内容。除本文明确写出的机器、稻田、果树叶和采收交互外，不把装饰模型推断成有额外功能。
 
-:::::: details Q5：奶茶/柠檬茶/抹茶怎么做？
-A：都在 **茶桌** 上做，需要在糖槽放糖：
-- 奶茶：红茶叶 ×2 + 牛奶桶（返空桶）+ 糖 ×3
-- 柠檬茶：红茶叶 ×2 + <span class="item-chip"><img src="/images/teastory/lemon.png" alt="柠檬" />柠檬</span> + 糖 ×3
-- 抹茶：抹茶叶 ×2 + <span class="item-chip"><img src="/images/teastory/tea_whisk.png" alt="茶筅" />茶筅</span> + 糖 ×3
-壶装版用茶包/散粉，糖量更大。
-::::::
+<a id="records"></a>
+## 收成记录与成就
 
-:::::: details Q6：不同茶喝了有什么效果？
-A：
-- 红茶：力量（11 秒）
-- 绿茶：急迫（13 秒）
-- 乌龙：水下呼吸（13 秒）
-- 普洱：生命提升（12 秒）
-- 白茶：生命恢复（7 秒）
-- 黄茶：伤害吸收（10 秒）
-- 柠檬茶：速度（12 秒）
-- 抹茶：跳跃提升 II（10 秒）
-- 奶茶：抗性提升（11 秒）
-::::::
+### MateriaEngine 收成统计
 
-:::::: details Q7：前期怎么最快喝上第一杯茶？
-A：走这条最短链（都在机器上）：  
-鲜叶 →（茶盘·晴）萎凋叶 →（炒茶锅）青叶 →（炒茶锅）绿茶叶 →（茶桌）绿茶叶 ×2 + 开水壶 + 空杯 → 绿茶杯。
-::::::
+- `/me harvest menu` 打开自己的收成面板，包含总览、产物、工具和作物标签。
+- `/me harvest stats [all|player|UUID] [all|today|week]` 查看统计；普通玩家默认只能查看自己，管理员或控制台可指定目标。
+- `/me harvest export ...` 由管理员导出 UTF-8 BOM CSV 到 `plugins/MateriaEngine/exports/harvest-*.csv`。
+- 统计数据库位于 `plugins/MateriaEngine/harvest_stats.db`，累计数据与每日数据分开记录；“今天”使用 Asia/Shanghai 时区，“本周”从周一计算到今天。旧的累计数据不会自动回填到每日数据。
+- 面板会区分存入、掉落、品质升级、额外奖励和果实采收。副手收获篮只改变物品投递路径，溢出物仍计为掉落。
+
+### BeaconEngine 成就里程碑
+
+当前 TeaStory 成就按配置记录种子、种植、首次收获、100 次收获、品质升级、果实采收、收获产物、萎凋叶、青叶、碎茶、六类成品茶、茶包、开水壶、紫砂材料、杯具、饮茶次数和茶渣等里程碑。MateriaEngine 的实际收获会通过 BeaconEngine API 写入收获与收获产物上下文，因此新发生的收获可参与对应成就；不要把历史统计理解成已经自动补录。
+
+<a id="appendix"></a>
+## 配置边界与排错
+
+遇到问题时按数据来源排查：
+
+1. **作物不生长：** 先用 `/ne debug crop detail` 看光照、温湿度、季节、天气和环境分类；再检查作物是否已登记、底部方块是否符合 CraftEngine 配置。
+2. **茶盘产物不对：** 查看当前世界是否晴天。雨或雷暴会把分级鲜叶变成湿茶，晴天挽救后只恢复为无等级萎凋叶。
+3. **机器不启动：** 炒茶锅、茶炉检查原版燃料；发酵桶只能放发酵粉；茶桌按固定槽位放料，并确认使用开水壶而非普通有水水壶。
+4. **收获不重植：** 检查背包和种子袋是否有该作物种子；无种子时自定义作物会被移除，这是当前工具逻辑。
+5. **果实不恢复：** 结果叶必须是持久叶，区块需要再次加载；系统不会强制加载区块，树叶被拆除后也不会重建。
+6. **统计或成就缺记录：** 先确认事件发生在启用统计/触发器之后；统计的旧累计值不会回填每日数据，成就也不承诺追溯历史。
+
+本页记录的是配置和源码已经表达的规则。真实服务器仍可能受到区块加载、权限、资源包版本和其他插件事件顺序影响；需要证明运行时行为时，应在目标服务器上用对应命令、GUI 和实际物品再做验收。
+
+## 相关页面
+
+- [旧季节玩法兼容页](/tutorial/SeasonWiki)
+- [EcoEnchants](/tutorial/EcoEnchants)
