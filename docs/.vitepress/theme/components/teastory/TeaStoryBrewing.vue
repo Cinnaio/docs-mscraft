@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, ref, useId } from 'vue'
+import { computed, ref } from 'vue'
 import { withBase } from 'vitepress'
 import TeaStoryItem from './TeaStoryItem.vue'
+import TeaStorySelect from './TeaStorySelect.vue'
 import { recipes, items, itemName, slots } from './data'
 const props = defineProps<{ en?: boolean }>()
-const uid = useId()
 const tea = ref('green_tea')
 const vessel = ref('glass')
 const varieties = ['green_tea', 'black_tea', 'jasmine_tea', 'oolong_tea', 'puer_tea', 'white_tea', 'yellow_tea', 'milk_tea', 'lemon_tea', 'matcha_drink']
@@ -13,6 +13,8 @@ const materials = [
   ['porcelain', '瓷杯', 'Porcelain cup'], ['zisha', '紫砂杯', 'Zisha cup'],
   ['porcelain_kettle', '瓷壶 · 4 杯', 'Porcelain teapot · 4 cups'], ['zisha_kettle', '紫砂壶 · 8 杯', 'Zisha teapot · 8 cups'],
 ]
+const teaOptions = computed(() => varieties.map((type) => ({ value: type, label: itemName(`${type}_glass`, props.en) })))
+const vesselOptions = computed(() => materials.map((material) => ({ value: material[0], label: material[props.en ? 2 : 1] })))
 const result = computed(() => `cgap:${tea.value}_${vessel.value}`)
 const recipe = computed(() => recipes.find((r) => r.method === 'tea_table' && r.result === result.value && r.inputs.some((p) => p.role === 'water')))
 const overlays = computed(() => recipe.value ? [
@@ -27,16 +29,14 @@ function position(slot: number) {
 <template>
   <div class="tea-brewing">
     <div class="tea-brew-controls">
-      <label :for="`${uid}-tea`">{{ en ? 'Tea' : '茶饮' }}
-        <select :id="`${uid}-tea`" v-model="tea">
-          <option v-for="type in varieties" :key="type" :value="type">{{ itemName(`${type}_glass`, en) }}</option>
-        </select>
-      </label>
-      <label :for="`${uid}-vessel`">{{ en ? 'Container' : '容器' }}
-        <select :id="`${uid}-vessel`" v-model="vessel">
-          <option v-for="material in materials" :key="material[0]" :value="material[0]">{{ material[en ? 2 : 1] }}</option>
-        </select>
-      </label>
+      <div class="tea-select-field">
+        <span class="tea-select-field__label">{{ en ? 'Tea' : '茶饮' }}</span>
+        <TeaStorySelect v-model="tea" :options="teaOptions" :aria-label="en ? 'Tea' : '茶饮'" />
+      </div>
+      <div class="tea-select-field">
+        <span class="tea-select-field__label">{{ en ? 'Container' : '容器' }}</span>
+        <TeaStorySelect v-model="vessel" :options="vesselOptions" :aria-label="en ? 'Container' : '容器'" />
+      </div>
     </div>
     <template v-if="recipe">
       <div class="tea-brew-layout">

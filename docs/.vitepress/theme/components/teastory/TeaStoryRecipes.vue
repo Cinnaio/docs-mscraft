@@ -2,6 +2,7 @@
 import { computed, ref, watch, useId } from 'vue'
 import TeaStoryItem from './TeaStoryItem.vue'
 import TeaStoryRecipeBoard from './TeaStoryRecipeBoard.vue'
+import TeaStorySelect from './TeaStorySelect.vue'
 import { fullId, items, foodIds, recipeFor, itemName, methodName } from './data'
 
 const props = withDefaults(defineProps<{ ids?: string[]; en?: boolean; catalog?: boolean }>(), { ids: () => [] })
@@ -22,6 +23,15 @@ const history = ref<string[]>([])
 const variant = ref(0)
 const options = computed(() => recipeFor(selected.value))
 const recipe = computed(() => options.value[variant.value] || options.value[0])
+const filterOptions = computed(() => [
+  { value: 'all', label: props.en ? 'All' : '全部' },
+  { value: 'food', label: props.en ? 'Food' : '茶点与料理' },
+  { value: 'drinks', label: props.en ? 'Drinks' : '饮品' },
+])
+const variantOptions = computed(() => options.value.map((option, index) => ({
+  value: index,
+  label: `${methodName(option.method, props.en)}${option.time ? ` · ${option.time} tick` : ''}${options.value.filter((r) => r.method === option.method).length > 1 ? ` (${index + 1})` : ''}`,
+})))
 const canOpen = (id: string) => recipeFor(id).length > 0
 const selectedItem = computed(() => items[selected.value])
 function choose(id: string, nested = false) {
@@ -49,14 +59,10 @@ watch([query, filter], () => {
           <span class="tea-sr-only">{{ en ? 'Search food and drinks' : '搜索茶点和饮品' }}</span>
           <input :id="`${uid}-search`" v-model="query" type="search" :placeholder="en ? 'Search name, e.g. dumplings' : '搜索名称，如：水饺、奶茶'" />
         </label>
-        <label class="tea-filter" :for="`${uid}-filter`">
+        <div class="tea-filter">
           <span class="tea-sr-only">{{ en ? 'Category' : '分类' }}</span>
-          <select :id="`${uid}-filter`" v-model="filter">
-            <option value="all">{{ en ? 'All' : '全部' }}</option>
-            <option value="food">{{ en ? 'Food' : '茶点与料理' }}</option>
-            <option value="drinks">{{ en ? 'Drinks' : '饮品' }}</option>
-          </select>
-        </label>
+          <TeaStorySelect v-model="filter" :options="filterOptions" :aria-label="en ? 'Category' : '分类'" />
+        </div>
         <span class="tea-result-count" role="status">{{ filtered.length }} {{ en ? 'items' : '种' }}</span>
       </div>
       <div v-if="!filtered.length" class="tea-empty">
@@ -83,14 +89,10 @@ watch([query, filter], () => {
         <h3>{{ itemName(selected, en) }}</h3>
         <span v-if="recipe" class="tea-method">{{ methodName(recipe.method, en) }}</span>
       </div>
-      <label v-if="options.length > 1" class="tea-variant" :for="`${uid}-variant`">
-        {{ en ? 'Recipe' : '配方' }}
-        <select :id="`${uid}-variant`" v-model="variant">
-          <option v-for="(option, index) in options" :key="option.id" :value="index">
-            {{ methodName(option.method, en) }}{{ option.time ? ` · ${option.time} tick` : '' }}{{ options.filter((r) => r.method === option.method).length > 1 ? ` (${index + 1})` : '' }}
-          </option>
-        </select>
-      </label>
+      <div v-if="options.length > 1" class="tea-variant">
+        <span class="tea-variant__label">{{ en ? 'Recipe' : '配方' }}</span>
+        <TeaStorySelect v-model="variant" :options="variantOptions" :aria-label="en ? 'Recipe' : '配方'" />
+      </div>
       <template v-if="recipe">
         <TeaStoryRecipeBoard :recipe="recipe" :en="en" :can-open="canOpen" @open="choose($event, true)" />
         <div class="tea-recipe-facts">
