@@ -1,6 +1,6 @@
 # 季节玩法 <Badge type="tip" text="兼容入口" />
 
-> 季节、天气、环境和 TeaStory 作物已经合并到 [茶风纪事的茶园章节](/tutorial/Teastory#tea-garden)。本页保留旧地址和旧标题，避免收藏或外部链接失效；当前数值请以合并页为准。
+> 季节、天气、环境和 TeaStory 作物已经合并到 [茶风纪事的茶园章节](/tutorial/Teastory/tea-garden)。本页保留旧地址和旧标题，避免收藏或外部链接失效；当前数值请以合并页为准。
 
 <div class="teastory-figure-row" aria-label="季节玩法入口预览">
   <figure class="teastory-figure"><img src="/images/teastory/tea_seeds.png" alt="茶树种子" /><figcaption>种下茶园</figcaption></figure>
@@ -18,7 +18,7 @@
 | 秋 | 10 游戏日 | 10.0 | 0.60 | ×1.0 | ×1.2 |
 | 冬 | 10 游戏日 | 0.0 | 0.40 | ×0.5 | ×0.8 |
 
-温度是 NatureEngine 的配置基准；实际环境还会叠加原版世界温度以及天气偏移。产量倍率是季节配置提示，不会自动乘到所有 CraftEngine 战利品。完整作物目标和环境阈值见 [茶园章节](/tutorial/Teastory#tea-garden)。
+温度是 NatureEngine 的配置基准；实际环境还会叠加原版世界温度以及天气偏移。产量倍率是季节配置提示，不会自动乘到所有 CraftEngine 战利品。完整作物目标和环境阈值见 [茶园章节](/tutorial/Teastory/tea-garden)。
 
 ## 种田指南
 
@@ -28,7 +28,7 @@
 
 ### 作物推荐
 
-茶树偏好春、夏、秋；茉莉花偏好春夏；桂花、洛神花、枸杞适合夏秋；菊花偏好秋；莲花和水稻偏好夏。温室、室内和露天的完整稳定性、温湿度容差及 14 种作物清单见 [茶风纪事 → 茶园](/tutorial/Teastory#tea-garden)。
+茶树偏好春、夏、秋；茉莉花偏好春夏；桂花、洛神花、枸杞适合夏秋；菊花偏好秋；莲花和水稻偏好夏。温室、室内和露天的完整稳定性、温湿度容差及 14 种作物清单见 [茶风纪事 → 茶园](/tutorial/Teastory/tea-garden)。
 
 ### 环境效果
 
@@ -73,7 +73,7 @@ NatureEngine 根命令要求 OP。常用查看与排错命令如下：
 | `/ne season next` | 切换到下一季节 |
 | `/ne season apply` | 重新应用季节视觉 |
 
-完整命令、权限和配置边界见 [茶风纪事 → NatureEngine 指令](/tutorial/Teastory#tea-garden)。
+完整命令、权限和配置边界见 [茶风纪事 → NatureEngine 指令](/tutorial/Teastory/tea-garden)。
 
 ## 常见问题
 
@@ -86,5 +86,5 @@ NatureEngine 根命令要求 OP。常用查看与排错命令如下：
 :::
 
 ::: details Q：茶树和果树的完整规则在哪里？
-请看 [茶风纪事 → 茶园、田园与果园](/tutorial/Teastory#tea-garden) 和 [田园、稻田与果园](/tutorial/Teastory#garden-orchard)。
+请看 [茶风纪事 → 茶园、田园与果园](/tutorial/Teastory/tea-garden) 和 [田园、稻田与果园](/tutorial/Teastory/tea-garden#garden-orchard)。
 :::

@@ -1,6 +1,6 @@
 # Season System <Badge type="tip" text="Compatibility page" />
 
-> Seasons, weather, environment, and TeaStory crop rules now live in the [TeaStory tea-garden section](/en/tutorial/Teastory#tea-garden). This page keeps the old URL and headings for bookmarks and external links; use the merged guide for current values.
+> Seasons, weather, environment, and TeaStory crop rules now live in the [TeaStory tea-garden section](/en/tutorial/Teastory/tea-garden). This page keeps the old URL and headings for bookmarks and external links; use the merged guide for current values.
 
 <div class="teastory-figure-row" aria-label="Season page entry preview">
   <figure class="teastory-figure"><img src="/images/teastory/tea_seeds.png" alt="Tea seeds" /><figcaption>Plant the garden</figcaption></figure>
@@ -18,7 +18,7 @@
 | Autumn | 10 in-game days | 10.0 | 0.60 | ×1.0 | ×1.2 |
 | Winter | 10 in-game days | 0.0 | 0.40 | ×0.5 | ×0.8 |
 
-Temperature is the NatureEngine configuration baseline; actual environment also adds vanilla world temperature and weather offsets. The yield multiplier is a season configuration hint and does not automatically multiply every CraftEngine loot table. See the [tea-garden section](/en/tutorial/Teastory#tea-garden) for crop targets and environment thresholds.
+Temperature is the NatureEngine configuration baseline; actual environment also adds vanilla world temperature and weather offsets. The yield multiplier is a season configuration hint and does not automatically multiply every CraftEngine loot table. See the [tea-garden section](/en/tutorial/Teastory/tea-garden) for crop targets and environment thresholds.
 
 ## Farming Guide
 
@@ -73,7 +73,7 @@ The NatureEngine root command requires OP.
 | `/ne season next` | Move to the next season |
 | `/ne season apply` | Reapply season visuals |
 
-See [TeaStory → NatureEngine commands](/en/tutorial/Teastory#tea-garden) for the complete command list and configuration boundaries.
+See [TeaStory → NatureEngine commands](/en/tutorial/Teastory/tea-garden) for the complete command list and configuration boundaries.
 
 ## FAQ
 
@@ -86,5 +86,5 @@ A greenhouse provides 1.00 stability and a ×1.02 progress adjustment, but the r
 :::
 
 ::: details Q: Where are the complete tea-tree and orchard rules?
-See [TeaStory → tea garden](/en/tutorial/Teastory#tea-garden) and [garden, paddy, and orchard](/en/tutorial/Teastory#garden-orchard).
+See [TeaStory → tea garden](/en/tutorial/Teastory/tea-garden) and [garden, paddy, and orchard](/en/tutorial/Teastory/tea-garden#garden-orchard).
 :::

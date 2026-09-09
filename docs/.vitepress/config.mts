@@ -298,7 +298,18 @@ export default defineConfig({
           {
             text: '玩法维基',
             items: [
-              { text: '茶风纪事', link: '/tutorial/Teastory' },
+              {
+                text: '茶风纪事',
+                link: '/tutorial/Teastory',
+                items: [
+                  { text: '第一杯茶与设备', link: '/tutorial/Teastory/first-cup' },
+                  { text: '制茶路线', link: '/tutorial/Teastory/tea-making' },
+                  { text: '冲泡与茶具', link: '/tutorial/Teastory/brewing' },
+                  { text: '种植与采收', link: '/tutorial/Teastory/tea-garden' },
+                  { text: '茶点图鉴', link: '/tutorial/Teastory/food' },
+                  { text: '常见问题与参考', link: '/tutorial/Teastory/reference' }
+                ]
+              },
               { text: '更多附魔', link: '/tutorial/EcoEnchants' },
             ]
           },
@@ -378,7 +389,18 @@ export default defineConfig({
           {
             text: 'Play Style Wiki',
             items: [
-              { text: 'Teastory', link: '/en/tutorial/Teastory' },
+              {
+                text: 'Teastory',
+                link: '/en/tutorial/Teastory',
+                items: [
+                  { text: 'First cup & equipment', link: '/en/tutorial/Teastory/first-cup' },
+                  { text: 'Processing routes', link: '/en/tutorial/Teastory/tea-making' },
+                  { text: 'Brewing & teaware', link: '/en/tutorial/Teastory/brewing' },
+                  { text: 'Growing & harvesting', link: '/en/tutorial/Teastory/tea-garden' },
+                  { text: 'Food catalog', link: '/en/tutorial/Teastory/food' },
+                  { text: 'FAQ & reference', link: '/en/tutorial/Teastory/reference' }
+                ]
+              },
               { text: 'More Enchants', link: '/en/tutorial/EcoEnchants' },
             ]
           },
