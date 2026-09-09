@@ -1,0 +1,196 @@
+/* TeaStory guide: visual reading aids for the long-form player guide. */
+.vp-doc .teastory-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: stretch;
+  margin: 1.25rem 0 2.25rem;
+  padding: clamp(1rem, 2.2vw, 1.75rem);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--vp-c-brand-soft) 48%, var(--vp-c-bg-soft) 52%);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
+}
+
+.vp-doc .teastory-hero__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.vp-doc .teastory-hero__lead {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--vp-c-text-1);
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.vp-doc .teastory-hero__copy > p + p {
+  margin-top: 0.8rem;
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc .teastory-hero__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1.1rem;
+}
+
+.vp-doc .teastory-hero__art {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+  align-items: center;
+  min-width: 0;
+}
+
+.vp-doc .teastory-hero__tile {
+  display: grid;
+  place-items: center;
+  min-height: 7.25rem;
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 20%, var(--vp-c-divider));
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--vp-c-bg) 78%, var(--vp-c-brand-soft) 22%);
+  text-align: center;
+}
+
+.vp-doc .teastory-hero__tile:nth-child(2) {
+  transform: translateY(0.85rem);
+}
+
+.vp-doc .teastory-hero__tile:nth-child(3) {
+  transform: translateY(-0.45rem);
+}
+
+.vp-doc .teastory-hero__tile img {
+  display: block;
+  width: clamp(3.2rem, 8vw, 5.5rem);
+  height: clamp(3.2rem, 8vw, 5.5rem);
+  margin: 0 auto 0.45rem;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+
+.vp-doc .teastory-hero__tile figcaption {
+  color: var(--vp-c-text-2);
+  font-size: 0.78rem;
+  line-height: 1.3;
+}
+
+.vp-doc .teastory-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+  margin: 1rem 0 2.2rem;
+  padding: 0.25rem 0 0.7rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.vp-doc .teastory-flow__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: center;
+  flex: 1 0 8.6rem;
+  min-width: 8.6rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 16px;
+  background: var(--vp-c-bg-soft);
+}
+
+.vp-doc .teastory-flow__item img {
+  display: block;
+  width: 2.35rem;
+  height: 2.35rem;
+  margin: 0;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+
+.vp-doc .teastory-flow__item strong,
+.vp-doc .teastory-flow__item span {
+  display: block;
+  line-height: 1.25;
+}
+
+.vp-doc .teastory-flow__item strong {
+  color: var(--vp-c-text-1);
+  font-size: 0.9rem;
+}
+
+.vp-doc .teastory-flow__item span {
+  margin-top: 0.15rem;
+  color: var(--vp-c-text-2);
+  font-size: 0.74rem;
+}
+
+.vp-doc .teastory-flow__arrow {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  color: var(--vp-c-brand-1);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.vp-doc .teastory-figure-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.vp-doc .teastory-figure {
+  margin: 0;
+  padding: 0.8rem 0.65rem 0.7rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 16px;
+  background: var(--vp-c-bg-soft);
+  text-align: center;
+}
+
+.vp-doc .teastory-figure img {
+  display: block;
+  width: clamp(3.4rem, 8vw, 5.3rem);
+  height: clamp(3.4rem, 8vw, 5.3rem);
+  margin: 0 auto 0.45rem;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+
+.vp-doc .teastory-figure figcaption {
+  color: var(--vp-c-text-2);
+  font-size: 0.78rem;
+  line-height: 1.3;
+}
+
+@media (max-width: 760px) {
+  .vp-doc .teastory-hero {
+    grid-template-columns: 1fr;
+    border-radius: 18px;
+  }
+
+  .vp-doc .teastory-hero__art {
+    max-width: 30rem;
+  }
+
+  .vp-doc .teastory-figure-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vp-doc .teastory-hero__tile:nth-child(2),
+  .vp-doc .teastory-hero__tile:nth-child(3) {
+    transform: none;
+  }
+}

@@ -6,6 +6,25 @@
 
 The main loop is **plant → harvest → wither → fix or ferment → brew → pour → recycle residue**. The Tea Pan, Frying Pan, Fermentation Barrel, Tea Stove, and Tea Table handle processing. NatureEngine contributes season, weather, and environment calculations. MateriaEngine handles harvesting, fruit regrowth, and harvest statistics.
 
+<div class="teastory-hero">
+  <div class="teastory-hero__copy">
+    <p class="teastory-hero__lead">Turn one fresh leaf into a whole tea table.</p>
+    <p>Care for the crop, send each harvest through the machines, then finish it at the Tea Table or in a dish. These images are reading cues; the detailed numbers remain in the sections below and in the server configuration.</p>
+    <div class="teastory-hero__chips" aria-label="TeaStory core items">
+      <span class="item-chip"><img src="/images/teastory/tea_seeds.png" alt="Tea seeds" />Tea seeds</span>
+      <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="Fresh leaf" />Fresh leaf</span>
+      <span class="item-chip"><img src="/images/teastory/wooden_mortar_and_pestle.png" alt="Wooden mortar and pestle" />Grind</span>
+      <span class="item-chip"><img src="/images/teastory/green_tea_glass.png" alt="Glass of green tea" />A cup of tea</span>
+    </div>
+  </div>
+  <div class="teastory-hero__art" aria-label="TeaStory item preview">
+    <figure class="teastory-hero__tile"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="Fresh bud leaf" /><figcaption>Harvest</figcaption></figure>
+    <figure class="teastory-hero__tile"><img src="/images/teastory/tea_leaf.png" alt="Green leaf" /><figcaption>Fixation</figcaption></figure>
+    <figure class="teastory-hero__tile"><img src="/images/teastory/green_tea_glass.png" alt="Glass of green tea" /><figcaption>Brew</figcaption></figure>
+    <figure class="teastory-hero__tile"><img src="/images/teastory/paddy_field.png" alt="Paddy field" /><figcaption>Garden</figcaption></figure>
+  </div>
+</div>
+
 ## Quick navigation
 
 - [First cup: green tea](#first-cup)
@@ -19,16 +38,30 @@ The main loop is **plant → harvest → wither → fix or ferment → brew → 
 - [Harvest records and achievements](#records)
 - [Configuration boundaries and troubleshooting](#appendix)
 
+<div class="teastory-flow" aria-label="TeaStory process">
+  <div class="teastory-flow__item"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="Fresh leaf" /><div><strong>Harvest</strong><span>Grade the leaf</span></div></div>
+  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
+  <div class="teastory-flow__item"><img src="/images/teastory/withered_tea_leaf_bud.png" alt="Withered leaf" /><div><strong>Wither</strong><span>Watch the weather</span></div></div>
+  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
+  <div class="teastory-flow__item"><img src="/images/teastory/tea_leaf.png" alt="Green leaf" /><div><strong>Fix</strong><span>Pan or stove</span></div></div>
+  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
+  <div class="teastory-flow__item"><img src="/images/teastory/green_tea_leaf.png" alt="Green tea leaf" /><div><strong>Finish</strong><span>Seven routes</span></div></div>
+  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
+  <div class="teastory-flow__item"><img src="/images/teastory/green_tea_glass.png" alt="Glass of green tea" /><div><strong>Tea Table</strong><span>Brew and pour</span></div></div>
+  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
+  <div class="teastory-flow__item"><img src="/images/teastory/baking_powder.png" alt="Baking powder" /><div><strong>Recycle</strong><span>Use the residue</span></div></div>
+</div>
+
 <a id="first-cup"></a>
 ## First cup: green tea
 
 Follow this path when you are new to the system.
 
 1. **Craft the stations and tools.** The crafting table provides the Tea Pan, Frying Pan, Fermentation Barrel, Tea Stove, Tea Table, sickle, wooden mortar and pestle, and tea whisk. The Tea Pan and Barrel use planks; the Stove uses bricks and cobblestone; the Frying Pan uses iron ingots, a cauldron, and logs; the Tea Table uses smooth stone slabs and planks. Use the CraftEngine recipe interface for the exact shaped patterns.
-2. **Plant tea.** Find `cgap:tea_seeds` in world loot and plant it on a valid base block with enough light. The tea tree reaches mature age 6. When a sickle harvest finds a matching seed in your inventory or seed pouch, it resets the plant to age 0 and consumes one seed.
-3. **Wither on a clear day.** Put graded fresh leaves into the Tea Pan. Clear weather preserves the grade and creates the matching withered leaf. Rain or thunder creates ungraded wet leaf; putting it back into the pan on a clear day rescues it as ungraded withered leaf.
-4. **Fix and pan-fire.** Fuel the Frying Pan. Withered leaf becomes `cgap:tea_leaf` (green leaf), and green leaf put through the Frying Pan again becomes `cgap:green_tea_leaf`.
-5. **Prepare hot water.** Water pots support stone, porcelain, iron, and zisha materials. Nine empty pots plus one water bucket fill nine pots, which can be fired in a furnace or blast furnace into boiled water pots.
+2. **Plant tea.** Find <span class="item-chip"><img src="/images/teastory/tea_seeds.png" alt="Tea seeds" />Tea seeds</span> in world loot and plant it on a valid base block with enough light. The tea tree reaches mature age 6. When a sickle harvest finds a matching seed in your inventory or seed pouch, it resets the plant to age 0 and consumes one seed.
+3. **Wither on a clear day.** Put <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="Graded fresh leaf" />graded fresh leaf</span> into the Tea Pan. Clear weather preserves the grade and creates the matching <span class="item-chip"><img src="/images/teastory/withered_tea_leaf_bud.png" alt="Withered leaf" />withered leaf</span>. Rain or thunder creates <span class="item-chip"><img src="/images/teastory/wet_tea_leaf.png" alt="Wet leaf" />ungraded wet leaf</span>; putting it back into the pan on a clear day rescues it as ungraded withered leaf.
+4. **Fix and pan-fire.** Fuel the Frying Pan. Withered leaf becomes <span class="item-chip"><img src="/images/teastory/tea_leaf.png" alt="Green leaf" />green leaf</span>, and green leaf put through the Frying Pan again becomes <span class="item-chip"><img src="/images/teastory/green_tea_leaf.png" alt="Green tea leaf" />green tea leaf</span>.
+5. **Prepare hot water.** Water pots support stone, porcelain, iron, and zisha materials. Nine empty pots plus one water bucket fill nine pots, which can be fired in a furnace or blast furnace into <span class="item-chip"><img src="/images/teastory/water_pot_porcelain.png" alt="Boiled water pot" />boiled water pots</span>.
 6. **Brew.** Put two green tea leaves, any boiled water pot, and an empty cup into the Tea Table. The result keeps the cup material. Drinking returns the matching empty cup; the configured green tea effect is Haste for 260 ticks (about 13 seconds).
 7. **If it fails, check the weather and slots.** Rain on the Tea Pan, missing vanilla fuel in the Frying Pan, or putting a water pot/leaf in the wrong Tea Table slot are the common causes.
 
@@ -136,6 +169,13 @@ The NatureEngine root command requires OP. Regular players cannot use these comm
 
 Harvest tools activate on right-click and use a 4-tick cooldown. Durability is charged per plant actually harvested.
 
+<div class="teastory-figure-row" aria-label="Harvest tool preview">
+  <figure class="teastory-figure"><img src="/images/teastory/sickle.png" alt="Sickle" /><figcaption>Sickle</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/tea_whisk.png" alt="Tea whisk" /><figcaption>Whisk</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/wooden_mortar_and_pestle.png" alt="Wooden mortar and pestle" /><figcaption>Mortar</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/tea_seeds.png" alt="Tea seeds" /><figcaption>Seed pouch</figcaption></figure>
+</div>
+
 | Tool | Durability | Target and behavior |
 |---|---:|---|
 | Sickle `cgap:sickle` | 500 | Radius 1 on the same Y level, up to 3×3; supports the 14 TeaStory crops plus wheat, carrots, potatoes, beetroots, and nether wart |
@@ -221,9 +261,23 @@ The Stove uses vanilla fuel. White tea bypasses the Barrel; yellow tea and match
 - Clay balls or zisha clay form kettle blanks, which are fired in a furnace or blast furnace into empty porcelain or zisha kettles. Water pots exist in stone, porcelain, iron, and zisha materials.
 - Nine empty water pots + one water bucket → nine water-filled pots. Furnace time is 160 ticks and blast-furnace time is 80 ticks. Any boiled pot material works at the Tea Table; the recipe returns the matching empty pot.
 
+<div class="teastory-figure-row" aria-label="Tea ware preview">
+  <figure class="teastory-figure"><img src="/images/teastory/cup_glass.png" alt="Glass cup" /><figcaption>Empty cup</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/empty_porcelain_kettle.png" alt="Empty porcelain kettle" /><figcaption>Empty kettle</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/water_pot_porcelain.png" alt="Porcelain water pot" /><figcaption>Water pot</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/tea_whisk.png" alt="Tea whisk" /><figcaption>Tea whisk</figcaption></figure>
+</div>
+
 ### Cup brewing
 
 The plain recipe is **two matching tea leaves + any boiled water pot + one empty cup**. Cups support glass, stone, wood, porcelain, and zisha materials, and the result keeps the cup material. Drinking returns the corresponding empty cup. Tea-table drinks use nutrition 5 and saturation 3.5 in the item configuration.
+
+<div class="teastory-figure-row" aria-label="Finished tea preview">
+  <figure class="teastory-figure"><img src="/images/teastory/green_tea_leaf.png" alt="Green tea leaf" /><figcaption>Green</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/black_tea_leaf.png" alt="Black tea leaf" /><figcaption>Black</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/oolong_tea_leaf.png" alt="Oolong tea leaf" /><figcaption>Oolong</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/puer_tea_leaf.png" alt="Pu'er tea leaf" /><figcaption>Pu'er</figcaption></figure>
+</div>
 
 | Drink | Tea Table inputs | Configured effect |
 |---|---|---|
@@ -254,6 +308,13 @@ Brewing black, green, oolong, pu'er, white, yellow, or jasmine tea bags produces
 
 <a id="garden-orchard"></a>
 ## Garden, paddy, and orchard
+
+<div class="teastory-figure-row" aria-label="Garden and orchard preview">
+  <figure class="teastory-figure"><img src="/images/teastory/paddy_field.png" alt="Paddy field" /><figcaption>Paddy</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/xian_rice_seeds.png" alt="Rice seed" /><figcaption>Rice</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/tea_seeds.png" alt="Tea seeds" /><figcaption>Tea garden</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/lemon.png" alt="Lemon" /><figcaption>Orchard</figcaption></figure>
+</div>
 
 ### Two-stage rice line
 

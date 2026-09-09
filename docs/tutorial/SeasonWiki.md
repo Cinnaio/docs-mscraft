@@ -2,6 +2,13 @@
 
 > 季节、天气、环境和 TeaStory 作物已经合并到 [茶风纪事的茶园章节](/tutorial/Teastory#tea-garden)。本页保留旧地址和旧标题，避免收藏或外部链接失效；当前数值请以合并页为准。
 
+<div class="teastory-figure-row" aria-label="季节玩法入口预览">
+  <figure class="teastory-figure"><img src="/images/teastory/tea_seeds.png" alt="茶树种子" /><figcaption>种下茶园</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/green_tea_leaf.png" alt="绿茶叶" /><figcaption>观察生长</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/paddy_field.png" alt="稻田" /><figcaption>安排环境</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/green_tea_glass.png" alt="绿茶杯" /><figcaption>回到茶风纪事</figcaption></figure>
+</div>
+
 ## 四季速览
 
 | 季节 | 持续时间 | 基准温度 | 基准湿度 | 生长倍率 | 产量倍率 |

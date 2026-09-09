@@ -6,6 +6,25 @@
 
 TeaStory 的主线可以概括为：**种植 → 采收 → 萎凋 → 定型或发酵 → 冲泡 → 倒杯 → 茶渣回收**。茶盘、炒茶锅、发酵桶、茶炉、茶桌负责加工；季节、天气和环境由 NatureEngine 参与生长计算；采收、果实恢复和收成统计由 MateriaEngine 负责。
 
+<div class="teastory-hero">
+  <div class="teastory-hero__copy">
+    <p class="teastory-hero__lead">把一片鲜叶，走成一席茶。</p>
+    <p>先在茶园里照看作物，再把每一次采收送进机器、茶桌和茶点配方。下面的图标是阅读线索，详细数值仍以各章节和服务器配置为准。</p>
+    <div class="teastory-hero__chips" aria-label="玩法核心物品">
+      <span class="item-chip"><img src="/images/teastory/tea_seeds.png" alt="茶树种子" />茶树种子</span>
+      <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="鲜叶" />鲜叶</span>
+      <span class="item-chip"><img src="/images/teastory/wooden_mortar_and_pestle.png" alt="木制研钵研杵" />研磨</span>
+      <span class="item-chip"><img src="/images/teastory/green_tea_glass.png" alt="绿茶杯" />一杯绿茶</span>
+    </div>
+  </div>
+  <div class="teastory-hero__art" aria-label="茶风纪事物品预览">
+    <figure class="teastory-hero__tile"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="单芽鲜叶" /><figcaption>采茶</figcaption></figure>
+    <figure class="teastory-hero__tile"><img src="/images/teastory/tea_leaf.png" alt="青叶" /><figcaption>定型</figcaption></figure>
+    <figure class="teastory-hero__tile"><img src="/images/teastory/green_tea_glass.png" alt="绿茶玻璃杯" /><figcaption>冲泡</figcaption></figure>
+    <figure class="teastory-hero__tile"><img src="/images/teastory/paddy_field.png" alt="稻田" /><figcaption>田园</figcaption></figure>
+  </div>
+</div>
+
 ## 快速导航
 
 - [从零开始：第一杯绿茶](#first-cup)
@@ -19,17 +38,31 @@ TeaStory 的主线可以概括为：**种植 → 采收 → 萎凋 → 定型或
 - [收成记录与成就](#records)
 - [配置边界与排错](#appendix)
 
+<div class="teastory-flow" aria-label="TeaStory 工艺流程">
+  <div class="teastory-flow__item"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="鲜叶" /><div><strong>采茶</strong><span>分级鲜叶</span></div></div>
+  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
+  <div class="teastory-flow__item"><img src="/images/teastory/withered_tea_leaf_bud.png" alt="萎凋叶" /><div><strong>萎凋</strong><span>茶盘看天气</span></div></div>
+  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
+  <div class="teastory-flow__item"><img src="/images/teastory/tea_leaf.png" alt="青叶" /><div><strong>定型</strong><span>锅与茶炉</span></div></div>
+  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
+  <div class="teastory-flow__item"><img src="/images/teastory/green_tea_leaf.png" alt="绿茶叶" /><div><strong>成茶</strong><span>七条路线</span></div></div>
+  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
+  <div class="teastory-flow__item"><img src="/images/teastory/green_tea_glass.png" alt="绿茶杯" /><div><strong>茶桌</strong><span>冲泡与倒杯</span></div></div>
+  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
+  <div class="teastory-flow__item"><img src="/images/teastory/baking_powder.png" alt="发酵粉" /><div><strong>回收</strong><span>茶渣再利用</span></div></div>
+</div>
+
 <a id="first-cup"></a>
 ## 从零开始：第一杯绿茶
 
 这条路线只使用已经配置的机器和配方，适合第一次接触玩法时照着做。
 
 1. **准备工具和机器。** 工作台可合成茶盘、炒茶锅、发酵桶、茶炉、茶桌、镰刀、木制研钵研杵和茶筅。茶盘与发酵桶使用木板，茶炉使用砖块和圆石，炒茶锅使用铁锭、炼药锅和原木，茶桌使用磨制石台阶与木板；具体形状可在 CraftEngine 配方界面查看。茶桌冲泡还需要杯子、空壶和水壶。
-2. **获得茶树种子并种植。** 世界战利品中可找到 `cgap:tea_seeds`；茶树成熟年龄为 6，种在符合底部方块和光照要求的位置。用镰刀采收时，背包或种子袋中有对应种子会自动重植并消耗 1 个种子。
-3. **晴天萎凋。** 把分级鲜叶放入茶盘。晴天会保留等级并得到对应萎凋叶；雨天或雷暴会得到无等级湿茶。湿茶在晴天再次放入茶盘可挽救成无等级萎凋叶。
-4. **杀青和炒青。** 炒茶锅加入原版燃料，把萎凋叶加工为 `cgap:tea_leaf`（青叶）；再把青叶放回炒茶锅炒青，得到 `cgap:green_tea_leaf`。
-5. **准备开水。** 水壶配方支持石、瓷、铁、紫砂四种材质。9 个空水壶加 1 个水桶会批量得到 9 个有水水壶，再用熔炉或高炉烧成开水壶。
-6. **冲泡。** 茶桌放入绿茶叶 ×2、任意开水壶和一个空杯，得到对应材质的绿茶杯。饮用后按杯子配置返还空杯；绿茶饮品配置为急迫效果 260 tick（约 13 秒）。
+2. **获得茶树种子并种植。** 世界战利品中可找到 <span class="item-chip"><img src="/images/teastory/tea_seeds.png" alt="茶树种子" />茶树种子</span>；茶树成熟年龄为 6，种在符合底部方块和光照要求的位置。用镰刀采收时，背包或种子袋中有对应种子会自动重植并消耗 1 个种子。
+3. **晴天萎凋。** 把 <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="鲜叶" />分级鲜叶</span> 放入茶盘。晴天会保留等级并得到对应 <span class="item-chip"><img src="/images/teastory/withered_tea_leaf_bud.png" alt="萎凋叶" />萎凋叶</span>；雨天或雷暴会得到 <span class="item-chip"><img src="/images/teastory/wet_tea_leaf.png" alt="湿茶" />无等级湿茶</span>。湿茶在晴天再次放入茶盘可挽救成无等级萎凋叶。
+4. **杀青和炒青。** 炒茶锅加入原版燃料，把萎凋叶加工为 <span class="item-chip"><img src="/images/teastory/tea_leaf.png" alt="青叶" />青叶</span>；再把青叶放回炒茶锅炒青，得到 <span class="item-chip"><img src="/images/teastory/green_tea_leaf.png" alt="绿茶叶" />绿茶叶</span>。
+5. **准备开水。** 水壶配方支持石、瓷、铁、紫砂四种材质。9 个空水壶加 1 个水桶会批量得到 9 个有水水壶，再用熔炉或高炉烧成 <span class="item-chip"><img src="/images/teastory/water_pot_porcelain.png" alt="开水壶" />开水壶</span>。
+6. **冲泡。** 茶桌放入绿茶叶 ×2、任意开水壶和一个空杯，得到对应材质的 <span class="item-chip"><img src="/images/teastory/green_tea_glass.png" alt="绿茶杯" />绿茶杯</span>。饮用后按杯子配置返还空杯；绿茶饮品配置为急迫效果 260 tick（约 13 秒）。
 7. **遇到失败先检查天气和槽位。** 茶盘是否在雨中、炒茶锅是否放入燃料、茶桌是否把水壶放在水槽、茶叶是否放在茶叶槽，是最常见的三类问题。
 
 ### 五台机器和槽位
@@ -136,6 +169,13 @@ NatureEngine 根命令要求 OP；普通玩家不能用这些命令修改季节�
 
 所有收获工具都通过右击触发，并有 4 tick 冷却；工具耐久按实际采收的植株扣除。
 
+<div class="teastory-figure-row" aria-label="采收工具预览">
+  <figure class="teastory-figure"><img src="/images/teastory/sickle.png" alt="镰刀" /><figcaption>镰刀</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/tea_whisk.png" alt="茶筅" /><figcaption>茶筅</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/wooden_mortar_and_pestle.png" alt="木制研钵研杵" /><figcaption>研钵</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/tea_seeds.png" alt="茶树种子" /><figcaption>种子袋</figcaption></figure>
+</div>
+
 | 工具 | 耐久 | 目标与行为 |
 |---|---:|---|
 | 镰刀 `cgap:sickle` | 500 | 半径 1 的同一高度区域，最多处理 3×3；支持 14 种 TeaStory 作物和小麦、胡萝卜、马铃薯、甜菜根、下界疣 |
@@ -221,9 +261,23 @@ NatureEngine 根命令要求 OP；普通玩家不能用这些命令修改季节�
 - 黏土球、紫砂黏土可分别制作壶坯，熔炉或高炉烧成空瓷壶、空紫砂壶。水壶支持石、瓷、铁、紫砂四种材质。
 - 9 个空水壶 + 1 个水桶 → 9 个有水水壶；有水水壶经熔炉 160 tick 或高炉 80 tick 得开水壶。任何材质的开水壶都能用于茶桌配方，消耗后按配方返还对应空水壶。
 
+<div class="teastory-figure-row" aria-label="茶具预览">
+  <figure class="teastory-figure"><img src="/images/teastory/cup_glass.png" alt="玻璃杯" /><figcaption>空杯</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/empty_porcelain_kettle.png" alt="空瓷壶" /><figcaption>空瓷壶</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/water_pot_porcelain.png" alt="瓷水壶" /><figcaption>水壶</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/tea_whisk.png" alt="茶筅" /><figcaption>茶筅</figcaption></figure>
+</div>
+
 ### 杯装冲泡
 
 茶桌的纯茶配方为：**对应茶叶 ×2 + 任意开水壶 + 一个空杯**。杯子支持玻璃、石、木、瓷、紫砂五种材质，成品分别保留杯子材质。饮用后返还同材质空杯；茶饮的基础营养和饱和度配置为 5 与 3.5。
+
+<div class="teastory-figure-row" aria-label="成品茶叶预览">
+  <figure class="teastory-figure"><img src="/images/teastory/green_tea_leaf.png" alt="绿茶叶" /><figcaption>绿茶</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/black_tea_leaf.png" alt="红茶叶" /><figcaption>红茶</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/oolong_tea_leaf.png" alt="乌龙茶叶" /><figcaption>乌龙</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/puer_tea_leaf.png" alt="普洱茶叶" /><figcaption>普洱</figcaption></figure>
+</div>
 
 | 茶饮 | 茶桌原料 | 配置效果 |
 |---|---|---|
@@ -254,6 +308,13 @@ NatureEngine 根命令要求 OP；普通玩家不能用这些命令修改季节�
 
 <a id="garden-orchard"></a>
 ## 田园、稻田与果园
+
+<div class="teastory-figure-row" aria-label="田园与果园预览">
+  <figure class="teastory-figure"><img src="/images/teastory/paddy_field.png" alt="稻田" /><figcaption>稻田</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/xian_rice_seeds.png" alt="稻谷" /><figcaption>稻谷</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/tea_seeds.png" alt="茶树种子" /><figcaption>茶园</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/lemon.png" alt="柠檬" /><figcaption>果园</figcaption></figure>
+</div>
 
 ### 稻田两阶段
 

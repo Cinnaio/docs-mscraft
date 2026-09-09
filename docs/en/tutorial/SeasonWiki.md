@@ -2,6 +2,13 @@
 
 > Seasons, weather, environment, and TeaStory crop rules now live in the [TeaStory tea-garden section](/en/tutorial/Teastory#tea-garden). This page keeps the old URL and headings for bookmarks and external links; use the merged guide for current values.
 
+<div class="teastory-figure-row" aria-label="Season page entry preview">
+  <figure class="teastory-figure"><img src="/images/teastory/tea_seeds.png" alt="Tea seeds" /><figcaption>Plant the garden</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/green_tea_leaf.png" alt="Green tea leaf" /><figcaption>Watch growth</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/paddy_field.png" alt="Paddy field" /><figcaption>Shape the space</figcaption></figure>
+  <figure class="teastory-figure"><img src="/images/teastory/green_tea_glass.png" alt="Glass of green tea" /><figcaption>Back to TeaStory</figcaption></figure>
+</div>
+
 ## Season Overview
 
 | Season | Duration | Base temperature | Base humidity | Growth | Yield |
