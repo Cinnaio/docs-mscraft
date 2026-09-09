@@ -1887,7 +1887,7 @@
       "id": "cgap:tea_drying_pan",
       "zh": "炒茶（煮饭）锅",
       "en": "Tea Drying Pan",
-      "icon": ""
+      "icon": "/images/minecraft/item/cauldron.png"
     },
     "minecraft:cauldron": {
       "id": "minecraft:cauldron",

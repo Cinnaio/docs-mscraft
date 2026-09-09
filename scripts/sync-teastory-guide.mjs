@@ -36,6 +36,9 @@ const vanillaNames = {
 }
 const tagIcons = { planks: 'oak_planks', logs: 'oak_log' }
 const modelIcons = {
+  // The custom model combines an oak-log frame with a cauldron, so use the
+  // vanilla cauldron sprite as its compact guide thumbnail.
+  tea_drying_pan: '/images/minecraft/item/cauldron.png',
   tea_table: '/images/teastory/tea_table.png',
   tea_stove: '/images/teastory/tea_stove.png',
   barrel: '/images/teastory/barrel.png',
@@ -73,7 +76,7 @@ function register(id) {
         if (!existsSync(destination) || !readFileSync(source).equals(readFileSync(destination))) copyFileSync(source, destination)
         icon = `/images/teastory/${name}.png`
       } else {
-        // Model-only machines use their names in the recipe result, never a substitute item image.
+        // Keep names for model-only items without a compact guide thumbnail.
         missingIcons.add(id)
       }
     }
