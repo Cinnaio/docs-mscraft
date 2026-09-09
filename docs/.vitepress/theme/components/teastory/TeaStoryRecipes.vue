@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, useId } from 'vue'
-import { withBase } from 'vitepress'
 import TeaStoryItem from './TeaStoryItem.vue'
+import TeaStoryRecipeBoard from './TeaStoryRecipeBoard.vue'
 import { fullId, items, foodIds, recipeFor, itemName, methodName } from './data'
 
 const props = withDefaults(defineProps<{ ids?: string[]; en?: boolean; catalog?: boolean }>(), { ids: () => [] })
@@ -92,28 +92,7 @@ watch([query, filter], () => {
         </select>
       </label>
       <template v-if="recipe">
-        <div class="tea-crafting" :class="{ 'tea-crafting--shapeless': !recipe.pattern }">
-          <div v-if="recipe.pattern" class="tea-crafting-grid" role="img" :aria-label="en ? '3 by 3 crafting pattern; ingredients listed below' : '三乘三工作台摆位，材料名称与数量见下方'">
-            <div v-for="(id, index) in recipe.pattern" :key="index" class="tea-crafting-slot" :title="id ? itemName(id, en) : (en ? 'Empty' : '空位')">
-              <img v-if="id && items[id]?.icon" :src="withBase(items[id].icon)" :alt="itemName(id, en)" width="40" height="40" loading="lazy" />
-              <span v-else-if="id">{{ itemName(id, en) }}</span>
-            </div>
-          </div>
-          <div v-else class="tea-ingredients">
-            <TeaStoryItem v-for="(part, index) in recipe.inputs" :key="index" :id="part.ids[0]" :count="part.count" :en="en"
-              :label="part.ids.length > 1 ? `${en ? 'Any: ' : '任一：'}${itemName(part.ids[0], en)}` : undefined"
-              :interactive="canOpen(part.ids[0])" @open="choose($event, true)" />
-          </div>
-          <span class="vpi-arrow-right tea-crafting-arrow" aria-hidden="true" />
-          <TeaStoryItem :id="recipe.result" :en="en" :count="recipe.count" class="tea-crafting-result" />
-        </div>
-        <ul v-if="recipe.pattern" class="tea-material-list">
-          <li v-for="(part, index) in recipe.inputs" :key="index">
-            <button v-if="canOpen(part.ids[0])" type="button" @click="choose(part.ids[0], true)">{{ itemName(part.ids[0], en) }}</button>
-            <span v-else>{{ itemName(part.ids[0], en) }}</span>
-            <span>× {{ part.count }}</span>
-          </li>
-        </ul>
+        <TeaStoryRecipeBoard :recipe="recipe" :en="en" :can-open="canOpen" @open="choose($event, true)" />
         <div class="tea-recipe-facts">
           <span v-if="recipe.time">{{ en ? 'Processing' : '加工时间' }} {{ recipe.time }} tick</span>
           <span v-if="selectedItem?.food">{{ en ? 'Nutrition' : '营养值' }} {{ selectedItem.food.nutrition }} · {{ en ? 'Saturation' : '饱和度' }} {{ selectedItem.food.saturation }}</span>
