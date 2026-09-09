@@ -20,7 +20,7 @@ const overlays = computed(() => recipe.value ? [
   { id: result.value, count: 1, slot: slots['output-slot'] },
 ] : [])
 function position(slot: number) {
-  return { left: `${(8 + slot % 9 * 18) / 176 * 100}%`, top: `${(18 + Math.floor(slot / 9) * 18) / 78 * 100}%` }
+  return { left: `${(9 + slot % 9 * 18) / 176 * 100}%`, top: `${(18 + Math.floor(slot / 9) * 18) / 78 * 100}%` }
 }
 </script>
 
