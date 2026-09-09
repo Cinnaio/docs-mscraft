@@ -7,6 +7,8 @@
 > Original project and license: [Tea-the-Story](https://github.com/RoShioLeo/Tea-the-Story?tab=readme-ov-file#license-%E8%AE%B8%E5%8F%AF%E8%AF%81)
 > **Core summary**: The TeaStory main loop is "harvest -> wither -> process -> ferment/finish -> brew/pour -> residue recycle". All primary processing and brewing happen on **five custom machines** — right-click a machine to open its GUI, load ingredients, and it processes automatically along a progress bar.
 
+> Seasons, weather, and TeaStory crop growth are calculated by **NatureEngine**. The former Season System content is now merged into this guide, and the season, weather, environment, and crop lists below follow the current server configuration.
+
 ## The Five Machines
 
 Tea processing no longer relies on vanilla campfires/furnaces. Instead, craft these five machine blocks at a crafting table and right-click to open their GUI:
@@ -69,6 +71,91 @@ All crop growth is affected by season, solar terms, and environment.
 8. **Brew (Tea Table)**: leaves/bags + boiled water pot + cup or empty kettle -> cup or kettle drink. See "Tea Table Brewing".
 9. **Pour (Tea Table)**: full kettle + empty cup -> cup drink (porcelain 4 cups / zisha 8 cups; returns empty kettle when drained).
 10. **Recycle**: any residue/scorched leaf x2 -> Baking Powder x1 (feeds back into fermentation).
+
+## Seasons, Weather, and the Tea Garden
+
+TeaStory crops do not grow at a fixed speed. NatureEngine combines the season, weather, each crop's temperature/humidity preference, minimum light, and planting environment. Season changes also show a title notification and refresh the seasonal visual layer.
+
+### Season parameters
+
+Each season lasts **10 in-game days**, for **40 in-game days** per year. Base temperature uses Minecraft's environment scale and humidity is 0 to 1. Growth and yield multipliers come from NatureEngine's season settings.
+
+| Season | Base temp | Base humidity | Growth | Yield display | Easy wither |
+|---|---:|---:|---:|---:|---|
+| Spring | 15.0 | 0.70 | x1.2 | x1.0 | No |
+| Summer | 25.0 | 0.50 | x1.1 | x1.1 | No |
+| Autumn | 10.0 | 0.60 | x1.0 | x1.2 | No |
+| Winter | 0.0 | 0.40 | x0.5 | x0.8 | Yes |
+
+The yield value is the setting shown in season notifications. Actual TeaStory drop counts still come from CraftEngine loot tables and MateriaEngine harvesting configuration; this table does not multiply every drop by itself.
+
+### Weather and solar terms
+
+Every **90 seconds**, NatureEngine selects a new weather state using the current season's weights. The selected state then lasts for its configured duration. Weights are Spring / Summer / Autumn / Winter:
+
+| Weather | Duration | Weights (S / Su / A / W) | Growth | Temperature / humidity / soil delta |
+|---|---:|---|---:|---|
+| Sunny | 300 s | 8 / 16 / 9 / 5 | x1.00 | +0.05 / -0.02 / -0.02 |
+| Rain | 240 s | 7 / 3 / 6 / 1 | x1.10 | -0.03 / +0.05 / +0.20 |
+| Storm | 180 s | 1 / 1 / 2 / 2 | x0.93 | -0.05 / +0.06 / +0.25 |
+| Snow | 240 s | 0 / 0 / 0 / 10 | x0.85 | -0.12 / +0.02 / +0.10 |
+
+The 24 solar terms only modify the probability of the next weather selection. They do not directly rewrite the weather profile's temperature or growth multiplier. The current configuration increases rain from Qingming to Guyu, slightly increases summer storms, favors sunny weather in autumn, and progressively favors snow while reducing rain from Lidong to Dahan.
+
+### Environment and growth checks
+
+The environment module is enabled. It scans 4 blocks horizontally and up to 6 blocks for a roof. A greenhouse requires a closure score of at least 0.6; openness below 0.25 is indoor, 0.80 or above is outdoor, and the middle range is semi-outdoor.
+
+| Environment | Stability | Advance boost | Typical use |
+|---|---:|---:|---|
+| Greenhouse | 1.00 | x1.02 | Winter protection and stable seedlings |
+| Indoor | 0.80 | x0.98 | A normal roofed farm room |
+| Semi-outdoor | 0.60 | x1.00 | Covered but still weather-exposed |
+| Outdoor | 0.35 | x1.00 | Open tea fields and natural orchards |
+
+These are small corrections in the final calculation. Stability and mitigation reduce the penalty when temperature or humidity is outside a crop's preferred range. The global advance threshold is **0.22**, the wither threshold is **0.02**, and NatureEngine's plugin random tick speed is **3**. Most TeaStory crops require minimum light 9; the vanilla Nether Wart entry uses 0.
+
+### TeaStory crop configuration
+
+The following TeaStory crops are registered in NatureEngine's current `crops.yml`; the stage count matches the CraftEngine maximum age (which starts at age 0).
+
+| Crop | Stages | Preferred seasons |
+|---|---:|---|
+| Tea tree | 6 | Spring, Summer, Autumn |
+| Jasmine | 3 | Spring, Summer |
+| Xian rice seed crop | 3 | Summer |
+| Xian rice plant | 7 | Summer |
+| Osmanthus | 3 | Summer, Autumn |
+| Cassava | 4 | Summer |
+| Mint | 3 | Spring, Summer |
+| Chrysanthemum | 3 | Autumn |
+| Ginger | 4 | Summer |
+| Lemongrass | 3 | Summer |
+| Roselle | 3 | Summer, Autumn |
+| Goji | 3 | Summer, Autumn |
+| Mung bean | 3 | Summer |
+| Lotus | 4 | Summer |
+
+NatureEngine also manages five TeaStory saplings: **jujube, pomelo, orange, persimmon, and peach**. All currently prefer Spring and Summer, use one sapling stage, and call their matching `cgap:*_tree` configured feature. TeaStory also defines a **lemon tree** trunk, leaves, fruiting state, and drops, but it is not currently listed under NatureEngine's `craftengine-trees`; it therefore does not yet have an independent seasonal preference in that registry.
+
+Orchard leaves use `fruiting=false/true` to distinguish ordinary and fruiting leaves. After fruit is harvested, MateriaEngine records its regrowth time; decorative leaves do not fruit automatically.
+
+### Useful commands
+
+| Command | Purpose |
+|---|---|
+| `/ne season info` | Show the current world's season, progress, and override state |
+| `/ne season next` | Switch to the next season (permission required) |
+| `/ne season set <spring|summer|autumn|winter>` | Set a manual season override |
+| `/ne season clear` | Clear the override and return to the natural cycle |
+| `/ne season apply` | Re-apply the current seasonal visuals |
+| `/ne debug` | Show season, weather, environment, and crop summary |
+| `/ne debug crop [detail]` | Show a compact or detailed crop growth diagnostic |
+| `/ne sim crop` | Simulate the target crop across seasons and weather without changing blocks |
+
+::: warning Configuration boundary
+NatureEngine owns seasons, weather, environment, and registered crop growth. TeaStory machine processing, CraftEngine loot, MateriaEngine harvest tools, fruit regrowth, and statistics remain owned by their respective configurations and plugins. Use `/ne debug crop detail` first to separate a growth-environment issue from a harvest or configuration issue.
+:::
 
 ## Processing Routes
 

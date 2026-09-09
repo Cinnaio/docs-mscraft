@@ -298,6 +298,7 @@ export default defineConfig({
           {
             text: '玩法维基',
             items: [
+              { text: '茶风纪事', link: '/tutorial/Teastory' },
               { text: '更多附魔', link: '/tutorial/EcoEnchants' },
             ]
           },
@@ -377,6 +378,7 @@ export default defineConfig({
           {
             text: 'Play Style Wiki',
             items: [
+              { text: 'Teastory', link: '/en/tutorial/Teastory' },
               { text: 'More Enchants', link: '/en/tutorial/EcoEnchants' },
             ]
           },

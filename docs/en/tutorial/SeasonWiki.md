@@ -1,5 +1,7 @@
 # Season System <Badge type="tip" text="Testing" />
 
+> This content is now part of the [Teastory guide](/en/tutorial/Teastory) under “Seasons, Weather, and the Tea Garden”. This file remains for old links; use the merged guide as the current reference.
+
 > The server uses **NatureEngine** plugin for seasonal changes and weather cycles. Spring, Summer, Autumn, and Winter each offer different gameplay experiences.
 
 ## Season Overview
