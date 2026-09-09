@@ -62,7 +62,7 @@
 .vp-doc .tea-icon-button span { width: 18px; height: 18px; }
 .vp-doc .tea-recipe-board { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(140px, .38fr); align-items: center; gap: clamp(18px, 3.5vw, 40px); margin: 24px 0 18px; padding: 22px 0; border-block: 1px solid var(--tea-line); }
 .vp-doc .tea-recipe-board__materials { display: grid; place-items: center; min-width: 0; min-height: 136px; }
-.vp-doc .tea-recipe-grid { --tea-slot-size: clamp(40px, 7vw, 48px); display: grid; grid-template-columns: repeat(3, var(--tea-slot-size)); gap: 4px; width: max-content; max-width: 100%; padding: 6px; background: var(--tea-surface-alt); border: 1px solid var(--tea-line); border-radius: 8px; }
+.vp-doc .tea-recipe-grid { --tea-slot-size: clamp(40px, 7vw, 48px); display: grid; grid-template-columns: repeat(3, var(--tea-slot-size)); gap: 4px; width: max-content; max-width: 100%; }
 .vp-doc .tea-recipe-slot { display: grid; place-items: center; width: var(--tea-slot-size); height: var(--tea-slot-size); overflow: hidden; background: var(--vp-c-bg); border: 1px solid var(--tea-line); border-radius: 4px; font-size: 10px; line-height: 1.25; text-align: center; }
 .vp-doc .tea-recipe-slot img { width: min(40px, calc(var(--tea-slot-size) - 8px)); height: min(40px, calc(var(--tea-slot-size) - 8px)); object-fit: contain; image-rendering: pixelated; margin: 0; }
 .vp-doc .tea-recipe-ingredients { display: grid; grid-template-columns: repeat(auto-fit, minmax(88px, 1fr)); align-items: start; justify-items: center; gap: 14px 10px; width: min(100%, 440px); }
