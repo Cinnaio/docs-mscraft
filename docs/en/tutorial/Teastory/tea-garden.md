@@ -16,7 +16,7 @@ import '../../../.vitepress/theme/teastory-guide.css'
 
 <p class="tea-lead">Coordinate seasons, surroundings and the right tools for a steady harvest of tea, herbs, rice and fruit.</p>
 
-[← Back to the TeaStory collection](/en/tutorial/Teastory)
+<p class="tea-chapter-back"><a href="/en/tutorial/Teastory"><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-left"></span></span><span>Back to the TeaStory collection</span></a></p>
 
 Each season lasts **10 in-game days**. Tea prefers spring, summer and autumn; growth slows in winter. A preference does not prohibit planting in other seasons. Light, temperature, humidity and surroundings also affect growth.
 
@@ -58,11 +58,10 @@ Grow peach, lemon, jujube, pomelo, orange and persimmon. Use a Fruit Picker on v
 
 Right-click to use harvesting tools. Durability follows the number of plants actually harvested. **Without seeds, mature crops are removed and not replanted.** Check your seed supply first and watch the action-bar feedback.
 
-<details class="tea-reference">
-<summary>Harvesting tool recipes</summary>
+::: details Harvesting tool recipes
 
 <TeaStoryRecipes en :ids="['sickle', 'tea_shears', 'herb_shears', 'root_spade', 'fruit_picker', 'harvest_basket', 'seed_pouch']" />
 
-</details>
+:::
 
-[Next chapter: Food catalog →](/en/tutorial/Teastory/food)
+<p class="tea-chapter-next"><a href="/en/tutorial/Teastory/food"><span>Next chapter: Food catalog</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>

@@ -13,7 +13,7 @@ import '../../.vitepress/theme/teastory-guide.css'
 
 <p class="tea-lead">把茶室布置、收成记录、排障说明和进阶配置放在同一页，需要时快速查阅。</p>
 
-[← 返回茶风纪事集合](/tutorial/Teastory)
+<p class="tea-chapter-back"><a href="/tutorial/Teastory"><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-left"></span></span><span>返回茶风纪事集合</span></a></p>
 
 ## 茶室与收成记录 {#tea-room}
 
@@ -27,33 +27,28 @@ import '../../.vitepress/theme/teastory-guide.css'
 
 ## 遇到问题时 {#appendix}
 
-<details class="tea-faq">
-<summary>茶树不长，是不是季节不对？</summary>
+::: details 茶树不长，是不是季节不对？
 
 先检查底部方块和光照，再考虑季节、温湿度与周围结构。季节偏好只是影响因素之一。仍不生长时，请管理员在作物旁用 `/ne debug crop detail` 查看具体原因，普通玩家没有该命令权限。
 
-</details>
-<details class="tea-faq">
-<summary>茶盘为什么产出湿茶或炒出焦叶？</summary>
+:::
+::: details 茶盘为什么产出湿茶或炒出焦叶？
 
 雨天和雷暴会把鲜叶变成湿茶。等晴天把湿茶放回茶盘，挽救成萎凋叶后再炒；湿茶直接进入炒茶锅会产生焦叶。
 
-</details>
-<details class="tea-faq">
-<summary>机器材料齐了，为什么不开始？</summary>
+:::
+::: details 机器材料齐了，为什么不开始？
 
 炒茶锅和茶炉检查燃料，发酵桶只能用发酵粉。茶桌需要开水壶，并按各自槽位放入茶叶、容器与其他材料。产出槽里留有物品时也应先取走。潜行右击机器可以取回放错的内部物品。
 
-</details>
-<details class="tea-faq">
-<summary>果实过了 20 分钟还没恢复？</summary>
+:::
+::: details 果实过了 20 分钟还没恢复？
 
 只有符合条件的持久结果叶会恢复。离线时间计入等待时间，但区块需要再次加载；树叶被移除后不会自动重建，普通非持久树叶也不会自动结果。
 
-</details>
+:::
 
-<details class="tea-reference">
-<summary>进阶参考：季节、环境和作物参数</summary>
+::: details 进阶参考：季节、环境和作物参数
 
 | 季节 | 基准温度 | 基准湿度 | 生长倍率 | 配置产量倍率 |
 |---|---:|---:|---:|---:|
@@ -95,9 +90,8 @@ import '../../.vitepress/theme/teastory-guide.css'
 
 天气每 90 秒重新抽选。晴 / 雨 / 雷雨 / 雪的配置时长为 300 / 240 / 180 / 240 秒，不能视为保证的保持时间。节气改变下一场天气的权重；雪在 Bukkit 层映射为普通降水。
 
-</details>
-<details class="tea-reference">
-<summary>管理员参考与文档来源</summary>
+:::
+::: details 管理员参考与文档来源
 
 NatureEngine 命令要求 OP：`/ne season info` 查看季节，`/ne season next` 推进，`/ne season set <spring|summer|autumn|winter>` 设置覆盖，`/ne season clear` 恢复自然推进，`/ne season apply` 重应用视觉。
 
@@ -107,6 +101,6 @@ NatureEngine 命令要求 OP：`/ne season info` 查看季节，`/ne season next
 
 配方、名称与物品图取自 CraftEngine 资源配置，茶桌投料取自 MateriaEngine。环境规则参照 NatureEngine，成就参照 BeaconEngine。这里记录本地配置表达的规则，线上部署版本、区块加载和其他插件可能影响运行结果。
 
-</details>
+:::
 
 <p class="tea-credits">本玩法基于 <a href="https://github.com/RoShioLeo/Tea-the-Story?tab=readme-ov-file#license-%E8%AE%B8%E5%8F%AF%E8%AF%81">Tea-the-Story</a> 二次创作，并遵循原项目许可。<a href="/tutorial/SeasonWiki">旧季节玩法入口</a>仍保留。</p>

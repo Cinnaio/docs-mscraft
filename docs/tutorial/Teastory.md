@@ -19,49 +19,49 @@ import '../.vitepress/theme/teastory-guide.css'
 
 从茶种子、鲜叶和第一杯绿茶开始，沿着四步流程认识茶盘、炒茶锅、茶桌与开水壶。
 
-[打开第一杯茶与设备章节 →](/tutorial/Teastory/first-cup)
+<p class="tea-collection-link"><a href="/tutorial/Teastory/first-cup"><span>打开第一杯茶与设备章节</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>
 
 ### 设备与容器配方 {#equipment}
 
 茶盘、炒茶锅、茶桌、杯子和水壶的完整配方已经随第一杯茶章节整理。
 
-[查看设备与容器配方 →](/tutorial/Teastory/first-cup#equipment)
+<p class="tea-collection-link"><a href="/tutorial/Teastory/first-cup#equipment"><span>查看设备与容器配方</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>
 
 ## 制茶路线 {#tea-making}
 
 鲜叶萎凋后，可以继续做绿茶、白茶、黄茶、乌龙、红茶、普洱和抹茶。
 
-[打开制茶路线章节 →](/tutorial/Teastory/tea-making)
+<p class="tea-collection-link"><a href="/tutorial/Teastory/tea-making"><span>打开制茶路线章节</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>
 
 ## 冲泡与茶具 {#brewing}
 
 查看杯装、壶装、茶包、倒杯回收，以及不同茶饮的效果和容器限制。
 
-[打开冲泡与茶具章节 →](/tutorial/Teastory/brewing)
+<p class="tea-collection-link"><a href="/tutorial/Teastory/brewing"><span>打开冲泡与茶具章节</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>
 
 ## 种植与采收 {#tea-garden}
 
 季节、光照、温湿度和种植环境共同影响收成；茶园章节也包含水稻、果树和采收工具。
 
-[打开种植与采收章节 →](/tutorial/Teastory/tea-garden)
+<p class="tea-collection-link"><a href="/tutorial/Teastory/tea-garden"><span>打开种植与采收章节</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>
 
 ### 田园、稻田与果园 {#garden-orchard}
 
 水稻需要先育苗再移栽，果树则使用结果树叶与摘果器完成收获。
 
-[查看田园、稻田与果园 →](/tutorial/Teastory/tea-garden#garden-orchard)
+<p class="tea-collection-link"><a href="/tutorial/Teastory/tea-garden#garden-orchard"><span>查看田园、稻田与果园</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>
 
 ### 选对采收工具 {#harvest-tools}
 
 镰刀、茶剪、花草剪、根铲、摘果器、收获篮和种子袋各有适用范围。
 
-[查看采收工具 →](/tutorial/Teastory/tea-garden#harvest-tools)
+<p class="tea-collection-link"><a href="/tutorial/Teastory/tea-garden#harvest-tools"><span>查看采收工具</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>
 
 ## 茶点图鉴 {#food}
 
 按类别浏览茶点、料理与饮品，并顺着原料加工路线准备材料。
 
-[打开茶点图鉴章节 →](/tutorial/Teastory/food)
+<p class="tea-collection-link"><a href="/tutorial/Teastory/food"><span>打开茶点图鉴章节</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>
 
 ## 茶室与收成记录 {#tea-room}
 
@@ -71,10 +71,10 @@ import '../.vitepress/theme/teastory-guide.css'
 
 收成面板、统计命令和成就里程碑都集中在参考章节。
 
-[查看茶室与收成记录 →](/tutorial/Teastory/reference#tea-room)
+<p class="tea-collection-link"><a href="/tutorial/Teastory/reference#tea-room"><span>查看茶室与收成记录</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>
 
 ## 常见问题与参考 {#appendix}
 
 从茶树不生长、机器不启动到季节和环境参数，这里保留排障、管理员命令与配置参考。
 
-[打开常见问题与参考章节 →](/tutorial/Teastory/reference)
+<p class="tea-collection-link"><a href="/tutorial/Teastory/reference"><span>打开常见问题与参考章节</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>

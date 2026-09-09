@@ -15,7 +15,7 @@ import '../../.vitepress/theme/teastory-guide.css'
 
 <p class="tea-lead">从茶种子和鲜叶开始，沿着四步流程做出第一杯绿茶。</p>
 
-[← 返回茶风纪事集合](/tutorial/Teastory)
+<p class="tea-chapter-back"><a href="/tutorial/Teastory"><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-left"></span></span><span>返回茶风纪事集合</span></a></p>
 
 ## 先做一杯绿茶 {#first-cup}
 
@@ -67,4 +67,4 @@ import '../../.vitepress/theme/teastory-guide.css'
 
 <TeaStoryRecipes :ids="['teapan', 'tea_drying_pan', 'tea_table', 'cup_glass', 'pot_stone', 'barrel', 'tea_stove', 'wooden_mortar_and_pestle']" />
 
-[下一章：制茶路线 →](/tutorial/Teastory/tea-making)
+<p class="tea-chapter-next"><a href="/tutorial/Teastory/tea-making"><span>下一章：制茶路线</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>

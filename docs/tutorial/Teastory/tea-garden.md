@@ -16,7 +16,7 @@ import '../../.vitepress/theme/teastory-guide.css'
 
 <p class="tea-lead">把季节、环境和合适的工具安排好，才能稳定地收获茶叶、花草、稻米与果实。</p>
 
-[← 返回茶风纪事集合](/tutorial/Teastory)
+<p class="tea-chapter-back"><a href="/tutorial/Teastory"><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-left"></span></span><span>返回茶风纪事集合</span></a></p>
 
 每个季节持续 **10 个游戏日**。春、夏、秋都适合茶树；冬季生长会变慢。季节偏好不代表其他季节完全不能种，光照、温湿度和种植环境也会影响生长。
 
@@ -58,11 +58,10 @@ import '../../.vitepress/theme/teastory-guide.css'
 
 工具通过右击使用，并按实际采收数量消耗耐久。**缺少种子时不会自动续种，成熟作物会被移除**；采收前先检查种子数量，采收后留意动作栏提示。
 
-<details class="tea-reference">
-<summary>采收工具合成配方</summary>
+::: details 采收工具合成配方
 
 <TeaStoryRecipes :ids="['sickle', 'tea_shears', 'herb_shears', 'root_spade', 'fruit_picker', 'harvest_basket', 'seed_pouch']" />
 
-</details>
+:::
 
-[下一章：茶点图鉴 →](/tutorial/Teastory/food)
+<p class="tea-chapter-next"><a href="/tutorial/Teastory/food"><span>下一章：茶点图鉴</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>

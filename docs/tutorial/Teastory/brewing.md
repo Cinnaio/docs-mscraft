@@ -15,7 +15,7 @@ import '../../.vitepress/theme/teastory-guide.css'
 
 <p class="tea-lead">从一只杯子到一整壶茶，掌握茶桌的投料位置、茶包和回收规则。</p>
 
-[← 返回茶风纪事集合](/tutorial/Teastory)
+<p class="tea-chapter-back"><a href="/tutorial/Teastory"><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-left"></span></span><span>返回茶风纪事集合</span></a></p>
 
 杯装纯茶用 **2 份茶叶**。壶装使用茶包：瓷壶用 1 个，紫砂壶用 2 个，分别最多倒出 4 杯和 8 杯。奶茶、柠檬茶、抹茶还有额外材料。
 
@@ -29,8 +29,7 @@ import '../../.vitepress/theme/teastory-guide.css'
 
 <TeaStoryFlow :steps="[{ id: 'green_tea_leaf', count: 6, note: '与空茶包合成' }, { id: 'green_tea_bag', note: '用于壶装冲泡' }, { id: 'green_tea_residue', note: '两份茶渣可回收发酵粉' }]" />
 
-<details class="tea-reference">
-<summary>茶饮效果速查</summary>
+::: details 茶饮效果速查
 
 | 茶饮 | 效果 | 持续时间 |
 |---|---|---:|
@@ -47,6 +46,6 @@ import '../../.vitepress/theme/teastory-guide.css'
 
 基础茶饮营养值为 5、饱和度为 3.5。复配饮品和食品各有自己的配置，不能仅凭名称推断效果。
 
-</details>
+:::
 
-[下一章：种植与采收 →](/tutorial/Teastory/tea-garden)
+<p class="tea-chapter-next"><a href="/tutorial/Teastory/tea-garden"><span>下一章：种植与采收</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>

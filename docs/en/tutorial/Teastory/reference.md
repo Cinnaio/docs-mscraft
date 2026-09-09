@@ -13,7 +13,7 @@ import '../../../.vitepress/theme/teastory-guide.css'
 
 <p class="tea-lead">Keep tea-room setup, harvest records, troubleshooting and advanced configuration in one place for quick reference.</p>
 
-[← Back to the TeaStory collection](/en/tutorial/Teastory)
+<p class="tea-chapter-back"><a href="/en/tutorial/Teastory"><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-left"></span></span><span>Back to the TeaStory collection</span></a></p>
 
 ## Tea rooms and harvest records {#tea-room}
 
@@ -27,33 +27,28 @@ Seeds, first planting and harvest, cumulative harvests, quality upgrades, proces
 
 ## Troubleshooting {#appendix}
 
-<details class="tea-faq">
-<summary>My tea is not growing. Is the season wrong?</summary>
+::: details My tea is not growing. Is the season wrong?
 
 Check the ground and light first, then consider season, temperature, humidity and nearby structures. Ask an administrator to run `/ne debug crop detail` beside the crop for a diagnosis. Ordinary players do not have permission for this command.
 
-</details>
-<details class="tea-faq">
-<summary>Why did I get wet or burnt leaves?</summary>
+:::
+::: details Why did I get wet or burnt leaves?
 
 Rain and thunderstorms turn fresh leaves into wet leaves. Rescue them in the Tea Pan in clear weather before frying. Putting wet leaves straight in the Frying Pan produces burnt leaves.
 
-</details>
-<details class="tea-faq">
-<summary>The machine has ingredients but will not start.</summary>
+:::
+::: details The machine has ingredients but will not start.
 
 Check fuel in the Frying Pan and Tea Stove; only fermentation powder works in the barrel. Use boiled water in the Tea Table and place every ingredient in its matching slot. Clear the output slot. Sneak-right-click a machine to retrieve misplaced contents.
 
-</details>
-<details class="tea-faq">
-<summary>Fruit has not returned after 20 minutes.</summary>
+:::
+::: details Fruit has not returned after 20 minutes.
 
 Only eligible persistent fruiting leaves regrow. Offline time counts, but the chunk must load again. Removed leaves are not rebuilt, and non-persistent leaves do not automatically regrow fruit.
 
-</details>
+:::
 
-<details class="tea-reference">
-<summary>Advanced reference: seasons, environment and crops</summary>
+::: details Advanced reference: seasons, environment and crops
 
 | Season | Base temperature | Base humidity | Growth multiplier | Configured yield multiplier |
 |---|---:|---:|---:|---:|
@@ -95,9 +90,8 @@ Global progress threshold is 0.22, wither threshold 0.02, random tick speed 3 an
 
 Weather is redrawn every 90 seconds. Configured clear / rain / thunder / snow durations are 300 / 240 / 180 / 240 seconds, not guaranteed hold times. Solar terms adjust the next draw's weights; snow maps to ordinary precipitation in Bukkit.
 
-</details>
-<details class="tea-reference">
-<summary>Administrator reference and sources</summary>
+:::
+::: details Administrator reference and sources
 
 NatureEngine commands require OP. `/ne season info` inspects the season; `/ne season next` advances it; `/ne season set <spring|summer|autumn|winter>` sets an override; `/ne season clear` restores natural progression; `/ne season apply` reapplies visuals.
 
@@ -107,6 +101,6 @@ Use `/ne debug`, `/ne debug crop detail` and `/ne debug visual` to inspect state
 
 Recipes, names and item artwork come from CraftEngine resource configuration. Tea Table inputs come from MateriaEngine; environment rules from NatureEngine; achievements from BeaconEngine. This page describes local configuration. Deployment versions, chunk loading and other plugins can affect actual server behavior.
 
-</details>
+:::
 
 <p class="tea-credits">Derived from <a href="https://github.com/RoShioLeo/Tea-the-Story?tab=readme-ov-file#license-%E8%AE%B8%E5%8F%AF%E8%AF%81">Tea-the-Story</a> under its original license. The <a href="/en/tutorial/SeasonWiki">old seasons entry</a> remains available.</p>

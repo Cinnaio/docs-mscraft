@@ -14,14 +14,13 @@ import '../../../.vitepress/theme/teastory-guide.css'
 
 <p class="tea-lead">Wither fresh leaves first, then follow a route to the tea you want.</p>
 
-[← Back to the TeaStory collection](/en/tutorial/Teastory)
+<p class="tea-chapter-back"><a href="/en/tutorial/Teastory"><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-left"></span></span><span>Back to the TeaStory collection</span></a></p>
 
 Fermentation completes one stage at a time: take out the intermediate item and reinsert it to continue. Once it reaches the desired stage, roast it in the Tea Stove.
 
 <TeaStoryRoutes en />
 
-<details class="tea-reference">
-<summary>Leaf grades, fermentation fuel and processing times</summary>
+::: details Leaf grades, fermentation fuel and processing times
 
 Fresh leaves have five grades: bud, one bud with one leaf, two leaves, three leaves, and old leaf. Mature tea uses weights 5 / 15 / 25 / 30 / 25 respectively. Tea Shears provide an additional upgrade chance. Wet-weather withering and rescuing wet leaves lose the grade.
 
@@ -41,6 +40,6 @@ A wooden mortar and pestle plus 1 fixed leaf produces 3 broken leaves at a craft
 
 Times are configured ticks. At 20 ticks per second, 20 ticks equal about one second; server performance can affect actual waiting time.
 
-</details>
+:::
 
-[Next chapter: Brewing & teaware →](/en/tutorial/Teastory/brewing)
+<p class="tea-chapter-next"><a href="/en/tutorial/Teastory/brewing"><span>Next chapter: Brewing &amp; teaware</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>

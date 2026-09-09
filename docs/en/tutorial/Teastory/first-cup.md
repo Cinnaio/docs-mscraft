@@ -15,7 +15,7 @@ import '../../../.vitepress/theme/teastory-guide.css'
 
 <p class="tea-lead">Start with tea seeds and fresh leaves, then follow four steps to make your first green tea.</p>
 
-[← Back to the TeaStory collection](/en/tutorial/Teastory)
+<p class="tea-chapter-back"><a href="/en/tutorial/Teastory"><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-left"></span></span><span>Back to the TeaStory collection</span></a></p>
 
 ## Make your first green tea {#first-cup}
 
@@ -67,4 +67,4 @@ Put **2 green tea leaves + any boiled kettle + 1 empty cup** into the Tea Table.
 
 <TeaStoryRecipes en :ids="['teapan', 'tea_drying_pan', 'tea_table', 'cup_glass', 'pot_stone', 'barrel', 'tea_stove', 'wooden_mortar_and_pestle']" />
 
-[Next chapter: Processing routes →](/en/tutorial/Teastory/tea-making)
+<p class="tea-chapter-next"><a href="/en/tutorial/Teastory/tea-making"><span>Next chapter: Processing routes</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>

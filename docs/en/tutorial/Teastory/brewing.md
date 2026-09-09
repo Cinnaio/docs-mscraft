@@ -15,7 +15,7 @@ import '../../../.vitepress/theme/teastory-guide.css'
 
 <p class="tea-lead">From a single cup to a full teapot, learn the Tea Table slots, tea bags and recycling rules.</p>
 
-[← Back to the TeaStory collection](/en/tutorial/Teastory)
+<p class="tea-chapter-back"><a href="/en/tutorial/Teastory"><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-left"></span></span><span>Back to the TeaStory collection</span></a></p>
 
 A cup of plain tea needs **2 leaves**. A porcelain teapot uses 1 tea bag and serves up to 4 cups; a zisha teapot uses 2 bags and serves up to 8. Milk tea, lemon tea and matcha require extra ingredients.
 
@@ -29,8 +29,7 @@ Place a filled teapot and an empty cup in the Tea Table to pour. Each pour takes
 
 <TeaStoryFlow en :steps="[{ id: 'green_tea_leaf', count: 6, note: 'Craft with an empty tea bag' }, { id: 'green_tea_bag', note: 'Brew a teapot' }, { id: 'green_tea_residue', note: 'Recycle 2 residues into powder' }]" />
 
-<details class="tea-reference">
-<summary>Tea effects</summary>
+::: details Tea effects
 
 | Tea | Effect | Duration |
 |---|---|---:|
@@ -47,6 +46,6 @@ Place a filled teapot and an empty cup in the Tea Table to pour. Each pour takes
 
 Base tea drinks have nutrition 5 and saturation 3.5. Other food and blended drinks use their own values; their names do not guarantee an effect.
 
-</details>
+:::
 
-[Next chapter: Growing & harvesting →](/en/tutorial/Teastory/tea-garden)
+<p class="tea-chapter-next"><a href="/en/tutorial/Teastory/tea-garden"><span>Next chapter: Growing &amp; harvesting</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>

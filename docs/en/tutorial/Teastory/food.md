@@ -15,10 +15,10 @@ import '../../../.vitepress/theme/teastory-guide.css'
 
 <p class="tea-lead">From tea, flowers and rice to a Chinese tea table, follow every ingredient from harvest to plate.</p>
 
-[← Back to the TeaStory collection](/en/tutorial/Teastory)
+<p class="tea-chapter-back"><a href="/en/tutorial/Teastory"><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-left"></span></span><span>Back to the TeaStory collection</span></a></p>
 
 Browse {{ foodIds.length }} foods and drinks. Ingredients have their own processing chains: mill grains into rice and rice into flour; dry fresh flowers before adding them to tea or pastries.
 
 <TeaStoryRecipes en catalog />
 
-[Next chapter: FAQ & reference →](/en/tutorial/Teastory/reference)
+<p class="tea-chapter-next"><a href="/en/tutorial/Teastory/reference"><span>Next chapter: FAQ &amp; reference</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>

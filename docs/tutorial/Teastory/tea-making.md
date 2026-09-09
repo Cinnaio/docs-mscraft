@@ -14,14 +14,13 @@ import '../../.vitepress/theme/teastory-guide.css'
 
 <p class="tea-lead">鲜叶先经过萎凋，再沿着不同工艺走向不同的茶。</p>
 
-[← 返回茶风纪事集合](/tutorial/Teastory)
+<p class="tea-chapter-back"><a href="/tutorial/Teastory"><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-left"></span></span><span>返回茶风纪事集合</span></a></p>
 
 发酵每次只完成一级，取出中间产物后才能继续下一步；达到需要的发酵程度，就放入茶炉烘焙。
 
 <TeaStoryRoutes />
 
-<details class="tea-reference">
-<summary>鲜叶等级、发酵燃料和加工时间</summary>
+::: details 鲜叶等级、发酵燃料和加工时间
 
 鲜叶分为单芽、一芽一叶、一芽二叶、一芽三叶、老叶。茶树成熟时按 5 / 15 / 25 / 30 / 25 的权重抽取等级；茶剪另有品质升级机会。雨天萎凋和湿茶挽救会丢失等级。
 
@@ -41,6 +40,6 @@ import '../../.vitepress/theme/teastory-guide.css'
 
 时间为配置 tick，20 tick 约为 1 秒；服务器运行速度会影响实际等待时间。
 
-</details>
+:::
 
-[下一章：冲泡与茶具 →](/tutorial/Teastory/brewing)
+<p class="tea-chapter-next"><a href="/tutorial/Teastory/brewing"><span>下一章：冲泡与茶具</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>
