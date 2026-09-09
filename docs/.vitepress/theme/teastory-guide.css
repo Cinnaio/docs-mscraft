@@ -10,9 +10,6 @@
   --tea-surface-alt: var(--vp-c-bg-alt);
   --tea-radius: 8px;
 }
-/* Keep the native sidebar scrollable while letting the layout breathe without a visible track. */
-.teastory-page .VPSidebar { scrollbar-width: none; -ms-overflow-style: none; }
-.teastory-page .VPSidebar::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .vp-doc .tea-lead { color: var(--vp-c-text-2); font-size: 17px; line-height: 1.8; }
 .vp-doc .tea-chapter-back,
 .vp-doc .tea-chapter-next { margin: 22px 0 32px; }

@@ -7,6 +7,10 @@
 @import './team-page.css';
 @import './teastory.css';
 
+/* Keep every native sidebar scrollable while removing the visible track. */
+.VPSidebar { scrollbar-width: none; -ms-overflow-style: none; }
+.VPSidebar::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
 /* Selection: softer highlight to match brand palette */
 ::selection {
   background: color-mix(in srgb, var(--vp-c-brand-1) 25%, transparent);
