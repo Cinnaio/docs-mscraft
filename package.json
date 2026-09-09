@@ -1,10 +1,12 @@
 {
   "devDependencies": {
-    "vitepress": "^2.0.0-alpha.17"
+    "vitepress": "^2.0.0-alpha.17",
+    "yaml": "^2.9.0"
   },
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "node scripts/unshallow-git.js && node scripts/optimize-images.js && vitepress build docs",
+    "docs:check:teastory": "node scripts/check-teastory-guide.mjs",
     "docs:favicon": "node scripts/generate-favicon.js",
     "docs:preview": "vitepress preview docs"
   },

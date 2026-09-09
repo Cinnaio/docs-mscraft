@@ -1,437 +1,293 @@
-# TeaStory: From Fresh Leaf to Tea Table <Badge type="tip" text="Testing" />
+---
+title: TeaStory
+description: Grow a tea garden, make your first cup, and turn the harvest into Chinese food and drinks.
+aside: false
+pageClass: teastory-page
+---
 
-> TeaStory is a farming, tea-making, brewing, and Chinese food progression. This guide follows the current CraftEngine, NatureEngine, MateriaEngine, and BeaconEngine configuration. Values and recipes can change when the server configuration changes.
+<script setup>
+import TeaStoryFlow from '../../.vitepress/theme/components/teastory/TeaStoryFlow.vue'
+import TeaStoryItem from '../../.vitepress/theme/components/teastory/TeaStoryItem.vue'
+import TeaStoryRecipes from '../../.vitepress/theme/components/teastory/TeaStoryRecipes.vue'
+import TeaStoryRoutes from '../../.vitepress/theme/components/teastory/TeaStoryRoutes.vue'
+import TeaStoryBrewing from '../../.vitepress/theme/components/teastory/TeaStoryBrewing.vue'
+import { foodIds } from '../../.vitepress/theme/components/teastory/data'
+import '../../.vitepress/theme/teastory-guide.css'
+</script>
 
-> Credits and license: this gameplay is a respectful derivative work and follows the original project license. See [Tea-the-Story](https://github.com/RoShioLeo/Tea-the-Story?tab=readme-ov-file#license-%E8%AE%B8%E5%8F%AF%E8%AF%81) for the original project and license.
+# TeaStory <Badge type="tip" text="Testing" />
 
-The main loop is **plant → harvest → wither → fix or ferment → brew → pour → recycle residue**. The Tea Pan, Frying Pan, Fermentation Barrel, Tea Stove, and Tea Table handle processing. NatureEngine contributes season, weather, and environment calculations. MateriaEngine handles harvesting, fruit regrowth, and harvest statistics.
+<p class="tea-lead">Grow a small tea garden, brew your first cup, and bring the season's harvest to the table.</p>
 
-<div class="teastory-hero">
-  <div class="teastory-hero__copy">
-    <p class="teastory-hero__lead">Turn one fresh leaf into a whole tea table.</p>
-    <p>Care for the crop, send each harvest through the machines, then finish it at the Tea Table or in a dish. These images are reading cues; the detailed numbers remain in the sections below and in the server configuration.</p>
-    <div class="teastory-hero__chips" aria-label="TeaStory core items">
-      <span class="item-chip"><img src="/images/teastory/tea_seeds.png" alt="Tea seeds" />Tea seeds</span>
-      <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="Fresh leaf" />Fresh leaf</span>
-      <span class="item-chip"><img src="/images/teastory/wooden_mortar_and_pestle.png" alt="Wooden mortar and pestle" />Grind</span>
-      <span class="item-chip"><img src="/images/teastory/green_tea_glass.png" alt="Glass of green tea" />A cup of tea</span>
-    </div>
-  </div>
-  <div class="teastory-hero__art" aria-label="TeaStory item preview">
-    <figure class="teastory-hero__tile"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="Fresh bud leaf" /><figcaption>Harvest</figcaption></figure>
-    <figure class="teastory-hero__tile"><img src="/images/teastory/tea_leaf.png" alt="Green leaf" /><figcaption>Fixation</figcaption></figure>
-    <figure class="teastory-hero__tile"><img src="/images/teastory/green_tea_glass.png" alt="Glass of green tea" /><figcaption>Brew</figcaption></figure>
-    <figure class="teastory-hero__tile"><img src="/images/teastory/paddy_field.png" alt="Paddy field" /><figcaption>Garden</figcaption></figure>
-  </div>
+<nav class="tea-nav" aria-label="TeaStory sections">
+  <a href="#first-cup">First cup</a>
+  <a href="#tea-making">Tea processing</a>
+  <a href="#brewing">Brewing</a>
+  <a href="#tea-garden">Growing & harvesting</a>
+  <a href="#food">Food & drinks</a>
+  <a href="#appendix">Troubleshooting</a>
+</nav>
+
+## Make your first green tea {#first-cup}
+
+Prepare a **Tea Pan, Frying Pan and Tea Table**, plus fuel, a cup and a water kettle. The [equipment recipes](#equipment) follow these steps. Green tea does not require a Fermentation Barrel or Tea Stove.
+
+<div class="tea-step">
+
+### <span>1</span> Plant tea and harvest fresh leaves
+
+Breaking registered vanilla leaves, including oak and birch, has a **0.8%** chance of dropping Tea Seeds. Plant them on suitable soil or farmland with at least **light level 9**. Once mature, right-click with a Sickle to harvest. Keep a tea seed in your inventory for replanting.
+
+<TeaStoryFlow en :steps="[{ id: 'tea_seeds', note: 'Plant on suitable soil' }, { id: 'fresh_tea_leaf_bud', label: 'Graded fresh leaves', note: 'Harvest when mature; bud shown' }]" />
+
 </div>
 
-## Quick navigation
+<div class="tea-step">
 
-- [First cup: green tea](#first-cup)
-- [Tea garden: seasons and environment](#tea-garden)
-- [Harvesting, replanting, and tools](#harvest-tools)
-- [Tea-making routes](#tea-making)
-- [Brewing, tea ware, and pouring](#brewing)
-- [Garden, paddy, and orchard](#garden-orchard)
-- [Food, dishes, and blended drinks](#food)
-- [Tea room, machines, and display](#tea-room)
-- [Harvest records and achievements](#records)
-- [Configuration boundaries and troubleshooting](#appendix)
+### <span>2</span> Wither the leaves in clear weather
 
-<div class="teastory-flow" aria-label="TeaStory process">
-  <div class="teastory-flow__item"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="Fresh leaf" /><div><strong>Harvest</strong><span>Grade the leaf</span></div></div>
-  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
-  <div class="teastory-flow__item"><img src="/images/teastory/withered_tea_leaf_bud.png" alt="Withered leaf" /><div><strong>Wither</strong><span>Watch the weather</span></div></div>
-  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
-  <div class="teastory-flow__item"><img src="/images/teastory/tea_leaf.png" alt="Green leaf" /><div><strong>Fix</strong><span>Pan or stove</span></div></div>
-  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
-  <div class="teastory-flow__item"><img src="/images/teastory/green_tea_leaf.png" alt="Green tea leaf" /><div><strong>Finish</strong><span>Seven routes</span></div></div>
-  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
-  <div class="teastory-flow__item"><img src="/images/teastory/green_tea_glass.png" alt="Glass of green tea" /><div><strong>Tea Table</strong><span>Brew and pour</span></div></div>
-  <span class="teastory-flow__arrow" aria-hidden="true">&rarr;</span>
-  <div class="teastory-flow__item"><img src="/images/teastory/baking_powder.png" alt="Baking powder" /><div><strong>Recycle</strong><span>Use the residue</span></div></div>
+Right-click the Tea Pan, place leaves in its input and collect the finished withered leaves. **Clear weather preserves the grade; rain and thunderstorms produce wet leaves.** Wet leaves can be rescued in the Tea Pan when the weather clears, but their grade will be lost.
+
+<TeaStoryFlow en :steps="[{ id: 'fresh_tea_leaf_bud', label: 'Graded fresh leaves' }, { id: 'withered_tea_leaf_bud', label: 'Same-grade withered leaves', note: 'Tea Pan · clear weather · 100 ticks' }]" />
+
 </div>
 
-<a id="first-cup"></a>
-## First cup: green tea
+<div class="tea-step">
 
-Follow this path when you are new to the system.
+### <span>3</span> Process twice: fix, then pan-fire
 
-1. **Craft the stations and tools.** The crafting table provides the Tea Pan, Frying Pan, Fermentation Barrel, Tea Stove, Tea Table, sickle, wooden mortar and pestle, and tea whisk. The Tea Pan and Barrel use planks; the Stove uses bricks and cobblestone; the Frying Pan uses iron ingots, a cauldron, and logs; the Tea Table uses smooth stone slabs and planks. Use the CraftEngine recipe interface for the exact shaped patterns.
-2. **Plant tea.** Find <span class="item-chip"><img src="/images/teastory/tea_seeds.png" alt="Tea seeds" />Tea seeds</span> in world loot and plant it on a valid base block with enough light. The tea tree reaches mature age 6. When a sickle harvest finds a matching seed in your inventory or seed pouch, it resets the plant to age 0 and consumes one seed.
-3. **Wither on a clear day.** Put <span class="item-chip"><img src="/images/teastory/fresh_tea_leaf_bud.png" alt="Graded fresh leaf" />graded fresh leaf</span> into the Tea Pan. Clear weather preserves the grade and creates the matching <span class="item-chip"><img src="/images/teastory/withered_tea_leaf_bud.png" alt="Withered leaf" />withered leaf</span>. Rain or thunder creates <span class="item-chip"><img src="/images/teastory/wet_tea_leaf.png" alt="Wet leaf" />ungraded wet leaf</span>; putting it back into the pan on a clear day rescues it as ungraded withered leaf.
-4. **Fix and pan-fire.** Fuel the Frying Pan. Withered leaf becomes <span class="item-chip"><img src="/images/teastory/tea_leaf.png" alt="Green leaf" />green leaf</span>, and green leaf put through the Frying Pan again becomes <span class="item-chip"><img src="/images/teastory/green_tea_leaf.png" alt="Green tea leaf" />green tea leaf</span>.
-5. **Prepare hot water.** Water pots support stone, porcelain, iron, and zisha materials. Nine empty pots plus one water bucket fill nine pots, which can be fired in a furnace or blast furnace into <span class="item-chip"><img src="/images/teastory/water_pot_porcelain.png" alt="Boiled water pot" />boiled water pots</span>.
-6. **Brew.** Put two green tea leaves, any boiled water pot, and an empty cup into the Tea Table. The result keeps the cup material. Drinking returns the matching empty cup; the configured green tea effect is Haste for 260 ticks (about 13 seconds).
-7. **If it fails, check the weather and slots.** Rain on the Tea Pan, missing vanilla fuel in the Frying Pan, or putting a water pot/leaf in the wrong Tea Table slot are the common causes.
+Add vanilla fuel such as coal to the Frying Pan. Withered leaves first become fixed leaves. **Take them from the output and put them back into the input** to make green tea leaves. Bud and one-bud-one-leaf grades yield 2 fixed leaves; the other grades yield 1.
 
-### Five machines and their slots
+<TeaStoryFlow en :steps="[{ id: 'withered_tea_leaf_bud', label: 'Withered leaves' }, { id: 'tea_leaf', note: 'Frying Pan · fixation' }, { id: 'green_tea_leaf', note: 'Frying Pan · another 120 ticks' }]" />
 
-| Machine | Main job | Slots and fuel | Default processing |
-|---|---|---|---:|
-| **Tea Pan** `cgap:teapan` | Clear-day withering, rain soaking, rescue, yellowing | Input 12, output 14; no fuel | 40–160 ticks |
-| **Frying Pan** `cgap:tea_drying_pan` | Fixation, pan-firing, wet-leaf mistake | Input 2, fuel 20, output 15; vanilla fuel | 80–120 ticks |
-| **Fermentation Barrel** `cgap:barrel` | Semi-, full-, and deep-fermentation | Input 12, baking powder 13, output 14; baking powder only | 160–200 ticks |
-| **Tea Stove** `cgap:tea_stove` | Oolong, black, pu'er roasting; white baking; matcha steaming | Input 2, fuel 20, output 15; vanilla fuel | 160–200 ticks |
-| **Tea Table** `cgap:tea_table` | Cup brewing, kettle brewing, pouring | Tool 1, sugar 2, cup/kettle 6, water 10, leaf 11, output 15; no fuel | 40–160 ticks |
-
-The Tea Table uses one cup/kettle slot: an empty cup makes one serving, while an empty kettle makes a kettle. Tool and sugar slots are only needed for matcha, milk tea, lemon tea, and their kettle variants.
-
-<a id="tea-garden"></a>
-## Tea garden: seasons and environment
-
-### Four rules that explain most growth issues
-
-- Most TeaStory crops require light level 9 or higher. Tea tree bases accept the configured farmland, grass, dirt, podzol, and coarse dirt blocks.
-- A preferred season is a target range in the growth calculation, not a hard planting ban. Moving away from the target lowers progress. Tea trees are marked as not easy to wither in Winter; other crops can still reach the wither condition.
-- NatureEngine combines crop temperature/humidity targets, the vanilla world temperature, season/weather offsets, and structure scanning. `base-temperature` is a configuration baseline, not the final vanilla temperature value.
-- Lotus needs water at the same position and a dirt, grass, mud, or clay base. Rice first grows as a seedling and is then transplanted to a paddy field.
-
-### Season parameters
-
-Each season lasts **10 in-game days**, for a 40-day cycle. A season change uses the configured title timing: 10 tick fade-in, 50 tick stay, and 20 tick fade-out. Temperature values below are NatureEngine baselines and humidity is 0–1. The yield multiplier is a season configuration hint; it does not automatically multiply every CraftEngine loot table.
-
-| Season | Base temperature | Base humidity | Growth multiplier | Yield multiplier | Easy to wither |
-|---|---:|---:|---:|---:|---|
-| Spring | 15.0 | 0.70 | ×1.2 | ×1.0 | No |
-| Summer | 25.0 | 0.50 | ×1.1 | ×1.1 | No |
-| Autumn | 10.0 | 0.60 | ×1.0 | ×1.2 | No |
-| Winter | 0.0 | 0.40 | ×0.5 | ×0.8 | Yes |
-
-### Weather, solar terms, and offsets
-
-The weather manager reselects weather for each world every **90 seconds**. Configured target durations are Sunny 300 seconds, Rain 240, Storm 180, and Snow 240. These are selection targets; the visible Bukkit state and loaded-world timing can affect what players observe.
-
-| Weather | Seasonal selection weights (Spring / Summer / Autumn / Winter) | Temperature | Humidity | Soil | Growth multiplier |
-|---|---|---:|---:|---:|---:|
-| Sunny | 8 / 16 / 9 / 5 | +0.05 | -0.02 | -0.02 | ×1.00 |
-| Rain | 7 / 3 / 6 / 1 | -0.03 | +0.05 | +0.20 | ×1.10 |
-| Storm | 1 / 1 / 2 / 2 | -0.05 | +0.06 | +0.25 | ×0.93 |
-| Snow | 0 / 0 / 0 / 10 | -0.12 | +0.02 | +0.10 | ×0.85 |
-
-The 24 solar terms modify the **next-weather selection weights** only. They do not rewrite the weather profile's temperature, humidity, or growth multiplier. The current direction is more rain from Qingming to Guyu, slightly more storms in summer terms, more sun in autumn, and more snow with less rain from Lidong through Dahan. At the Bukkit weather layer, Snow currently maps to ordinary rain, so do not describe a separately verified snow-cover mechanic.
-
-### Environment scanning
-
-Environment scanning is enabled. It scans a radius of 4 blocks and checks up to 6 blocks upward for a roof. A closedness score of 0.60 classifies a greenhouse; openness below 0.25 is indoor, openness at least 0.80 is outdoor, and the rest is semi-outdoor. The nearby-water bonus is disabled.
-
-| Environment | Stability | Progress adjustment | Typical use |
-|---|---:|---:|---|
-| Greenhouse | 1.00 | ×1.02 | Winter protection and stable seedlings |
-| Indoor | 0.80 | ×0.98 | A normal roofed farm room |
-| Semi-outdoor | 0.60 | ×1.00 | Partly covered, still weather-exposed |
-| Outdoor | 0.35 | ×1.00 | Open tea gardens and natural trees |
-
-The global advance threshold is **0.22**, the wither threshold is **0.02**, plugin random-tick speed is **3**, and environment mitigation strength is **0.75**. These values feed a combined calculation and are not a direct “blocks per minute” promise.
-
-### Fourteen registered crops
-
-Stage is the maximum age; age starts at 0. Temperature and humidity show the NatureEngine target and tolerance.
-
-| Crop | Stage | Temperature target ±tolerance | Humidity target ±tolerance | Preferred seasons |
-|---|---:|---:|---:|---|
-| Tea tree | 6 | 1.20 ±0.80 | 0.80 ±0.60 | Spring, Summer, Autumn |
-| Jasmine | 3 | 1.10 ±0.75 | 0.85 ±0.55 | Spring, Summer |
-| Xian rice seedling | 3 | 1.20 ±0.80 | 0.95 ±0.55 | Summer |
-| Xian rice plant | 7 | 1.20 ±0.80 | 0.95 ±0.55 | Summer |
-| Osmanthus | 3 | 1.10 ±0.75 | 0.75 ±0.55 | Summer, Autumn |
-| Cassava | 4 | 1.30 ±0.75 | 0.75 ±0.55 | Summer |
-| Mint | 3 | 0.75 ±0.65 | 0.75 ±0.50 | Spring, Summer |
-| Chrysanthemum | 3 | 0.80 ±0.70 | 0.65 ±0.50 | Autumn |
-| Ginger | 4 | 1.15 ±0.75 | 0.85 ±0.50 | Summer |
-| Lemongrass | 3 | 1.20 ±0.75 | 0.80 ±0.55 | Summer |
-| Roselle | 3 | 1.20 ±0.75 | 0.70 ±0.55 | Summer, Autumn |
-| Goji | 3 | 0.90 ±0.80 | 0.50 ±0.55 | Summer, Autumn |
-| Mung bean | 3 | 1.10 ±0.75 | 0.70 ±0.55 | Summer |
-| Lotus | 4 | 1.10 ±0.75 | 0.95 ±0.45 | Summer |
-
-### NatureEngine commands (admin)
-
-The NatureEngine root command requires OP. Regular players cannot use these commands to change seasons or read debug data.
-
-| Command | Purpose |
-|---|---|
-| `/ne season info` | Show the world's season, progress, and override state |
-| `/ne season next` | Move to the next season |
-| `/ne season set <spring\|summer\|autumn\|winter>` | Set a manual season override |
-| `/ne season clear` | Clear the manual override and resume natural progression |
-| `/ne season apply` | Reapply the current season visuals |
-| `/ne debug` | Show a season, weather, and environment summary |
-| `/ne debug crop [detail]` | Show a crop summary or full debug details |
-| `/ne debug visual` | Inspect visual season application |
-| `/ne sim crop` | Simulate crop calculations without changing blocks |
-| `/ne crop randomTickSpeed [value]` | Read or change plugin random-tick speed |
-| `/ne reload [config\|seasons\|weather\|growth\|environment\|crops\|all]` | Reload selected configuration |
-| `/ne metrics` | Show runtime metrics |
-
-<a id="harvest-tools"></a>
-## Harvesting, replanting, and tools
-
-Harvest tools activate on right-click and use a 4-tick cooldown. Durability is charged per plant actually harvested.
-
-<div class="teastory-figure-row" aria-label="Harvest tool preview">
-  <figure class="teastory-figure"><img src="/images/teastory/sickle.png" alt="Sickle" /><figcaption>Sickle</figcaption></figure>
-  <figure class="teastory-figure"><img src="/images/teastory/tea_whisk.png" alt="Tea whisk" /><figcaption>Whisk</figcaption></figure>
-  <figure class="teastory-figure"><img src="/images/teastory/wooden_mortar_and_pestle.png" alt="Wooden mortar and pestle" /><figcaption>Mortar</figcaption></figure>
-  <figure class="teastory-figure"><img src="/images/teastory/tea_seeds.png" alt="Tea seeds" /><figcaption>Seed pouch</figcaption></figure>
 </div>
 
-| Tool | Durability | Target and behavior |
-|---|---:|---|
-| Sickle `cgap:sickle` | 500 | Radius 1 on the same Y level, up to 3×3; supports the 14 TeaStory crops plus wheat, carrots, potatoes, beetroots, and nether wart |
-| Tea shears `cgap:tea_shears` | 320 | Tea quality mode; matching two-leaf, three-leaf, or old-leaf sources have a 35% chance to upgrade toward bud or one-bud-one-leaf targets |
-| Herb shears `cgap:herb_shears` | 280 | Jasmine, osmanthus, mint, chrysanthemum, lemongrass, and roselle can give one extra fresh ingredient at 20% chance |
-| Root spade `cgap:root_spade` | 400 | Ginger and cassava can give one extra root product at 25% chance |
-| Fruit picker `cgap:fruit_picker` | 360 | Five-block ray trace; takes the first visible fruiting leaf and does not pierce blocks or foliage |
-| Harvest basket `cgap:harvest_basket` | — | In the off-hand, routes harvest output into the inventory first; overflow stays on the ground |
-| Seed pouch `cgap:seed_pouch` | — | Right-click to open; nine slots by default, expandable to 18 or 27 |
+<div class="tea-step">
 
-Quality and bonus chances are opportunities, not fixed per-plant yields. Base drops remain defined by the CraftEngine block loot tables.
+### <span>4</span> Boil water and brew at the Tea Table
 
-### Sickle and automatic replanting
+Combine 9 empty water kettles and 1 water bucket in a shapeless recipe to fill all 9 kettles. Heat the filled kettles in a furnace. Stone, porcelain, iron and zisha all work; stone is shown below.
 
-- The sickle checks only the same-height 3×3 area and skips unloaded or unavailable blocks. It does not harvest an entire field in one click.
-- For a mature custom crop, the plugin checks the player's inventory and then the seed pouch. A matching seed resets the crop to age 0 and consumes one seed. Without one, the custom crop is removed; an equivalent vanilla crop becomes air.
-- Action-bar feedback reports harvests, replanting, missing seeds, and overflow. Unknown or immature blocks are left alone.
+<TeaStoryFlow en :steps="[{ id: 'pot_stone', count: 9, note: 'Craft with 1 water bucket' }, { id: 'water_pot_stone', count: 9, note: 'Filled, still needs heating' }, { id: 'boiled_water_pot_stone', label: 'Boiled kettle', note: 'Furnace 160 / blast furnace 80 ticks' }]" />
 
-### Seed pouch
+Put **2 green tea leaves + any boiled kettle + 1 empty cup** into the Tea Table. Collect the green tea from the output. Brewing returns the empty water kettle; drinking returns the matching cup and grants brief Haste. [See the Tea Table slots](#brewing).
 
-The shaped pouch recipe uses string, leather, and blue dye. It accepts only registered custom-crop seeds and keeps their full item data. Right-click stores or withdraws one item; left-click stores or withdraws the whole stack. Reducing the configured capacity does not truncate existing contents; the maximum is 27 slots. Harvest checks both the pouch and the normal inventory.
+</div>
 
-### Fruit regrowth
+### Equipment and containers {#equipment}
 
-Fruit leaves use `fruiting=false/true` to distinguish an unfruitful leaf from a fruiting leaf. The picker handles only fruiting, persistent leaves. The default regrowth delay is **1200 seconds (20 minutes)**. The pending record is stored in chunk persistent data, counts offline time, and does not force an unloaded chunk to load. If the leaf is removed before regrowth, the pending entry is cleared and no block is recreated.
+<TeaStoryRecipes en :ids="['teapan', 'tea_drying_pan', 'tea_table', 'cup_glass', 'pot_stone', 'barrel', 'tea_stove', 'wooden_mortar_and_pestle']" />
 
-<a id="tea-making"></a>
-## Tea-making routes
+## Choose your tea {#tea-making}
 
-### Route table
+Wither fresh leaves before following a processing route. Fermentation completes one stage at a time: take out the intermediate item and reinsert it to continue. Once it reaches the desired stage, roast it in the Tea Stove.
 
-| Tea | Route |
-|---|---|
-| Green tea | Same-grade withered leaf → Frying Pan fixation → green leaf → pan-firing |
-| Yellow tea | Green tea leaf → Tea Pan yellowing |
-| White tea | Withered leaf → Frying Pan fixation → green leaf → Tea Stove baking |
-| Oolong | Green leaf → mortar → broken tea → Barrel semi-fermentation → Tea Stove |
-| Black tea | Broken tea → semi → full fermentation → Tea Stove |
-| Pu'er | Broken tea → semi → full → deep fermentation → Tea Stove |
-| Matcha | Green tea leaf → Tea Stove steaming |
-| Jasmine tea | Black tea leaf ×6 + dried jasmine ×2 → crafting table |
+<TeaStoryRoutes en />
 
-### Tea Pan: weather-dependent withering
+<details class="tea-reference">
+<summary>Leaf grades, fermentation fuel and processing times</summary>
 
-| Input | Condition | Output | Time |
-|---|---|---|---:|
-| Graded fresh leaf | Clear | Same-grade withered leaf | 100 ticks |
-| Any graded fresh leaf | Rain | Ungraded wet leaf | 60 ticks |
-| Any graded fresh leaf | Thunder | Ungraded wet leaf | 40 ticks |
-| Wet leaf | Clear | Ungraded withered leaf | 140 ticks |
-| Green tea leaf | Any weather | Yellow tea leaf | 160 ticks |
+Fresh leaves have five grades: bud, one bud with one leaf, two leaves, three leaves, and old leaf. Mature tea uses weights 5 / 15 / 25 / 30 / 25 respectively. Tea Shears provide an additional upgrade chance. Wet-weather withering and rescuing wet leaves lose the grade.
 
-Rain and thunder remove the grade. Frying wet leaf directly creates scorched leaf.
-
-### Frying Pan: fixation, pan-firing, and the mistake path
-
-The Frying Pan uses vanilla fuel. Fixation yields two green leaves from bud or one-bud-one-leaf withered sources, and one from two-leaf, three-leaf, old-leaf, or ungraded withered sources. Pan-firing green leaf takes 120 ticks and creates green tea leaf. Wet leaf takes 80 ticks and creates scorched leaf.
-
-### Mortar and Fermentation Barrel
-
-- Wooden mortar and pestle + green leaf → broken tea ×3; each crafting recipe consumes one durability.
-- The Barrel accepts only `cgap:baking_powder`, with a configured fuel value of **800**. Coal and other vanilla fuel do not start it. The discrete steps are broken → semi (160 ticks) → full (180) → deep (200); remove the intermediate output and insert it for the next step.
-- Two wheat craft one baking powder. Any two tea residues or scorched leaves also recycle into one. Actual throughput depends on the machine's fuel accounting, so one powder is not documented as a fixed number of batches.
-
-### Tea Stove finishing
-
-| Input | Output | Time |
+| Process | Input → output | Time |
 |---|---|---:|
-| Semi-fermented tea | Oolong tea leaf | 200 ticks |
-| Fully fermented tea | Black tea leaf | 200 ticks |
-| Deep-fermented tea | Pu'er tea leaf | 200 ticks |
-| Green leaf | White tea leaf | 160 ticks |
-| Green tea leaf | Matcha leaf | 160 ticks |
+| Tea Pan · clear | Graded fresh → matching withered leaves | 100 ticks |
+| Tea Pan · rain / thunderstorm | Fresh → wet leaves | 60 / 40 ticks |
+| Tea Pan · clear-weather rescue | Wet → ungraded withered leaves | 140 ticks |
+| Tea Pan · yellowing | Green → yellow tea leaves | 160 ticks |
+| Frying Pan · pan-firing | Fixed → green tea leaves | 120 ticks |
+| Frying Pan · failed processing | Wet → burnt leaves | 80 ticks |
+| Fermentation Barrel | Broken → partial → full → deep fermentation | 160 / 180 / 200 ticks |
+| Tea Stove · roasting | Partial / full / deep → oolong / black / pu'er | 200 ticks |
+| Tea Stove · drying / steaming | Fixed → white; green → matcha | 160 ticks |
 
-The Stove uses vanilla fuel. White tea bypasses the Barrel; yellow tea and matcha use their independent Tea Pan and Tea Stove recipes.
+A wooden mortar and pestle plus 1 fixed leaf produces 3 broken leaves at a crafting table and consumes 1 tool durability. The barrel only accepts fermentation powder. Craft 1 powder from 2 wheat or any 2 tea residues / burnt leaves. Powder has fuel value 800; batches per powder depend on the machine's fuel accounting.
 
-<a id="brewing"></a>
-## Brewing, tea ware, and pouring
+Times are configured ticks. At 20 ticks per second, 20 ticks equal about one second; server performance can affect actual waiting time.
 
-### Tea bags, kettles, and boiled water
+</details>
 
-- Five paper + one string craft three empty tea bags. One empty bag + six matching finished leaves crafts one bag. Green, jasmine, black, oolong, pu'er, white, and yellow tea bags are configured.
-- Clay balls or zisha clay form kettle blanks, which are fired in a furnace or blast furnace into empty porcelain or zisha kettles. Water pots exist in stone, porcelain, iron, and zisha materials.
-- Nine empty water pots + one water bucket → nine water-filled pots. Furnace time is 160 ticks and blast-furnace time is 80 ticks. Any boiled pot material works at the Tea Table; the recipe returns the matching empty pot.
+## Brew a cup or share a teapot {#brewing}
 
-<div class="teastory-figure-row" aria-label="Tea ware preview">
-  <figure class="teastory-figure"><img src="/images/teastory/cup_glass.png" alt="Glass cup" /><figcaption>Empty cup</figcaption></figure>
-  <figure class="teastory-figure"><img src="/images/teastory/empty_porcelain_kettle.png" alt="Empty porcelain kettle" /><figcaption>Empty kettle</figcaption></figure>
-  <figure class="teastory-figure"><img src="/images/teastory/water_pot_porcelain.png" alt="Porcelain water pot" /><figcaption>Water pot</figcaption></figure>
-  <figure class="teastory-figure"><img src="/images/teastory/tea_whisk.png" alt="Tea whisk" /><figcaption>Tea whisk</figcaption></figure>
-</div>
+A cup of plain tea needs **2 leaves**. A porcelain teapot uses 1 tea bag and serves up to 4 cups; a zisha teapot uses 2 bags and serves up to 8. Milk tea, lemon tea and matcha require extra ingredients.
 
-### Cup brewing
+<TeaStoryBrewing en />
 
-The plain recipe is **two matching tea leaves + any boiled water pot + one empty cup**. Cups support glass, stone, wood, porcelain, and zisha materials, and the result keeps the cup material. Drinking returns the corresponding empty cup. Tea-table drinks use nutrition 5 and saturation 3.5 in the item configuration.
+### Tea bags, pouring and recycling
 
-<div class="teastory-figure-row" aria-label="Finished tea preview">
-  <figure class="teastory-figure"><img src="/images/teastory/green_tea_leaf.png" alt="Green tea leaf" /><figcaption>Green</figcaption></figure>
-  <figure class="teastory-figure"><img src="/images/teastory/black_tea_leaf.png" alt="Black tea leaf" /><figcaption>Black</figcaption></figure>
-  <figure class="teastory-figure"><img src="/images/teastory/oolong_tea_leaf.png" alt="Oolong tea leaf" /><figcaption>Oolong</figcaption></figure>
-  <figure class="teastory-figure"><img src="/images/teastory/puer_tea_leaf.png" alt="Pu'er tea leaf" /><figcaption>Pu'er</figcaption></figure>
-</div>
+5 paper and 1 string make 3 empty tea bags. Combine an empty bag with 6 matching finished leaves to make a tea bag. Brewing bags produces tea residue, which can be recycled into fermentation powder.
 
-| Drink | Tea Table inputs | Configured effect |
-|---|---|---|
-| Black tea | Black tea leaf ×2 | Strength, 220 ticks (about 11 s) |
-| Green tea | Green tea leaf ×2 | Haste, 260 ticks (about 13 s) |
-| Jasmine tea | Jasmine tea leaf ×2 | Luck, 240 ticks (about 12 s) |
-| Lemon tea | Black tea leaf ×2 + lemon + sugar ×3 | Speed, 240 ticks (about 12 s) |
-| Matcha | Matcha leaf ×2 + tea whisk + sugar ×3 | Jump Boost II, 200 ticks (about 10 s) |
-| Milk tea | Black tea leaf ×2 + milk bucket + sugar ×3 | Resistance, 220 ticks (about 11 s) |
-| Oolong | Oolong tea leaf ×2 | Water Breathing, 260 ticks (about 13 s) |
-| Pu'er | Pu'er tea leaf ×2 | Health Boost, 240 ticks (about 12 s) |
-| White tea | White tea leaf ×2 | Regeneration, 140 ticks (about 7 s) |
-| Yellow tea | Yellow tea leaf ×2 | Absorption, 200 ticks (about 10 s) |
+Place a filled teapot and an empty cup in the Tea Table to pour. Each pour takes 40 ticks and consumes 1 teapot durability. An exhausted teapot becomes an empty teapot. The Matcha Whisk has 120 durability and loses 1 per recipe.
 
-The seconds above are 20-tick conversions. Effects are configured durations, not permanent status effects.
+<TeaStoryFlow en :steps="[{ id: 'green_tea_leaf', count: 6, note: 'Craft with an empty tea bag' }, { id: 'green_tea_bag', note: 'Brew a teapot' }, { id: 'green_tea_residue', note: 'Recycle 2 residues into powder' }]" />
 
-### Kettle brewing and pouring
+<details class="tea-reference">
+<summary>Tea effects</summary>
 
-- Plain kettle brewing uses a matching tea bag, a boiled water pot, and an empty kettle. A porcelain kettle uses one bag; a zisha kettle uses two. Brewing returns the configured matching residue.
-- Milk kettles use black tea bag ×1/×2, milk bucket, sugar ×12/×24, boiled water, and an empty porcelain/zisha kettle. The milk bucket returns an empty bucket.
-- Lemon kettles prefer lemon tea bag ×1/×2 and sugar ×12/×24. A compatibility recipe also accepts black tea bag plus lemon; the returned residue follows the current configuration.
-- Matcha kettles use matcha leaf ×6/×12, tea whisk, sugar ×12/×24, boiled water, and an empty kettle. Each recipe consumes one whisk durability; the whisk has 120 durability.
-- A full kettle plus an empty cup pours one serving in 40 ticks and consumes one kettle durability. Porcelain kettles pour four cups; zisha kettles pour eight, then return the matching empty kettle.
-
-### Residue recycling
-
-Brewing black, green, oolong, pu'er, white, yellow, or jasmine tea bags produces configured matching residues. Any two residues or scorched leaves craft one baking powder, closing the tea → drink → fermentation-fuel loop.
-
-<a id="garden-orchard"></a>
-## Garden, paddy, and orchard
-
-<div class="teastory-figure-row" aria-label="Garden and orchard preview">
-  <figure class="teastory-figure"><img src="/images/teastory/paddy_field.png" alt="Paddy field" /><figcaption>Paddy</figcaption></figure>
-  <figure class="teastory-figure"><img src="/images/teastory/xian_rice_seeds.png" alt="Rice seed" /><figcaption>Rice</figcaption></figure>
-  <figure class="teastory-figure"><img src="/images/teastory/tea_seeds.png" alt="Tea seeds" /><figcaption>Tea garden</figcaption></figure>
-  <figure class="teastory-figure"><img src="/images/teastory/lemon.png" alt="Lemon" /><figcaption>Orchard</figcaption></figure>
-</div>
-
-### Two-stage rice line
-
-1. Plant `cgap:xian_rice_seeds` on ordinary farmland to grow a xian rice seedling. A mature seedling yields rice seedlings and seeds.
-2. Transplant the seedling into `cgap:paddy_field` and grow the xian rice plant to age 7. Mature rice currently drops rice seeds (1–3), not finished rice.
-3. Wooden mortar and pestle + rice seed → rice. Rice then feeds steamed rice, congee, rice cakes, and other dishes.
-
-The paddy field is crafted from eight dirt around one water bucket; the bucket returns. An empty bucket cannot scoop it up, and a water bucket cannot refill it. It is a recoverable custom block.
-
-### Ingredient crops and wild seeds
-
-| Crop | Mature product | Planting or wild source |
-|---|---|---|
-| Osmanthus | Fresh osmanthus | Farmland, grass, dirt, and configured soil bases |
-| Cassava | Cassava root | Farmland; root processes into cassava starch |
-| Mint | Fresh mint | Ordinary soil bases |
-| Chrysanthemum | Fresh chrysanthemum | Ordinary soil bases |
-| Ginger | Ginger | Farmland |
-| Mung bean | Fresh mung beans | Ordinary soil; fresh beans process to seeds |
-| Lemongrass | Fresh lemongrass | Ordinary soil bases |
-| Roselle | Fresh roselle | Ordinary soil bases |
-| Goji | Fresh goji | Ordinary soil bases |
-| Lotus | Lotus flower, seed pod, lotus root | Water at the same position; dirt, grass, mud, or clay base |
-
-Wild lemongrass, roselle, and goji seeds can drop from grass and ferns at **0.5%**. Lotus seeds can drop from lily pads at **5%**. Mature ingredient crops provide fresh material and planting material according to their CraftEngine loot tables.
-
-### Tea-tree harvest
-
-At age 6, the tea tree's mature loot chooses a fresh-leaf grade by weight: bud 5, one-bud-one-leaf 15, two-leaf 25, three-leaf 30, old leaf 25. Tea seeds are also present; Fortune changes the configured bonus seed roll. Tea shears add an upgrade chance and do not turn the plant into a fixed-yield source.
-
-### Orchard and fruiting leaves
-
-CraftEngine defines peach, lemon, jujube, pomelo, orange, and persimmon trunks, leaves, fruiting states, and drops. Ordinary leaves have an approximately **0.8%** fruit-drop chance when not harvested with shears or Silk Touch. Natural foliage providers use a plain 7 to fruiting 3 weight.
-
-NatureEngine directly registers five saplings—jujube, pomelo, orange, persimmon, and peach—with stage 1 and Spring/Summer preference. The lemon tree definition exists in CraftEngine but is not in that five-sapling registry, so this guide does not assign it an independent registered seasonal preference. The picker handles only `fruiting=true` persistent leaves and uses a 20-minute default regrowth delay.
-
-<a id="food"></a>
-## Food, dishes, and blended drinks
-
-The CraftEngine `teastory_foods` category currently registers **94 food and drink entries**. They are primarily shapeless crafting-table recipes. Whether a bucket, bowl, or honeycomb returns is controlled per item by `consume-replacement`; bowl-based rice and soup items generally return a bowl.
-
-### Basic processing
-
-| Input chain | Recipe |
-|---|---|
-| Wheat | Wheat ×2 → baking powder ×1 |
-| Sugar cane | Sugar cane → brown sugar |
-| Fresh osmanthus, mint, chrysanthemum, ginger | Furnace 160 ticks or blast furnace 80 → matching dried ingredient |
-| Fresh mung beans | Fresh mung beans → mung-bean seeds ×2 |
-| Cassava root | Cassava root ×2 + wooden mortar and pestle → cassava starch ×2 |
-| Cassava starch | Cassava starch ×2 + sugar → tapioca pearls |
-| Fresh jasmine, lemon, and fruit | Dry or process into dried jasmine, dried lemon, chenpi, and other ingredients |
-
-### Representative recipes
-
-| Result | Shapeless ingredients | Output |
+| Tea | Effect | Duration |
 |---|---|---:|
-| Steamed rice | Rice + water bucket + bowl | 1 |
-| Red-date goji congee | Rice + dried jujube + dried goji + water bucket + bowl | 1 |
-| Osmanthus rice cake | Rice flour + dried osmanthus + sugar | 1 |
-| Matcha cookie | Matcha leaf + wheat ×2 + sugar | 4 |
-| Tea egg | Black tea leaf + egg | 1 |
-| Brown-sugar ginger candy | Dried ginger + sugar + brown sugar | 4 |
-| Boba milk tea | Glass of black tea + milk bucket + sugar + tapioca pearls | 1 |
-| Matcha latte | Glass of matcha drink + milk bucket + sugar | 1 |
-| Chenpi pu'er tea | Glass of pu'er tea + chenpi + sugar | 1 |
-| Longjing shrimp | Green tea leaf + shrimp meat ×2 + bowl | 1 |
-| Pork dumplings | Wheat ×2 + cooked pork + ginger + water bucket + bowl | 1 |
-| Xiaolongbao | Wheat ×2 + cooked pork + ginger + water bucket | 2 |
-| Youtiao | Wheat ×2 + baking powder + water bucket | 2 |
-| Eight-treasure rice | Rice, dried jujube, lotus seeds, dried goji, fresh mung beans, persimmon cake, sweet berries, brown sugar, bowl | 1 |
+| Green | Haste | 260 ticks |
+| Black | Strength | 220 ticks |
+| Jasmine | Luck | 240 ticks |
+| Oolong | Water Breathing | 260 ticks |
+| Pu'er | Health Boost | 240 ticks |
+| White | Regeneration | 140 ticks |
+| Yellow | Absorption | 200 ticks |
+| Milk | Resistance | 220 ticks |
+| Lemon | Speed | 240 ticks |
+| Matcha | Jump Boost II | 200 ticks |
 
-### Blended-drink coverage
+Base tea drinks have nutrition 5 and saturation 3.5. Other food and blended drinks use their own values; their names do not guarantee an effect.
 
-Beyond the Tea Table's base teas, the food recipes cover peach jasmine tea, osmanthus oolong, brown-sugar milk tea, honey lemon tea, chrysanthemum goji tea, mint green tea, ginger milk tea, orange jasmine tea, roselle lemon tea, osmanthus milk tea, chenpi ginger tea, roasted-rice tea, lotus-seed milk, mint watermelon juice, pumpkin milk, ginger-date milk, brown-sugar rice milk, peach pomelo milk, honey apple tea, sugarcane lemon juice, jujube lotus tea, and chrysanthemum pu'er. The exact inputs are shown in the recipe interface.
+</details>
 
-The Chinese-dish set also includes roujiamo, osmanthus lotus root, shrimp fried rice, braised pork, lotus pork soup, lemon steamed fish, spring rolls, berry tanghulu, sachima, egg tart, mint qingtuan, jujube steamed cake, mung-bean soup, beef noodle soup, shrimp rice rolls, pan-fried dumplings, sticky-rice chicken, sweet-and-sour pork, mushroom steamed chicken, lamb skewers, lotus-root meatballs, jianbing, longevity peach bun, osmanthus pastry, brown-sugar ciba, mahua, dragon-beard candy, pumpkin cake, honey char siu, shrimp egg custard, chicken clay-pot rice, pork wonton soup, fried lotus sandwich, osmanthus crystal cake, milk flower bun, golden shrimp balls, potato beef stew, pearl meatballs, egg fried noodles, shrimp potato cake, tiger-skin eggs, crispy fried milk, sugar shaobing, and egg waffles.
+## Grow with the seasons {#tea-garden}
 
-Nutrition, saturation, and replacement items are configured per food. Do not infer a tea effect from a food's name.
+Each season lasts **10 in-game days**. Tea prefers spring, summer and autumn; growth slows in winter. A preference does not prohibit planting in other seasons. Light, temperature, humidity and surroundings also affect growth.
 
-<a id="tea-room"></a>
-## Tea room, machines, and display
+<div class="tea-season-images">
+  <figure><img src="/images/vanilla-plains.png" alt="Grassland and vegetation in normal conditions" width="1920" height="1080" loading="lazy" /><figcaption>Normal conditions</figcaption></figure>
+  <figure><img src="/images/season-winter.png" alt="Ground and vegetation with winter visuals" width="1920" height="1080" loading="lazy" /><figcaption>Winter appearance example</figcaption></figure>
+</div>
 
-The Tea Pan, Frying Pan, Fermentation Barrel, Tea Stove, and Tea Table are interactive machines. Right-click opens each GUI; collect the output and reinsert intermediate products for the next recipe. The Frying Pan and Tea Stove use vanilla fuel, the Barrel uses baking powder only, and the Tea Pan and Tea Table use no fuel.
+### Pick the right ground
 
-The Tea Table's tool, sugar, cup/kettle, water, leaf, and output slots are fixed. Furniture and decorative models are resource-pack content; only the machines, paddy field, fruiting leaves, and harvest interactions described here are assigned behavior.
+- **Tea and most herbs:** use suitable soil and sufficient light. Tea supports farmland, grass blocks, dirt, podzol, coarse dirt and other configured soils.
+- **Cassava and ginger:** require farmland. Lotus requires nearby water with dirt, grass, mud or clay underneath.
+- **Greenhouses:** enclosed structures can improve stability. A roof alone may not qualify, and a greenhouse cannot guarantee growth in every condition.
+- **Wild seeds:** lemongrass, roselle and goji seeds drop from grass and ferns at 0.5%; lotus seeds drop from lily pads at 5%.
+
+### Rice needs a nursery, then a paddy {#garden-orchard}
+
+Plant rice grains on ordinary farmland. Harvest the mature nursery crop for seedlings, transplant them into a paddy, and harvest more rice grains when mature. Mill the grains with a wooden mortar and pestle to make rice.
+
+<TeaStoryFlow en :steps="[{ id: 'xian_rice_seeds', note: 'Grow on farmland' }, { id: 'item_xian_rice_seedling', note: 'Transplant into a paddy' }, { id: 'xian_rice_seeds', note: 'Harvest mature rice plants' }, { id: 'xian_rice', note: 'Crafting table + mortar' }]" />
+
+Craft a paddy from 8 dirt surrounding a water bucket; the bucket is returned. An empty bucket cannot scoop up the paddy, but breaking it recovers the block. Mature rice mainly drops 1–3 grains.
+
+### Six fruit trees
+
+Grow peach, lemon, jujube, pomelo, orange and persimmon. Use a Fruit Picker on visible fruiting leaves. Eligible persistent leaves regrow fruit after **20 minutes** by default. Breaking ordinary leaves has a separate random fruit drop; shears and Silk Touch do not use that drop.
+
+### Pick the right harvesting tool {#harvest-tools}
+
+<ul class="tea-tools">
+  <li><TeaStoryItem id="sickle" en /><p>Harvests up to 3×3 on the same level. Replanting checks inventory first, then the Seed Pouch, and consumes one seed per plant.</p></li>
+  <li><TeaStoryItem id="tea_shears" en /><p>For tea. Lower grades have a 35% chance to upgrade to a bud or one-bud-one-leaf.</p></li>
+  <li><TeaStoryItem id="herb_shears" en /><p>For jasmine, osmanthus, mint, chrysanthemum and other herbs. A 20% chance of one extra fresh ingredient.</p></li>
+  <li><TeaStoryItem id="root_spade" en /><p>For ginger and cassava. A 25% chance of one extra root ingredient.</p></li>
+  <li><TeaStoryItem id="fruit_picker" en /><p>Reaches 5 blocks to the first visible fruiting leaf. It does not pass through blocks or leaves.</p></li>
+  <li><TeaStoryItem id="harvest_basket" en /><p>Hold in your offhand to send harvests to your inventory first. Overflow drops on the ground.</p></li>
+  <li><TeaStoryItem id="seed_pouch" en /><p>Right-click to open. Defaults to 9 slots for registered custom seeds. Left-click transfers a stack; right-click transfers one.</p></li>
+</ul>
+
+Right-click to use harvesting tools. Durability follows the number of plants actually harvested. **Without seeds, mature crops are removed and not replanted.** Check your seed supply first and watch the action-bar feedback.
+
+<details class="tea-reference">
+<summary>Harvesting tool recipes</summary>
+
+<TeaStoryRecipes en :ids="['sickle', 'tea_shears', 'herb_shears', 'root_spade', 'fruit_picker', 'harvest_basket', 'seed_pouch']" />
+
+</details>
+
+## Bring the harvest to the table {#food}
+
+Browse {{ foodIds.length }} foods and drinks. Ingredients have their own processing chains: mill grains into rice and rice into flour; dry fresh flowers before adding them to tea or pastries.
+
+<TeaStoryRecipes en catalog />
+
+## Tea rooms and harvest records {#tea-room}
+
+Combine processing equipment and furniture to furnish a tea room. The Tea Pan, Frying Pan, Fermentation Barrel, Tea Stove and Tea Table are interactive machines. Decorative furniture does not gain processing behavior from its appearance.
 
 <a id="records"></a>
-## Harvest records and achievements
 
-### MateriaEngine harvest statistics
+`/me harvest menu` opens your harvest overview, products, tools and crops. `/me harvest stats` shows your own statistics.
 
-- `/me harvest menu` opens your own overview, product, tool, and crop tabs.
-- `/me harvest stats [all|player|UUID] [all|today|week]` reads statistics. Regular players default to their own data; administrators or the console can select another target.
-- `/me harvest export ...` exports an UTF-8 BOM CSV for administrators to `plugins/MateriaEngine/exports/harvest-*.csv`.
-- The database is `plugins/MateriaEngine/harvest_stats.db`. Cumulative and daily counters are separate; “today” uses the Asia/Shanghai timezone, and “week” runs Monday through today. Old cumulative values are not backfilled into daily records.
-- The UI distinguishes stored, dropped, quality, bonus, and fruit harvest metrics. An off-hand basket changes delivery, while overflow remains a drop.
+Seeds, first planting and harvest, cumulative harvests, quality upgrades, processing, brewing, drinking and residue recycling have achievement milestones. New harvests participate in statistics and achievements; historical data is not guaranteed to be backfilled.
 
-### BeaconEngine milestones
+## Troubleshooting {#appendix}
 
-The current TeaStory achievement configuration covers seeds, planting, first harvest, 100 harvests, quality upgrades, fruit harvests, harvest outputs, withered leaves, green leaves, broken tea, six finished tea types, tea bags, boiled water pots, zisha materials, cups, drinking counts, and tea residue. MateriaEngine sends actual harvest and harvest-output contexts through the BeaconEngine API, so new harvests can progress those milestones. Historical statistics are not treated as automatically backfilled achievements.
+<details class="tea-faq">
+<summary>My tea is not growing. Is the season wrong?</summary>
 
-<a id="appendix"></a>
-## Configuration boundaries and troubleshooting
+Check the ground and light first, then consider season, temperature, humidity and nearby structures. Ask an administrator to run `/ne debug crop detail` beside the crop for a diagnosis. Ordinary players do not have permission for this command.
 
-Use the component that owns the data when diagnosing an issue:
+</details>
+<details class="tea-faq">
+<summary>Why did I get wet or burnt leaves?</summary>
 
-1. **Crop is not growing:** run `/ne debug crop detail` and inspect light, temperature, humidity, season, weather, and environment. Then check that the crop is registered and its CraftEngine base block is valid.
-2. **Tea Pan output is wrong:** check the world's weather. Rain or thunder makes wet leaf; a clear-day rescue produces only ungraded withered leaf.
-3. **Machine does not start:** add vanilla fuel to the Frying Pan or Stove, baking powder to the Barrel, and place Tea Table inputs in their fixed slots. A normal filled water pot is not a boiled water pot.
-4. **Harvest does not replant:** check both the inventory and seed pouch for the matching seed. Without one, the current custom-crop logic removes the block.
-5. **Fruit does not return:** the leaf must be persistent and the chunk must load again. The plugin does not force-load chunks and does not recreate removed foliage.
-6. **Stats or achievements are missing:** confirm that the event happened after the relevant tracker or trigger was enabled. Daily counters and achievements do not promise historical backfill.
+Rain and thunderstorms turn fresh leaves into wet leaves. Rescue them in the Tea Pan in clear weather before frying. Putting wet leaves straight in the Frying Pan produces burnt leaves.
 
-This guide records rules expressed by the current configuration and source. A live server can still differ because of chunk loading, permissions, resource-pack versions, or event ordering with other plugins. Verify runtime behavior on the target server with the relevant command, GUI, and item.
+</details>
+<details class="tea-faq">
+<summary>The machine has ingredients but will not start.</summary>
 
-## Related pages
+Check fuel in the Frying Pan and Tea Stove; only fermentation powder works in the barrel. Use boiled water in the Tea Table and place every ingredient in its matching slot. Clear the output slot. Sneak-right-click a machine to retrieve misplaced contents.
 
-- [Legacy Season System compatibility page](/en/tutorial/SeasonWiki)
-- [EcoEnchants](/en/tutorial/EcoEnchants)
+</details>
+<details class="tea-faq">
+<summary>Fruit has not returned after 20 minutes.</summary>
+
+Only eligible persistent fruiting leaves regrow. Offline time counts, but the chunk must load again. Removed leaves are not rebuilt, and non-persistent leaves do not automatically regrow fruit.
+
+</details>
+
+<details class="tea-reference">
+<summary>Advanced reference: seasons, environment and crops</summary>
+
+| Season | Base temperature | Base humidity | Growth multiplier | Configured yield multiplier |
+|---|---:|---:|---:|---:|
+| Spring | 15.0 | 0.70 | 1.2 | 1.0 |
+| Summer | 25.0 | 0.50 | 1.1 | 1.1 |
+| Autumn | 10.0 | 0.60 | 1.0 | 1.2 |
+| Winter | 0.0 | 0.40 | 0.5 | 0.8 |
+
+These are NatureEngine baselines. World, weather and seasonal offsets also affect actual temperature. Yield multipliers do not automatically multiply all CraftEngine loot. Seasons last 10 in-game days, with transition-title fade in / stay / fade out of 10 / 50 / 20 ticks.
+
+| Crop | Mature age | Temperature ± tolerance | Humidity ± tolerance | Preferred seasons |
+|---|---:|---:|---:|---|
+| Tea | 6 | 1.20 ± 0.80 | 0.80 ± 0.60 | Spring, summer, autumn |
+| Jasmine | 3 | 1.10 ± 0.75 | 0.85 ± 0.55 | Spring, summer |
+| Rice nursery / rice | 3 / 7 | 1.20 ± 0.80 | 0.95 ± 0.55 | Summer |
+| Osmanthus | 3 | 1.10 ± 0.75 | 0.75 ± 0.55 | Summer, autumn |
+| Cassava | 4 | 1.30 ± 0.75 | 0.75 ± 0.55 | Summer |
+| Mint | 3 | 0.75 ± 0.65 | 0.75 ± 0.50 | Spring, summer |
+| Chrysanthemum | 3 | 0.80 ± 0.70 | 0.65 ± 0.50 | Autumn |
+| Ginger | 4 | 1.15 ± 0.75 | 0.85 ± 0.50 | Summer |
+| Lemongrass | 3 | 1.20 ± 0.75 | 0.80 ± 0.55 | Summer |
+| Roselle | 3 | 1.20 ± 0.75 | 0.70 ± 0.55 | Summer, autumn |
+| Goji | 3 | 0.90 ± 0.80 | 0.50 ± 0.55 | Summer, autumn |
+| Mung bean | 3 | 1.10 ± 0.75 | 0.70 ± 0.55 | Summer |
+| Lotus | 4 | 1.10 ± 0.75 | 0.95 ± 0.45 | Summer |
+
+The seasonal sapling registry contains jujube, pomelo, orange, persimmon and peach, each with one stage and spring/summer preferences. Lemon resources exist but are not in those five seasonal registrations.
+
+Environment scans use radius 4 and check roofs up to 6 blocks above. Enclosure 0.60 qualifies as greenhouse; openness below 0.25 is indoor, at least 0.80 is outdoor, otherwise semi-outdoor. Nearby-water bonuses are disabled.
+
+| Environment | Stability | Progress modifier |
+|---|---:|---:|
+| Greenhouse | 1.00 | 1.02 |
+| Indoor | 0.80 | 0.98 |
+| Semi-outdoor | 0.60 | 1.00 |
+| Outdoor | 0.35 | 1.00 |
+
+Global progress threshold is 0.22, wither threshold 0.02, random tick speed 3 and environment mitigation 0.75. None can independently guarantee a maturity time.
+
+Weather is redrawn every 90 seconds. Configured clear / rain / thunder / snow durations are 300 / 240 / 180 / 240 seconds, not guaranteed hold times. Solar terms adjust the next draw's weights; snow maps to ordinary precipitation in Bukkit.
+
+</details>
+<details class="tea-reference">
+<summary>Administrator reference and sources</summary>
+
+NatureEngine commands require OP. `/ne season info` inspects the season; `/ne season next` advances it; `/ne season set <spring|summer|autumn|winter>` sets an override; `/ne season clear` restores natural progression; `/ne season apply` reapplies visuals.
+
+Use `/ne debug`, `/ne debug crop detail` and `/ne debug visual` to inspect state; `/ne sim crop` to simulate growth; `/ne crop randomTickSpeed [value]` to adjust ticking; `/ne reload [config|seasons|weather|growth|environment|crops|all]` to reload; `/ne metrics` for metrics.
+
+`/me harvest stats [all|player|UUID] [all|today|week]` selects a statistics scope; ordinary players can only inspect themselves. Administrators use `/me harvest export ...` for CSV. Data is stored in `plugins/MateriaEngine/harvest_stats.db`, with exports in `plugins/MateriaEngine/exports/`. Days follow Asia/Shanghai; weeks start on Monday. Historical totals are not backfilled into daily records.
+
+Recipes, names and item artwork come from CraftEngine resource configuration. Tea Table inputs come from MateriaEngine; environment rules from NatureEngine; achievements from BeaconEngine. This page describes local configuration. Deployment versions, chunk loading and other plugins can affect actual server behavior.
+
+</details>
+
+<p class="tea-credits">Derived from <a href="https://github.com/RoShioLeo/Tea-the-Story?tab=readme-ov-file#license-%E8%AE%B8%E5%8F%AF%E8%AF%81">Tea-the-Story</a> under its original license. The <a href="/en/tutorial/SeasonWiki">old seasons entry</a> remains available.</p>
