@@ -58,10 +58,8 @@ Grow peach, lemon, jujube, pomelo, orange and persimmon. Use a Fruit Picker on v
 
 Right-click to use harvesting tools. Durability follows the number of plants actually harvested. **Without seeds, mature crops are removed and not replanted.** Check your seed supply first and watch the action-bar feedback.
 
-::: details Harvesting tool recipes
+### Harvesting tool recipes
 
 <TeaStoryRecipes en :ids="['sickle', 'tea_shears', 'herb_shears', 'root_spade', 'fruit_picker', 'harvest_basket', 'seed_pouch']" />
-
-:::
 
 <p class="tea-chapter-next"><a href="/en/tutorial/Teastory/food"><span>Next chapter: Food catalog</span><span class="tea-chapter-link__icon" aria-hidden="true"><span class="vpi-arrow-right"></span></span></a></p>
